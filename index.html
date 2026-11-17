@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sileta — One Payment for Every Subscription. Total Financial Control.</title>
+  <meta name="description" content="Pay all personal and business subscriptions in one single consolidated payment. Automate rent, taxes, and fixed-quantity monthly supplier payouts with Sileta." />
+
+  <!-- Google Fonts: Plus Jakarta Sans (700, 800) & Inter (400, 500, 600, 700) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS v3 CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['"Inter"', 'sans-serif'],
+          },
+          colors: {
+            revolut: {
+              ink: '#191C1F',
+              muted: '#5E646E',
+              surface: '#F4F4F6',
+              blue: '#0075EB',
+              emerald: '#00B87C',
+              darkCard: '#141619',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- GSAP 3 + ScrollTrigger + Lenis + Lucide -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --ink-primary: #191C1F;
+      --ink-muted: #5E646E;
+      --surface-soft: #F4F4F6;
+      --accent-blue: #0075EB;
+      --accent-emerald: #00B87C;
+    }
+
+    html {
+      scroll-behavior: auto;
+      background-color: #FFFFFF;
+      color: var(--ink-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .font-display {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+    }
+
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Sticky Glassmorphic Header */
+    .site-header {
+      height: 72px;
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      background-color: rgba(255, 255, 255, 0);
+      border-bottom: 1px solid transparent;
+    }
+
+    .site-header.scrolled {
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(25, 28, 31, 0.08);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+    }
+
+    /* 3D Hero Stage */
+    .hero-perspective {
+      perspective: 1400px;
+    }
+
+    .hero-stage {
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    /* Custom Range Sliders (Revolut Minimalist Track) */
+    input[type="range"].sileta-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 9999px;
+      background: #E5E7EB;
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type="range"].sileta-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 9999px;
+      background: #191C1F;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+      cursor: pointer;
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+
+    input[type="range"].sileta-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.12);
+      background: #0075EB;
+    }
+
+    input[type="range"].sileta-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 9999px;
+      background: #191C1F;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+      cursor: pointer;
+    }
+
+    /* Toggle Switch */
+    .toggle-track {
+      transition: background-color 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .toggle-thumb {
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Dark Glass Card Border */
+    .dark-glass-card {
+      background: #141619;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Subtle Hero Grid Aura */
+    .hero-aura {
+      background: radial-gradient(ellipse 70% 55% at 50% 0%, rgba(0, 117, 235, 0.08) 0%, rgba(244, 244, 246, 0.5) 55%, rgba(255, 255, 255, 0) 100%);
+    }
+
+    /* Hide scrollbar for clean pill lists on mobile */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Modal Backdrop */
+    .modal-backdrop {
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.65; transform: scale(0.92); }
+    }
+    .status-dot {
+      animation: pulseGlow 2.2s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-white text-[#191C1F] antialiased selection:bg-[#0075EB] selection:text-white">
+
+  <!-- ===================================================================== -->
+  <!-- SECTION 1: FLOATING GLASSMORPHIC PILL HEADER (REVOLUT TOP NAV)        -->
+  <!-- ===================================================================== -->
+  <header id="site-header" class="site-header fixed top-0 left-0 right-0 z-50 flex items-center">
+    <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      <!-- Left: Logo + 4 Clean Nav Items -->
+      <div class="flex items-center gap-8">
+        <a href="#top" class="flex items-center gap-2.5 group focus:outline-none" aria-label="Sileta Home">
+          <!-- Clean Geometric Sileta Logo Mark -->
+          <div class="w-9 h-9 rounded-xl bg-[#191C1F] flex items-center justify-center shadow-sm group-hover:bg-[#0075EB] transition-colors duration-300">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.5 6.5C16.5 5.11929 14.933 4 13 4H9C6.79086 4 5 5.567 5 7.5C5 9.433 6.79086 11 9 11H15C17.2091 11 19 12.567 19 14.5C19 16.433 17.2091 18 15 18H10.5C8.567 18 7 16.8807 7 15.5" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"/>
+              <circle cx="17.5" cy="6.5" r="2" fill="#00B87C"/>
+            </svg>
+          </div>
+          <span class="font-display font-extrabold text-[22px] tracking-[-0.04em] text-[#191C1F]">Sileta</span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1" aria-label="Primary Navigation">
+          <a href="#bento-ecosystem" onclick="switchBentoTab('personal')" class="px-3.5 py-2 rounded-full text-sm font-medium text-[#191C1F] hover:bg-[#F4F4F6] transition-colors">Personal</a>
+          <a href="#bento-ecosystem" onclick="switchBentoTab('business')" class="px-3.5 py-2 rounded-full text-sm font-medium text-[#191C1F] hover:bg-[#F4F4F6] transition-colors">Business</a>
+          <a href="#calculators" class="px-3.5 py-2 rounded-full text-sm font-medium text-[#191C1F] hover:bg-[#F4F4F6] transition-colors">Calculators</a>
+          <a href="#automation-story" class="px-3.5 py-2 rounded-full text-sm font-medium text-[#191C1F] hover:bg-[#F4F4F6] transition-colors">Automation</a>
+        </nav>
+      </div>
+
+      <!-- Right: Quick-Jump Pill + Get the App CTA -->
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center bg-[#F4F4F6] p-1 rounded-full border border-black/[0.04]">
+          <button type="button" id="nav-jump-personal" onclick="jumpToEcosystem('personal')" class="px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all bg-white text-[#191C1F] shadow-sm">
+            Personal
+          </button>
+          <button type="button" id="nav-jump-business" onclick="jumpToEcosystem('business')" class="px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all text-[#5E646E] hover:text-[#191C1F]">
+            Business
+          </button>
+        </div>
+
+        <button type="button" data-open-modal class="bg-[#191C1F] text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:scale-[1.03] hover:bg-black active:scale-[0.98] transition-all shadow-sm cursor-pointer">
+          Get the App
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ===================================================================== -->
+    <!-- SECTION 2: REVOLUT-STYLE HERO + SCROLL-EXPANDING INTERACTIVE STAGE    -->
+    <!-- ===================================================================== -->
+    <section class="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden hero-aura">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Centered Editorial Copy -->
+        <div class="text-center max-w-4xl mx-auto">
+          <div class="hero-stagger inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F4F4F6] border border-black/[0.06] mb-6">
+            <span class="w-2 h-2 rounded-full bg-[#00B87C] status-dot"></span>
+            <span class="text-[11px] sm:text-xs font-bold tracking-[0.06em] uppercase text-[#191C1F]">
+              ALL-IN-ONE FINANCIAL OS • PERSONAL &amp; BUSINESS
+            </span>
+          </div>
+
+          <h1 class="hero-stagger font-display font-extrabold text-[#191C1F] text-[clamp(2.75rem,6vw,5.25rem)] leading-[1.02] tracking-[-0.04em] mb-6">
+            One payment for every subscription. Total control.
+          </h1>
+
+          <p class="hero-stagger text-base sm:text-lg md:text-[19px] text-[#5E646E] max-w-2xl mx-auto leading-relaxed mb-9">
+            Consolidate every personal and business subscription into one single bill. Automate rent, taxes, and monthly supplier orders—and calculate profits, break-even points, and live exchange rates.
+          </p>
+
+          <div class="hero-stagger flex flex-wrap items-center justify-center gap-3.5">
+            <button type="button" data-open-modal class="inline-flex items-center gap-2.5 bg-[#191C1F] text-white px-7 py-4 rounded-full text-sm sm:text-base font-semibold hover:scale-[1.03] hover:bg-black active:scale-[0.98] transition-all shadow-[0_12px_30px_rgba(25,28,31,0.18)] cursor-pointer">
+              <span>Download Sileta App</span>
+              <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </button>
+
+            <a href="#calculators" class="inline-flex items-center gap-2 bg-[#F4F4F6] text-[#191C1F] px-7 py-4 rounded-full text-sm sm:text-base font-semibold hover:bg-[#EAEAEF] active:scale-[0.98] transition-all">
+              <span>Explore Live Tools</span>
+              <i data-lucide="calculator" class="w-4 h-4 text-[#0075EB]"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Interactive Centerpiece: Revolut 3-Card Floating Fan / Phone UI Mockup -->
+        <div id="hero-stage-wrapper" class="hero-perspective mt-14 md:mt-16">
+          <div id="hero-stage" class="hero-stage relative max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 items-center gap-6 lg:gap-5">
+
+            <!-- LEFT FLOATING CARD: Unified Subscriptions Card -->
+            <div id="hero-card-left" class="lg:col-span-4 order-2 lg:order-1 bg-white rounded-[28px] p-6 border border-black/[0.07] shadow-[0_24px_60px_rgba(0,0,0,0.06)]">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-9 h-9 rounded-full bg-[#0075EB]/10 text-[#0075EB] flex items-center justify-center">
+                    <i data-lucide="layers" class="w-4 h-4"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-[#5E646E]">Unified Subscriptions</p>
+                    <p class="text-sm font-bold text-[#191C1F]">5 Services → 1 Bill</p>
+                  </div>
+                </div>
+                <!-- Interactive Freeze/Unfreeze Toggle -->
+                <button type="button" id="hero-sub-freeze-btn" onclick="toggleHeroSubFreeze()" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#F4F4F6] hover:bg-[#EAEAEF] transition-colors text-xs font-semibold text-[#191C1F]" aria-pressed="false">
+                  <span id="hero-freeze-dot" class="w-2 h-2 rounded-full bg-[#00B87C]"></span>
+                  <span id="hero-freeze-label">Active</span>
+                </button>
+              </div>
+
+              <!-- 5 Stacked Subscriptions -->
+              <div id="hero-sub-list" class="space-y-2 mb-5 transition-opacity duration-300">
+                <div class="flex items-center justify-between px-3.5 py-2 rounded-2xl bg-[#F4F4F6]">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-6 h-6 rounded-lg bg-[#191C1F] text-white flex items-center justify-center"><i data-lucide="cloud" class="w-3.5 h-3.5"></i></span>
+                    <span class="text-xs font-semibold text-[#191C1F]">Cloud Storage Pro</span>
+                  </div>
+                  <span class="text-xs font-semibold tabular-nums text-[#5E646E]">$24.00</span>
+                </div>
+                <div class="flex items-center justify-between px-3.5 py-2 rounded-2xl bg-[#F4F4F6]">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-6 h-6 rounded-lg bg-[#0075EB] text-white flex items-center justify-center"><i data-lucide="play" class="w-3.5 h-3.5"></i></span>
+                    <span class="text-xs font-semibold text-[#191C1F]">Streaming 4K Hub</span>
+                  </div>
+                  <span class="text-xs font-semibold tabular-nums text-[#5E646E]">$19.00</span>
+                </div>
+                <div class="flex items-center justify-between px-3.5 py-2 rounded-2xl bg-[#F4F4F6]">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center"><i data-lucide="cpu" class="w-3.5 h-3.5"></i></span>
+                    <span class="text-xs font-semibold text-[#191C1F]">Workspace SaaS</span>
+                  </div>
+                  <span class="text-xs font-semibold tabular-nums text-[#5E646E]">$42.00</span>
+                </div>
+                <div class="flex items-center justify-between px-3.5 py-2 rounded-2xl bg-[#F4F4F6]">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-6 h-6 rounded-lg bg-emerald-600 text-white flex items-center justify-center"><i data-lucide="dumbbell" class="w-3.5 h-3.5"></i></span>
+                    <span class="text-xs font-semibold text-[#191C1F]">Fitness &amp; Gym Pass</span>
+                  </div>
+                  <span class="text-xs font-semibold tabular-nums text-[#5E646E]">$35.00</span>
+                </div>
+                <div class="flex items-center justify-between px-3.5 py-2 rounded-2xl bg-[#F4F4F6]">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-6 h-6 rounded-lg bg-amber-500 text-white flex items-center justify-center"><i data-lucide="wrench" class="w-3.5 h-3.5"></i></span>
+                    <span class="text-xs font-semibold text-[#191C1F]">Design &amp; Dev Tools</span>
+                  </div>
+                  <span class="text-xs font-semibold tabular-nums text-[#5E646E]">$28.00</span>
+                </div>
+              </div>
+
+              <!-- Consolidated Total Bar -->
+              <div id="hero-sub-banner" class="rounded-2xl bg-[#191C1F] text-white p-4 flex items-center justify-between transition-colors duration-300">
+                <div>
+                  <p class="text-[11px] uppercase tracking-wider text-white/60 font-semibold">1 Consolidated Payment</p>
+                  <p id="hero-sub-status-text" class="text-sm font-bold text-white mt-0.5">Auto-settles on 1st • <span class="tabular-nums">$148.00/mo</span></p>
+                </div>
+                <span id="hero-sub-badge" class="px-2.5 py-1 rounded-full bg-[#00B87C]/20 text-[#00B87C] text-[11px] font-bold">Unified</span>
+              </div>
+            </div>
+
+            <!-- CENTER HERO PHONE FRAME (rounded-[40px], sleek bezel) -->
+            <div id="hero-phone" class="lg:col-span-4 order-1 lg:order-2 mx-auto w-full max-w-[350px] bg-[#191C1F] p-3 rounded-[44px] shadow-[0_36px_90px_rgba(25,28,31,0.22)] border border-black/20">
+              <div class="bg-white rounded-[34px] overflow-hidden p-5 flex flex-col justify-between min-h-[505px]">
+                <!-- Top Phone Notch & Bar -->
+                <div>
+                  <div class="flex items-center justify-between mb-5">
+                    <span class="text-[11px] font-bold tabular-nums text-[#191C1F]">09:41</span>
+                    <div class="w-20 h-5 bg-[#191C1F] rounded-full"></div>
+                    <div class="flex items-center gap-1 text-[#191C1F]">
+                      <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+                      <i data-lucide="battery-full" class="w-4 h-4"></i>
+                    </div>
+                  </div>
+
+                  <!-- App Header -->
+                  <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2">
+                      <div class="w-7 h-7 rounded-full bg-[#191C1F] text-white flex items-center justify-center text-xs font-extrabold">S</div>
+                      <span class="font-display font-bold text-sm text-[#191C1F]">Sileta OS</span>
+                    </div>
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#00B87C]/10 text-[#00B87C] text-[11px] font-bold">
+                      <span class="w-1.5 h-1.5 rounded-full bg-[#00B87C]"></span>
+                      Auto-Pay Active
+                    </span>
+                  </div>
+
+                  <!-- Interactive Currency Switcher -->
+                  <div class="flex items-center gap-1 bg-[#F4F4F6] p-1 rounded-full mb-5 overflow-x-auto no-scrollbar" role="tablist" aria-label="Hero Balance Currency">
+                    <button type="button" onclick="setPhoneCurrency('USD')" class="phone-cur-btn flex-1 px-2.5 py-1 rounded-full text-[11px] font-bold transition-all bg-white text-[#191C1F] shadow-sm" data-cur="USD">USD</button>
+                    <button type="button" onclick="setPhoneCurrency('EUR')" class="phone-cur-btn flex-1 px-2.5 py-1 rounded-full text-[11px] font-bold transition-all text-[#5E646E] hover:text-[#191C1F]" data-cur="EUR">EUR</button>
+                    <button type="button" onclick="setPhoneCurrency('GBP')" class="phone-cur-btn flex-1 px-2.5 py-1 rounded-full text-[11px] font-bold transition-all text-[#5E646E] hover:text-[#191C1F]" data-cur="GBP">GBP</button>
+                    <button type="button" onclick="setPhoneCurrency('BWP')" class="phone-cur-btn flex-1 px-2.5 py-1 rounded-full text-[11px] font-bold transition-all text-[#5E646E] hover:text-[#191C1F]" data-cur="BWP">BWP</button>
+                    <button type="button" onclick="setPhoneCurrency('ZAR')" class="phone-cur-btn flex-1 px-2.5 py-1 rounded-full text-[11px] font-bold transition-all text-[#5E646E] hover:text-[#191C1F]" data-cur="ZAR">ZAR</button>
+                  </div>
+
+                  <!-- Total Balance -->
+                  <div class="text-center mb-6">
+                    <p class="text-xs font-medium text-[#5E646E] mb-1">Unified Operating Balance</p>
+                    <div id="phone-balance" class="font-display font-extrabold text-[34px] leading-none tracking-[-0.04em] tabular-nums text-[#191C1F]">
+                      $24,850.00
+                    </div>
+                    <p id="phone-rate-note" class="text-[11px] font-semibold text-[#0075EB] mt-1.5 tabular-nums">
+                      1 USD = 1.0000 USD • Live FX Synced
+                    </p>
+                  </div>
+
+                  <!-- Auto-Pay Status Pills -->
+                  <div class="space-y-2.5">
+                    <div class="flex items-center justify-between p-3 rounded-2xl bg-[#F4F4F6]">
+                      <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#00B87C] shadow-sm">
+                          <i data-lucide="home" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                          <p class="text-xs font-bold text-[#191C1F]">Rent Paid ✓</p>
+                          <p class="text-[11px] text-[#5E646E]">Auto-settled • 1st of month</p>
+                        </div>
+                      </div>
+                      <span id="phone-rent-val" class="text-xs font-bold tabular-nums text-[#191C1F]">$1,450</span>
+                    </div>
+
+                    <div class="flex items-center justify-between p-3 rounded-2xl bg-[#F4F4F6]">
+                      <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#0075EB] shadow-sm">
+                          <i data-lucide="shield-check" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                          <p class="text-xs font-bold text-[#191C1F]">Tax Vault Funded ✓</p>
+                          <p class="text-[11px] text-[#5E646E]">15% auto-allocated</p>
+                        </div>
+                      </div>
+                      <span id="phone-tax-val" class="text-xs font-bold tabular-nums text-[#191C1F]">$920</span>
+                    </div>
+
+                    <div class="flex items-center justify-between p-3 rounded-2xl bg-[#F4F4F6]">
+                      <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#191C1F] shadow-sm">
+                          <i data-lucide="package-check" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                          <p class="text-xs font-bold text-[#191C1F]">Supplier Dispatch: 300 Units ✓</p>
+                          <p class="text-[11px] text-[#5E646E]">Fixed monthly order locked</p>
+                        </div>
+                      </div>
+                      <span id="phone-sup-val" class="text-xs font-bold tabular-nums text-[#191C1F]">$3,600</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Phone Bottom CTA -->
+                <button type="button" data-open-modal class="mt-5 w-full py-3 rounded-full bg-[#191C1F] text-white text-xs font-semibold hover:bg-black transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+                  <span>Open Full Autopilot</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- RIGHT FLOATING CARD: Business Margin & Break-Even Card -->
+            <div id="hero-card-right" class="lg:col-span-4 order-3 bg-white rounded-[28px] p-6 border border-black/[0.07] shadow-[0_24px_60px_rgba(0,0,0,0.06)]">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wider text-[#5E646E]">Business Intelligence</p>
+                  <p class="text-sm font-bold text-[#191C1F]">Margin &amp; Break-Even</p>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-[#00B87C]/10 text-[#00B87C] text-xs font-bold tabular-nums">+28.4% Net</span>
+              </div>
+
+              <!-- Live Mini Sparkline Chart SVG -->
+              <div class="rounded-2xl bg-[#F4F4F6] p-4 mb-4">
+                <div class="flex items-center justify-between text-[11px] font-semibold text-[#5E646E] mb-2">
+                  <span>Monthly Trajectory</span>
+                  <span class="text-[#191C1F] font-bold tabular-nums">Break-Even: 142 units</span>
+                </div>
+                <svg viewBox="0 0 280 96" class="w-full h-24 overflow-visible" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#0075EB" stop-opacity="0.28"/>
+                      <stop offset="100%" stop-color="#0075EB" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- Fixed cost dashed baseline -->
+                  <line x1="0" y1="62" x2="280" y2="62" stroke="#9CA3AF" stroke-width="1.2" stroke-dasharray="4 4"/>
+                  <!-- Area fill -->
+                  <path d="M0,84 C38,78 65,68 104,54 C142,40 176,34 212,20 C240,10 262,8 280,5 L280,96 L0,96 Z" fill="url(#sparkGrad)"/>
+                  <!-- Revenue Curve -->
+                  <path d="M0,84 C38,78 65,68 104,54 C142,40 176,34 212,20 C240,10 262,8 280,5" fill="none" stroke="#0075EB" stroke-width="2.75" stroke-linecap="round"/>
+                  <!-- Break-even intersection dot -->
+                  <circle cx="88" cy="61" r="5" fill="#00B87C" stroke="#FFFFFF" stroke-width="2"/>
+                  <circle cx="280" cy="5" r="4" fill="#0075EB"/>
+                </svg>
+                <div class="flex items-center justify-between text-[10px] font-semibold text-[#5E646E] mt-1">
+                  <span>0 units</span>
+                  <span class="text-[#00B87C]">● 142 Break-Even</span>
+                  <span>320 units</span>
+                </div>
+              </div>
+
+              <!-- Metrics Grid -->
+              <div class="grid grid-cols-2 gap-2.5">
+                <div class="p-3 rounded-2xl bg-[#F4F4F6]">
+                  <p class="text-[11px] font-medium text-[#5E646E]">Revenue</p>
+                  <p class="text-base font-bold tabular-nums text-[#191C1F] mt-0.5">$28,400</p>
+                </div>
+                <div class="p-3 rounded-2xl bg-[#F4F4F6]">
+                  <p class="text-[11px] font-medium text-[#5E646E]">Fixed Cost</p>
+                  <p class="text-base font-bold tabular-nums text-[#191C1F] mt-0.5">$6,400</p>
+                </div>
+                <div class="p-3 rounded-2xl bg-[#00B87C]/10 col-span-2 flex items-center justify-between">
+                  <div>
+                    <p class="text-[11px] font-semibold text-[#00B87C]">Net Profit</p>
+                    <p class="text-lg font-extrabold tabular-nums text-[#191C1F]">$8,065.00</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-[11px] font-medium text-[#5E646E]">Break-Even</p>
+                    <p class="text-sm font-bold tabular-nums text-[#191C1F]">142 units</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- SECTION 3: REVOLUT SEGMENTED "PERSONAL / BUSINESS" BENTO GRID         -->
+    <!-- ===================================================================== -->
+    <section id="bento-ecosystem" class="py-20 md:py-28 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header + Sliding Pill Switcher -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
+          <div class="max-w-2xl">
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-[#0075EB] mb-3">UNIFIED ECOSYSTEM</p>
+            <h2 class="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl text-[#191C1F]">
+              Built for your life. Engineered for your business.
+            </h2>
+          </div>
+
+          <!-- Revolut Segmented Pill-Tab Switcher with Sliding Active Indicator -->
+          <div id="bento-tab-track" class="relative inline-flex items-center bg-[#F4F4F6] p-1.5 rounded-full self-start md:self-auto border border-black/[0.05]">
+            <div id="bento-tab-indicator" class="absolute top-1.5 left-1.5 h-[calc(100%-12px)] bg-white rounded-full shadow-sm transition-all duration-300 ease-out pointer-events-none"></div>
+            <button type="button" id="tab-btn-personal" onclick="switchBentoTab('personal')" class="relative z-10 px-6 py-2.5 rounded-full text-sm font-semibold text-[#191C1F] transition-colors cursor-pointer">
+              For Individuals
+            </button>
+            <button type="button" id="tab-btn-business" onclick="switchBentoTab('business')" class="relative z-10 px-6 py-2.5 rounded-full text-sm font-semibold text-[#5E646E] hover:text-[#191C1F] transition-colors cursor-pointer">
+              For Businesses
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 1: FOR INDIVIDUALS (3-Card Asymmetric Bento Grid) -->
+        <div id="bento-panel-personal" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Large Hero Bento Card (Span 2 Cols) -->
+          <div class="bento-card lg:col-span-2 bg-[#F4F4F6] rounded-[28px] p-7 sm:p-9 flex flex-col justify-between">
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
+              <div>
+                <span class="inline-block px-3 py-1 rounded-full bg-white text-[#191C1F] text-xs font-bold mb-3 shadow-xs">Single-Date Consolidation</span>
+                <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-[#191C1F] mb-2">
+                  All your subscriptions. One single date.
+                </h3>
+                <p class="text-sm sm:text-base text-[#5E646E] max-w-xl">
+                  Select the subscriptions you want Sileta to bundle. Instead of 6 chaotic charges, pay one clean consolidated amount on the 1st—and see instant bundle savings.
+                </p>
+              </div>
+              <div class="bg-white rounded-2xl px-4 py-3 border border-black/[0.05] shrink-0">
+                <p class="text-[11px] font-semibold uppercase tracking-wider text-[#5E646E]">Consolidated Bill</p>
+                <p id="bento-personal-total" class="font-display font-extrabold text-2xl tabular-nums text-[#191C1F]">$98.00<span class="text-sm font-semibold text-[#5E646E]">/mo</span></p>
+                <p id="bento-personal-savings" class="text-xs font-bold text-[#00B87C] tabular-nums mt-0.5">Saving $14.50/mo</p>
+              </div>
+            </div>
+
+            <!-- Interactive Clickable Checklist -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="personal-sub-checklist">
+              <label class="flex items-center justify-between p-4 rounded-2xl bg-white border border-black/[0.05] cursor-pointer hover:border-[#0075EB]/40 transition-all">
+                <div class="flex items-center gap-3">
+                  <input type="checkbox" checked value="18" class="personal-sub-check w-4 h-4 accent-[#191C1F] rounded" onchange="updatePersonalBentoTotal()" />
+                  <div>
+                    <p class="text-sm font-bold text-[#191C1F]">Sileta Stream+</p>
+                    <p class="text-xs text-[#5E646E]">Entertainment • 1st</p>
+                  </div>
+                </div>
+                <span class="text-sm font-bold tabular-nums text-[#191C1F]">$18.00</span>
+              </label>
+
+              <label class="flex items-center justify-between p-4 rounded-2xl bg-white border border-black/[0.05] cursor-pointer hover:border-[#0075EB]/40 transition-all">
+                <div class="flex items-center gap-3">
+                  <input type="checkbox" checked value="12" class="personal-sub-check w-4 h-4 accent-[#191C1F] rounded" onchange="updatePersonalBentoTotal()" />
+                  <div>
+                    <p class="text-sm font-bold text-[#191C1F]">iCloud / Drive 2TB</p>
+                    <p class="text-xs text-[#5E646E]">Cloud Storage • 1st</p>
+                  </div>
+                </div>
+                <span class="text-sm font-bold tabular-nums text-[#191C1F]">$12.00</span>
+              </label>
+
+              <label class="flex items-center justify-between p-4 rounded-2xl bg-white border border-black/[0.05] cursor-pointer hover:border-[#0075EB]/40 transition-all">
+                <div class="flex items-center gap-3">
+                  <input type="checkbox" checked value="39" class="personal-sub-check w-4 h-4 accent-[#191C1F] rounded" onchange="updatePersonalBentoTotal()" />
+                  <div>
+                    <p class="text-sm font-bold text-[#191C1F]">Metro Fitness Club</p>
+                    <p class="text-xs text-[#5E646E]">Wellness • 1st</p>
+                  </div>
+                </div>
+                <span class="text-sm font-bold tabular-nums text-[#191C1F]">$39.00</span>
+              </label>
+
+              <label class="flex items-center justify-between p-4 rounded-2xl bg-white border border-black/[0.05] cursor-pointer hover:border-[#0075EB]/40 transition-all">
+                <div class="flex items-center gap-3">
+                  <input type="checkbox" checked value="29" class="personal-sub-check w-4 h-4 accent-[#191C1F] rounded" onchange="updatePersonalBentoTotal()" />
+                  <div>
+                    <p class="text-sm font-bold text-[#191C1F]">AI &amp; Productivity Suite</p>
+                    <p class="text-xs text-[#5E646E]">Software • 1st</p>
+                  </div>
+                </div>
+                <span class="text-sm font-bold tabular-nums text-[#191C1F]">$29.00</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Bento Card 2: Auto-Pay Rent & Taxes -->
+          <div class="bento-card bg-[#F4F4F6] rounded-[28px] p-7 sm:p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-4">
+                <div class="w-10 h-10 rounded-2xl bg-white flex items-center justify-center text-[#191C1F] shadow-xs">
+                  <i data-lucide="calendar-check-2" class="w-5 h-5"></i>
+                </div>
+                <button type="button" data-open-modal class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#191C1F] text-white text-[11px] font-bold hover:bg-[#0075EB] transition-colors cursor-pointer">
+                  <i data-lucide="lock" class="w-3 h-3"></i>
+                  App Exclusive Unlock
+                </button>
+              </div>
+              <h3 class="font-display font-extrabold text-2xl text-[#191C1F] mb-2">
+                Auto-Pay Rent &amp; Taxes
+              </h3>
+              <p class="text-sm text-[#5E646E] mb-6">
+                Never miss a deadline. Sileta splits income automatically into your rent escrow and tax vault before you spend a cent.
+              </p>
+            </div>
+
+            <!-- Visual Timeline -->
+            <div class="bg-white rounded-2xl p-4 space-y-4 border border-black/[0.05]">
+              <div class="flex items-start gap-3">
+                <div class="flex flex-col items-center">
+                  <span class="w-3 h-3 rounded-full bg-[#00B87C]"></span>
+                  <span class="w-0.5 h-8 bg-[#E5E7EB]"></span>
+                </div>
+                <div class="flex-1 flex items-center justify-between">
+                  <div>
+                    <p class="text-xs font-bold text-[#191C1F]">01st • Rent Transfer</p>
+                    <p class="text-[11px] text-[#5E646E]">Auto-dispatched to Landlord</p>
+                  </div>
+                  <span class="text-xs font-bold tabular-nums text-[#00B87C]">$1,450 ✓</span>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="flex flex-col items-center">
+                  <span class="w-3 h-3 rounded-full bg-[#0075EB]"></span>
+                  <span class="w-0.5 h-8 bg-[#E5E7EB]"></span>
+                </div>
+                <div class="flex-1 flex items-center justify-between">
+                  <div>
+                    <p class="text-xs font-bold text-[#191C1F]">15th • Tax Reserve Split</p>
+                    <p class="text-[11px] text-[#5E646E]">Ring-fenced 15% withholding</p>
+                  </div>
+                  <span class="text-xs font-bold tabular-nums text-[#0075EB]">$620 ✓</span>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="flex flex-col items-center">
+                  <span class="w-3 h-3 rounded-full bg-[#191C1F]"></span>
+                </div>
+                <div class="flex-1 flex items-center justify-between">
+                  <div>
+                    <p class="text-xs font-bold text-[#191C1F]">28th • Consolidated Subs</p>
+                    <p class="text-[11px] text-[#5E646E]">1 unified payment queued</p>
+                  </div>
+                  <span class="text-xs font-bold tabular-nums text-[#191C1F]">$98.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bento Card 3 (Full Width or 3-col layout balance -> make it span 3 cols on lg or clean 3rd card row) -->
+          <div class="bento-card lg:col-span-3 bg-[#F4F4F6] rounded-[28px] p-7 sm:p-9 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            <div class="md:col-span-6">
+              <span class="inline-block px-3 py-1 rounded-full bg-white text-[#0075EB] text-xs font-bold mb-3">Real-Time Visibility</span>
+              <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-[#191C1F] mb-2">
+                Monthly Expenditure &amp; Exchange Rates
+              </h3>
+              <p class="text-sm sm:text-base text-[#5E646E] mb-5">
+                Track every category of monthly outgoings in one clean bar—and convert your total commitment across global currencies at interbank rates.
+              </p>
+              <a href="#calculators" class="inline-flex items-center gap-2 text-sm font-bold text-[#0075EB] hover:underline">
+                <span>Open full FX &amp; Expenditure Calculator</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+
+            <div class="md:col-span-6 bg-white rounded-2xl p-5 border border-black/[0.05]">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold text-[#191C1F]">Monthly Outgoing Breakdown</span>
+                <span class="text-sm font-extrabold tabular-nums text-[#191C1F]">$2,168.00 / mo</span>
+              </div>
+              <!-- Stacked Spend Bar -->
+              <div class="w-full h-3.5 rounded-full bg-[#F4F4F6] overflow-hidden flex mb-4">
+                <div class="bg-[#191C1F] h-full" style="width: 66%" title="Rent"></div>
+                <div class="bg-[#0075EB] h-full" style="width: 24%" title="Taxes"></div>
+                <div class="bg-[#00B87C] h-full" style="width: 10%" title="Subscriptions"></div>
+              </div>
+              <div class="grid grid-cols-3 gap-2 text-xs mb-4">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#191C1F]"></span>
+                  <span class="text-[#5E646E]">Rent <strong class="text-[#191C1F] tabular-nums">66%</strong></span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#0075EB]"></span>
+                  <span class="text-[#5E646E]">Taxes <strong class="text-[#191C1F] tabular-nums">24%</strong></span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#00B87C]"></span>
+                  <span class="text-[#5E646E]">Subs <strong class="text-[#191C1F] tabular-nums">10%</strong></span>
+                </div>
+              </div>
+              <!-- Mini FX Preview -->
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-black/[0.06] text-xs">
+                <span class="font-semibold text-[#5E646E]">Live FX Equivalent:</span>
+                <div class="flex items-center gap-3 font-bold tabular-nums text-[#191C1F]">
+                  <span>€1,994.56</span>
+                  <span class="text-[#5E646E]">•</span>
+                  <span>£1,691.04</span>
+                  <span class="text-[#5E646E]">•</span>
+                  <span>P29,268.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: FOR BUSINESSES (3-Card Asymmetric Bento Grid) -->
+        <div id="bento-panel-business" class="hidden grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Large Hero Bento Card (Span 2 Cols): Automated Monthly Supplier Payouts -->
+          <div class="bento-card lg:col-span-2 bg-[#F4F4F6] rounded-[28px] p-7 sm:p-9 flex flex-col justify-between">
+            <div class="mb-6">
+              <span class="inline-block px-3 py-1 rounded-full bg-white text-[#191C1F] text-xs font-bold mb-3">Fixed-Quantity Supply Chain</span>
+              <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-[#191C1F] mb-2">
+                Automated Monthly Supplier Payouts
+              </h3>
+              <p class="text-sm sm:text-base text-[#5E646E] max-w-xl">
+                Lock in recurring payments to your suppliers for a fixed number of goods every month. Adjust your monthly unit quota below to preview Sileta's automated batch dispatch.
+              </p>
+            </div>
+
+            <!-- Interactive Supplier Workflow Card -->
+            <div class="bg-white rounded-2xl p-5 border border-black/[0.06]">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-black/[0.06]">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-2xl bg-[#191C1F] text-white flex items-center justify-center">
+                    <i data-lucide="boxes" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <p class="text-sm font-bold text-[#191C1F]">Supplier: Apex Goods</p>
+                    <p class="text-xs text-[#5E646E]">Fixed <span id="supplier-unit-inline" class="font-bold text-[#191C1F] tabular-nums">500</span> Units/mo • Auto-Paid on the 1st</p>
+                  </div>
+                </div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00B87C]/10 text-[#00B87C] text-xs font-bold self-start sm:self-auto">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#00B87C]"></span>
+                  Schedule Armed
+                </span>
+              </div>
+
+              <!-- Interactive Unit Quantity Stepper -->
+              <div class="pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <p class="text-xs font-semibold text-[#5E646E] mb-1.5">Fixed Monthly Quantity ($12.00 / unit)</p>
+                  <div class="inline-flex items-center gap-3 bg-[#F4F4F6] p-1.5 rounded-full">
+                    <button type="button" onclick="stepSupplierUnits(-50)" class="w-8 h-8 rounded-full bg-white text-[#191C1F] font-bold shadow-xs hover:bg-[#191C1F] hover:text-white transition-colors flex items-center justify-center cursor-pointer" aria-label="Decrease units">−</button>
+                    <span id="supplier-units-display" class="text-sm font-extrabold tabular-nums text-[#191C1F] px-2">500 Units</span>
+                    <button type="button" onclick="stepSupplierUnits(50)" class="w-8 h-8 rounded-full bg-white text-[#191C1F] font-bold shadow-xs hover:bg-[#191C1F] hover:text-white transition-colors flex items-center justify-center cursor-pointer" aria-label="Increase units">+</button>
+                  </div>
+                </div>
+
+                <div class="sm:text-right">
+                  <p class="text-xs font-semibold text-[#5E646E]">Automated Monthly Payout</p>
+                  <p id="supplier-payout-total" class="font-display font-extrabold text-2xl tabular-nums text-[#191C1F]">$6,000.00</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bento Card 2: Business All-in-One Subscriptions -->
+          <div class="bento-card bg-[#F4F4F6] rounded-[28px] p-7 sm:p-8 flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-2xl bg-white flex items-center justify-center text-[#0075EB] shadow-xs mb-4">
+                <i data-lucide="receipt" class="w-5 h-5"></i>
+              </div>
+              <h3 class="font-display font-extrabold text-2xl text-[#191C1F] mb-2">
+                Business All-in-One Subscriptions
+              </h3>
+              <p class="text-sm text-[#5E646E] mb-6">
+                Consolidate team SaaS, cloud hosting, CRM seats, and logistics tools into a single tax-ready monthly invoice.
+              </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 space-y-2.5 border border-black/[0.05]">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-medium text-[#5E646E]">AWS &amp; Cloud Infra</span>
+                <span class="font-bold tabular-nums text-[#191C1F]">$420.00</span>
+              </div>
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-medium text-[#5E646E]">CRM &amp; Team Seats (12x)</span>
+                <span class="font-bold tabular-nums text-[#191C1F]">$360.00</span>
+              </div>
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-medium text-[#5E646E]">Accounting &amp; Payroll Tools</span>
+                <span class="font-bold tabular-nums text-[#191C1F]">$180.00</span>
+              </div>
+              <div class="pt-2.5 border-t border-black/[0.06] flex items-center justify-between">
+                <span class="text-xs font-bold text-[#0075EB]">1 Unified Invoice</span>
+                <span class="text-sm font-extrabold tabular-nums text-[#191C1F]">$960.00/mo</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bento Card 3: Fixed Cost, Revenue, Profit & Break-Even -->
+          <div class="bento-card lg:col-span-3 bg-[#F4F4F6] rounded-[28px] p-7 sm:p-9 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            <div class="md:col-span-6">
+              <button type="button" data-open-modal class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#191C1F] text-white text-[11px] font-bold mb-3 hover:bg-[#0075EB] transition-colors cursor-pointer">
+                <i data-lucide="sparkles" class="w-3 h-3"></i>
+                App Exclusive Full Sync
+              </button>
+              <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-[#191C1F] mb-2">
+                Fixed Cost, Revenue, Profit &amp; Break-Even
+              </h3>
+              <p class="text-sm sm:text-base text-[#5E646E] mb-4">
+                Know your exact unit economics every day. Connect your business inflows in the Sileta App to monitor live break-even thresholds automatically.
+              </p>
+              <a href="#calculators" class="inline-flex items-center gap-2 text-sm font-bold text-[#0075EB] hover:underline">
+                <span>Model your margins in the live calculator</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+
+            <div class="md:col-span-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="bg-white rounded-2xl p-4 border border-black/[0.05]">
+                <p class="text-[11px] font-semibold text-[#5E646E]">Fixed Costs</p>
+                <p class="text-lg font-extrabold tabular-nums text-[#191C1F] mt-1">$6,400</p>
+              </div>
+              <div class="bg-white rounded-2xl p-4 border border-black/[0.05]">
+                <p class="text-[11px] font-semibold text-[#5E646E]">Revenue</p>
+                <p class="text-lg font-extrabold tabular-nums text-[#191C1F] mt-1">$28,400</p>
+              </div>
+              <div class="bg-white rounded-2xl p-4 border border-black/[0.05]">
+                <p class="text-[11px] font-semibold text-[#00B87C]">Net Profit</p>
+                <p class="text-lg font-extrabold tabular-nums text-[#00B87C] mt-1">$8,065</p>
+              </div>
+              <div class="bg-[#191C1F] text-white rounded-2xl p-4">
+                <p class="text-[11px] font-semibold text-white/60">Break-Even</p>
+                <p class="text-lg font-extrabold tabular-nums mt-1">142 units</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- SECTION 4: INTERACTIVE LIVE FINANCIAL CALCULATORS (REVOLUT UTILITY)   -->
+    <!-- ===================================================================== -->
+    <section id="calculators" class="py-20 md:py-28 bg-[#F4F4F6]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <p class="text-xs font-bold uppercase tracking-[0.08em] text-[#0075EB] mb-3">LIVE FINANCIAL ENGINE</p>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl text-[#191C1F] mb-4">
+            Run the numbers before you automate.
+          </h2>
+          <p class="text-base text-[#5E646E]">
+            Test your unit economics, break-even targets, monthly expenditure, and live foreign exchange conversions directly on the page.
+          </p>
+        </div>
+
+        <!-- Interactive Sileta Calculator Card -->
+        <div class="max-w-5xl mx-auto bg-white rounded-[32px] p-6 sm:p-10 shadow-[0_24px_60px_rgba(0,0,0,0.06)] border border-black/[0.05]">
+          <!-- Mode Switcher Pills -->
+          <div class="flex flex-wrap items-center justify-between gap-4 pb-7 mb-8 border-b border-black/[0.06]">
+            <div class="inline-flex bg-[#F4F4F6] p-1.5 rounded-full">
+              <button type="button" id="calc-mode-btn-profit" onclick="switchCalcMode('profit')" class="px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-white text-[#191C1F] shadow-sm transition-all cursor-pointer">
+                Profit &amp; Break-Even
+              </button>
+              <button type="button" id="calc-mode-btn-fx" onclick="switchCalcMode('fx')" class="px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-[#5E646E] hover:text-[#191C1F] transition-all cursor-pointer">
+                Monthly Spend &amp; Live FX
+              </button>
+            </div>
+
+            <span class="inline-flex items-center gap-2 text-xs font-semibold text-[#5E646E]">
+              <span class="w-2 h-2 rounded-full bg-[#00B87C]"></span>
+              Instant Tabular Recalculation
+            </span>
+          </div>
+
+          <!-- MODE A: BUSINESS PROFIT, FIXED COST & BREAK-EVEN CALCULATOR -->
+          <div id="calc-panel-profit" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Inputs & Sliders -->
+            <div class="lg:col-span-7 space-y-6">
+              <!-- Input 1: Fixed Monthly Costs -->
+              <div class="bg-[#F4F4F6] rounded-2xl p-4 sm:p-5">
+                <div class="flex items-center justify-between gap-4 mb-3">
+                  <label for="input-fixed-cost" class="text-sm font-bold text-[#191C1F]">Fixed Monthly Costs ($)</label>
+                  <div class="flex items-center bg-white rounded-xl px-3 py-1.5 border border-black/[0.08]">
+                    <span class="text-xs font-bold text-[#5E646E] mr-1">$</span>
+                    <input type="number" id="input-fixed-cost" value="4500" min="0" max="50000" step="100" class="w-24 text-right font-bold text-sm tabular-nums text-[#191C1F] focus:outline-none" oninput="syncProfitCalc('input')" />
+                  </div>
+                </div>
+                <input type="range" id="slider-fixed-cost" min="0" max="25000" step="100" value="4500" class="sileta-slider" oninput="syncProfitCalc('slider')" aria-label="Fixed Monthly Costs Slider" />
+              </div>
+
+              <!-- Input 2: Selling Price per Unit -->
+              <div class="bg-[#F4F4F6] rounded-2xl p-4 sm:p-5">
+                <div class="flex items-center justify-between gap-4 mb-3">
+                  <label for="input-sell-price" class="text-sm font-bold text-[#191C1F]">Selling Price per Unit ($)</label>
+                  <div class="flex items-center bg-white rounded-xl px-3 py-1.5 border border-black/[0.08]">
+                    <span class="text-xs font-bold text-[#5E646E] mr-1">$</span>
+                    <input type="number" id="input-sell-price" value="85" min="1" max="5000" step="1" class="w-24 text-right font-bold text-sm tabular-nums text-[#191C1F] focus:outline-none" oninput="syncProfitCalc('input')" />
+                  </div>
+                </div>
+                <input type="range" id="slider-sell-price" min="5" max="500" step="1" value="85" class="sileta-slider" oninput="syncProfitCalc('slider')" aria-label="Selling Price per Unit Slider" />
+              </div>
+
+              <!-- Input 3: Variable Cost per Unit -->
+              <div class="bg-[#F4F4F6] rounded-2xl p-4 sm:p-5">
+                <div class="flex items-center justify-between gap-4 mb-3">
+                  <label for="input-var-cost" class="text-sm font-bold text-[#191C1F]">Variable Cost per Unit ($)</label>
+                  <div class="flex items-center bg-white rounded-xl px-3 py-1.5 border border-black/[0.08]">
+                    <span class="text-xs font-bold text-[#5E646E] mr-1">$</span>
+                    <input type="number" id="input-var-cost" value="35" min="0" max="4999" step="1" class="w-24 text-right font-bold text-sm tabular-nums text-[#191C1F] focus:outline-none" oninput="syncProfitCalc('input')" />
+                  </div>
+                </div>
+                <input type="range" id="slider-var-cost" min="0" max="400" step="1" value="35" class="sileta-slider" oninput="syncProfitCalc('slider')" aria-label="Variable Cost per Unit Slider" />
+              </div>
+
+              <!-- Input 4: Monthly Units Sold -->
+              <div class="bg-[#F4F4F6] rounded-2xl p-4 sm:p-5">
+                <div class="flex items-center justify-between gap-4 mb-3">
+                  <label for="input-units-sold" class="text-sm font-bold text-[#191C1F]">Monthly Units Sold</label>
+                  <div class="flex items-center bg-white rounded-xl px-3 py-1.5 border border-black/[0.08]">
+                    <input type="number" id="input-units-sold" value="180" min="0" max="10000" step="5" class="w-24 text-right font-bold text-sm tabular-nums text-[#191C1F] focus:outline-none" oninput="syncProfitCalc('input')" />
+                    <span class="text-xs font-bold text-[#5E646E] ml-1.5">units</span>
+                  </div>
+                </div>
+                <input type="range" id="slider-units-sold" min="0" max="1000" step="5" value="180" class="sileta-slider" oninput="syncProfitCalc('slider')" aria-label="Monthly Units Sold Slider" />
+              </div>
+            </div>
+
+            <!-- Real-time Tabular Outputs -->
+            <div class="lg:col-span-5 bg-[#191C1F] text-white rounded-[28px] p-6 sm:p-7 flex flex-col justify-between space-y-6">
+              <div>
+                <p class="text-xs font-bold uppercase tracking-[0.08em] text-white/50 mb-4">Live Margin Readout</p>
+
+                <div class="space-y-4">
+                  <div class="flex items-center justify-between pb-3 border-b border-white/10">
+                    <span class="text-sm text-white/70">Total Revenue</span>
+                    <span id="out-revenue" class="text-xl font-extrabold tabular-nums text-white">$15,300.00</span>
+                  </div>
+
+                  <div class="flex items-center justify-between pb-3 border-b border-white/10">
+                    <span class="text-sm text-white/70">Total Costs (Fixed + Var)</span>
+                    <span id="out-total-cost" class="text-xl font-extrabold tabular-nums text-white">$10,800.00</span>
+                  </div>
+
+                  <div class="p-4 rounded-2xl bg-white/[0.06] border border-white/10">
+                    <div class="flex items-center justify-between mb-1">
+                      <span id="out-profit-label" class="text-xs font-bold uppercase tracking-wider text-[#00B87C]">Net Monthly Profit</span>
+                      <span id="out-margin-pill" class="px-2.5 py-0.5 rounded-full bg-[#00B87C]/20 text-[#00B87C] text-[11px] font-bold tabular-nums">+29.4%</span>
+                    </div>
+                    <p id="out-net-profit" class="font-display font-extrabold text-3xl tabular-nums text-[#00B87C]">+$4,500.00</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-white/10">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm text-white/70">Exact Break-Even Point</span>
+                  <span id="out-breakeven" class="text-xl font-extrabold tabular-nums text-white">90 units</span>
+                </div>
+                <!-- Visual Break-even Progress -->
+                <div class="w-full h-2 rounded-full bg-white/10 overflow-hidden mb-2">
+                  <div id="out-breakeven-bar" class="h-full bg-[#00B87C] transition-all duration-200" style="width: 100%;"></div>
+                </div>
+                <p id="out-breakeven-note" class="text-xs text-white/60 tabular-nums">
+                  You are <strong class="text-white">90 units above</strong> your monthly break-even threshold.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- MODE B: MONTHLY EXPENDITURE & LIVE EXCHANGE RATE CALCULATOR -->
+          <div id="calc-panel-fx" class="hidden grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Expenditure Inputs -->
+            <div class="lg:col-span-6 space-y-4">
+              <h3 class="font-display font-bold text-lg text-[#191C1F] mb-2">Monthly Expenditure Breakdown (Base USD)</h3>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-[#F4F4F6] rounded-2xl p-4">
+                  <label for="fx-subs" class="block text-xs font-bold text-[#5E646E] mb-1.5">Monthly Subscriptions ($)</label>
+                  <input type="number" id="fx-subs" value="148" min="0" step="1" class="w-full bg-white rounded-xl px-3.5 py-2.5 text-base font-bold tabular-nums text-[#191C1F] border border-black/[0.06] focus:outline-none focus:border-[#0075EB]" oninput="updateFxCalc()" />
+                </div>
+
+                <div class="bg-[#F4F4F6] rounded-2xl p-4">
+                  <label for="fx-rent" class="block text-xs font-bold text-[#5E646E] mb-1.5">Monthly Rent ($)</label>
+                  <input type="number" id="fx-rent" value="1450" min="0" step="10" class="w-full bg-white rounded-xl px-3.5 py-2.5 text-base font-bold tabular-nums text-[#191C1F] border border-black/[0.06] focus:outline-none focus:border-[#0075EB]" oninput="updateFxCalc()" />
+                </div>
+
+                <div class="bg-[#F4F4F6] rounded-2xl p-4">
+                  <label for="fx-tax" class="block text-xs font-bold text-[#5E646E] mb-1.5">Tax Allocation ($)</label>
+                  <input type="number" id="fx-tax" value="620" min="0" step="10" class="w-full bg-white rounded-xl px-3.5 py-2.5 text-base font-bold tabular-nums text-[#191C1F] border border-black/[0.06] focus:outline-none focus:border-[#0075EB]" oninput="updateFxCalc()" />
+                </div>
+
+                <div class="bg-[#F4F4F6] rounded-2xl p-4">
+                  <label for="fx-supplier" class="block text-xs font-bold text-[#5E646E] mb-1.5">Supplier / Other Spend ($)</label>
+                  <input type="number" id="fx-supplier" value="3600" min="0" step="50" class="w-full bg-white rounded-xl px-3.5 py-2.5 text-base font-bold tabular-nums text-[#191C1F] border border-black/[0.06] focus:outline-none focus:border-[#0075EB]" oninput="updateFxCalc()" />
+                </div>
+              </div>
+
+              <div class="bg-[#F4F4F6] rounded-2xl p-5 flex items-center justify-between">
+                <div>
+                  <p class="text-xs font-bold uppercase tracking-wider text-[#5E646E]">Total Monthly Expenditure</p>
+                  <p class="text-xs text-[#5E646E] mt-0.5">Subscriptions + Rent + Tax + Suppliers</p>
+                </div>
+                <p id="fx-total-usd" class="font-display font-extrabold text-2xl sm:text-3xl tabular-nums text-[#191C1F]">$5,818.00</p>
+              </div>
+            </div>
+
+            <!-- Live FX Converter Widget (Revolut FX Style) -->
+            <div class="lg:col-span-6 bg-[#191C1F] text-white rounded-[28px] p-6 sm:p-7">
+              <div class="flex items-center justify-between mb-5">
+                <span class="text-xs font-bold uppercase tracking-[0.08em] text-white/60">Live Exchange Rate Converter</span>
+                <span class="px-2.5 py-1 rounded-full bg-[#0075EB]/20 text-[#60A5FA] text-[11px] font-bold">Interbank Mid-Market</span>
+              </div>
+
+              <!-- From Currency Box -->
+              <div class="bg-white/[0.06] border border-white/10 rounded-2xl p-4 mb-3">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <p class="text-[11px] font-semibold text-white/60 mb-1">Base Expenditure Currency</p>
+                    <select id="fx-from-cur" onchange="updateFxCalc()" class="bg-[#141619] text-white font-bold text-sm px-3 py-2 rounded-xl border border-white/15 focus:outline-none cursor-pointer">
+                      <option value="USD" selected>🇺🇸 USD — US Dollar</option>
+                      <option value="EUR">🇪🇺 EUR — Euro</option>
+                      <option value="GBP">🇬🇧 GBP — British Pound</option>
+                      <option value="BWP">🇧🇼 BWP — Botswana Pula</option>
+                      <option value="ZAR">🇿🇦 ZAR — South African Rand</option>
+                      <option value="JPY">🇯🇵 JPY — Japanese Yen</option>
+                    </select>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-[11px] font-semibold text-white/60 mb-1">Amount</p>
+                    <p id="fx-from-display" class="text-xl sm:text-2xl font-extrabold tabular-nums text-white">$5,818.00</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Swap Currency Button -->
+              <div class="flex justify-center -my-5 relative z-10">
+                <button type="button" onclick="swapFxCurrencies()" class="w-10 h-10 rounded-full bg-[#0075EB] text-white shadow-lg hover:scale-110 active:scale-95 transition-transform flex items-center justify-center cursor-pointer border-2 border-[#191C1F]" aria-label="Swap currencies">
+                  <i data-lucide="arrow-up-down" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <!-- To Currency Box -->
+              <div class="bg-white/[0.06] border border-white/10 rounded-2xl p-4 mt-3 mb-5">
+                <div class="flex items-center justify-between gap-3">
+                  <div>
+                    <p class="text-[11px] font-semibold text-white/60 mb-1">Converted Settlement</p>
+                    <select id="fx-to-cur" onchange="updateFxCalc()" class="bg-[#141619] text-white font-bold text-sm px-3 py-2 rounded-xl border border-white/15 focus:outline-none cursor-pointer">
+                      <option value="USD">🇺🇸 USD — US Dollar</option>
+                      <option value="EUR">🇪🇺 EUR — Euro</option>
+                      <option value="GBP">🇬🇧 GBP — British Pound</option>
+                      <option value="BWP" selected>🇧🇼 BWP — Botswana Pula</option>
+                      <option value="ZAR">🇿🇦 ZAR — South African Rand</option>
+                      <option value="JPY">🇯🇵 JPY — Japanese Yen</option>
+                    </select>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-[11px] font-semibold text-white/60 mb-1">Converted Total</p>
+                    <p id="fx-to-display" class="text-xl sm:text-2xl font-extrabold tabular-nums text-[#00B87C]">P78,543.00</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-xs text-white/60 pt-3 border-t border-white/10">
+                <span>Live Rate:</span>
+                <span id="fx-rate-readout" class="font-bold tabular-nums text-white">1 USD = 13.5000 BWP</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom App-Unlock Strip inside Calculator -->
+          <div class="mt-8 pt-6 border-t border-black/[0.07] bg-[#F4F4F6] rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-start sm:items-center gap-3.5">
+              <div class="w-10 h-10 rounded-full bg-[#0075EB]/10 text-[#0075EB] flex items-center justify-center shrink-0">
+                <i data-lucide="zap" class="w-5 h-5"></i>
+              </div>
+              <p class="text-sm text-[#191C1F] leading-snug">
+                Want Sileta to calculate this automatically from your real transactions and execute your payments for you? <strong class="font-bold">Download the Sileta App</strong> to unlock full automation and a faster, richer experience.
+              </p>
+            </div>
+            <button type="button" data-open-modal class="shrink-0 bg-[#191C1F] text-white px-5 py-3 rounded-full text-xs sm:text-sm font-semibold hover:scale-[1.03] hover:bg-black transition-all cursor-pointer">
+              Get App (Mobile / PC)
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- SECTION 5: REVOLUT PITCH-BLACK PINNED SCROLL STORYTELLING             -->
+    <!-- ===================================================================== -->
+    <section id="automation-story" class="bg-black text-white py-24 md:py-32">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="pinned-story-container" class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+
+          <!-- Left Column (Pinned on Desktop via GSAP ScrollTrigger) -->
+          <div id="pinned-left-col" class="lg:col-span-5">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/10 mb-6">
+              <span class="w-2 h-2 rounded-full bg-[#0075EB]"></span>
+              <span class="text-[11px] font-bold tracking-[0.08em] uppercase text-white">AVAILABLE ON MOBILE &amp; PC</span>
+            </div>
+
+            <h2 class="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl text-white leading-[1.03] mb-6">
+              Web gives you the preview. The Sileta App unlocks the autopilot.
+            </h2>
+
+            <p class="text-base sm:text-lg text-white/65 leading-relaxed mb-8">
+              Download Sileta on iOS, Android, Windows, or macOS to unlock hands-free recurring payments, automated supplier dispatches, and real-time profit alerts.
+            </p>
+
+            <button type="button" data-open-modal class="inline-flex items-center gap-2.5 bg-white text-black px-7 py-4 rounded-full text-sm sm:text-base font-bold hover:scale-[1.03] hover:bg-[#F4F4F6] active:scale-[0.98] transition-all cursor-pointer">
+              <span>Choose Mobile or PC</span>
+              <i data-lucide="download" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- Right Column: 3 High-Contrast Dark Glass Cards -->
+          <div class="lg:col-span-7 space-y-6">
+            <!-- Dark Card 1 -->
+            <div class="dark-glass-card story-card rounded-[28px] p-7 sm:p-9">
+              <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-[#00B87C]">
+                  <i data-lucide="repeat" class="w-6 h-6"></i>
+                </div>
+                <button type="button" data-open-modal class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-xs font-bold text-white transition-colors cursor-pointer">
+                  <span>🔒 Unlock in App</span>
+                </button>
+              </div>
+              <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-white mb-3">
+                Zero-Touch Rent, Tax &amp; Subscription Autopilot
+              </h3>
+              <p class="text-sm sm:text-base text-white/65 leading-relaxed mb-6">
+                Automatically settles all consolidated subscriptions, monthly rent, and tax obligations on schedule without manual transfers. No late fees, no scattered billing dates.
+              </p>
+              <div class="grid grid-cols-3 gap-3 pt-5 border-t border-white/10 text-xs">
+                <div>
+                  <p class="text-white/50">Consolidated Subs</p>
+                  <p class="font-bold text-white mt-0.5">1 Unified Date</p>
+                </div>
+                <div>
+                  <p class="text-white/50">Rent Execution</p>
+                  <p class="font-bold text-[#00B87C] mt-0.5">100% On-Time</p>
+                </div>
+                <div>
+                  <p class="text-white/50">Tax Vault</p>
+                  <p class="font-bold text-white mt-0.5">Auto-Split</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dark Card 2 -->
+            <div class="dark-glass-card story-card rounded-[28px] p-7 sm:p-9">
+              <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-[#0075EB]">
+                  <i data-lucide="truck" class="w-6 h-6"></i>
+                </div>
+                <button type="button" data-open-modal class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-xs font-bold text-white transition-colors cursor-pointer">
+                  <span>🔒 Unlock in App</span>
+                </button>
+              </div>
+              <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-white mb-3">
+                Fixed-Quantity Monthly Supplier Automation
+              </h3>
+              <p class="text-sm sm:text-base text-white/65 leading-relaxed mb-6">
+                Lock in exact monthly product quantities with your suppliers—Sileta verifies and auto-pays the fixed batch every month so your inventory never stalls.
+              </p>
+              <div class="rounded-2xl bg-black/60 border border-white/10 p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#00B87C]"></span>
+                  <span class="text-xs sm:text-sm font-semibold text-white">Batch #042 • 500 Fixed Units • Auto-Release</span>
+                </div>
+                <span class="text-xs font-bold tabular-nums text-[#00B87C]">Verified ✓</span>
+              </div>
+            </div>
+
+            <!-- Dark Card 3 -->
+            <div class="dark-glass-card story-card rounded-[28px] p-7 sm:p-9">
+              <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-white">
+                  <i data-lucide="activity" class="w-6 h-6"></i>
+                </div>
+                <button type="button" data-open-modal class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-xs font-bold text-white transition-colors cursor-pointer">
+                  <span>🔒 Unlock in App</span>
+                </button>
+              </div>
+              <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-white mb-3">
+                Real-Time Break-Even &amp; Expenditure Intelligence
+              </h3>
+              <p class="text-sm sm:text-base text-white/65 leading-relaxed mb-6">
+                Live desktop and mobile dashboards tracking fixed costs, revenue, profit margins, and multi-currency exchange rates 24/7—syncing every card, invoice, and supplier wire.
+              </p>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-5 border-t border-white/10 text-xs">
+                <div>
+                  <p class="text-white/50">Fixed Costs</p>
+                  <p class="font-bold tabular-nums text-white mt-0.5">Live Tracked</p>
+                </div>
+                <div>
+                  <p class="text-white/50">Revenue</p>
+                  <p class="font-bold tabular-nums text-white mt-0.5">Real-Time</p>
+                </div>
+                <div>
+                  <p class="text-white/50">Break-Even</p>
+                  <p class="font-bold tabular-nums text-[#00B87C] mt-0.5">Auto-Alert</p>
+                </div>
+                <div>
+                  <p class="text-white/50">FX Rates</p>
+                  <p class="font-bold tabular-nums text-[#60A5FA] mt-0.5">30+ Currencies</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- SECTION 7: REVOLUT MINIMALIST DARK FOOTER (#000000)                   -->
+  <!-- ===================================================================== -->
+  <footer class="bg-black text-white border-t border-white/10 pt-20 pb-14">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Top CTA Banner -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-16 border-b border-white/10">
+        <div>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white mb-2">
+            Ready to put every payment on autopilot?
+          </h2>
+          <p class="text-sm sm:text-base text-white/60">
+            Consolidate subscriptions, automate rent &amp; suppliers, and track real-time margins on Mobile &amp; PC.
+          </p>
+        </div>
+        <button type="button" data-open-modal class="self-start md:self-auto bg-white text-black px-7 py-4 rounded-full text-sm sm:text-base font-bold hover:scale-[1.03] hover:bg-[#F4F4F6] transition-all shrink-0 cursor-pointer">
+          Download Sileta App
+        </button>
+      </div>
+
+      <!-- 4-Column Organized Links -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 py-14">
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-[0.08em] text-white/50 mb-4">Personal</h3>
+          <ul class="space-y-2.5 text-sm text-white/80">
+            <li><a href="#bento-ecosystem" onclick="jumpToEcosystem('personal')" class="hover:text-white transition-colors">Consolidated Subscriptions</a></li>
+            <li><a href="#bento-ecosystem" onclick="jumpToEcosystem('personal')" class="hover:text-white transition-colors">Rent &amp; Tax Autopilot</a></li>
+            <li><a href="#calculators" class="hover:text-white transition-colors">Monthly Spend Tracker</a></li>
+            <li><a href="#top" data-open-modal class="hover:text-white transition-colors">Sileta Mobile App</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-[0.08em] text-white/50 mb-4">Business</h3>
+          <ul class="space-y-2.5 text-sm text-white/80">
+            <li><a href="#bento-ecosystem" onclick="jumpToEcosystem('business')" class="hover:text-white transition-colors">Fixed Supplier Payouts</a></li>
+            <li><a href="#bento-ecosystem" onclick="jumpToEcosystem('business')" class="hover:text-white transition-colors">Team SaaS Consolidation</a></li>
+            <li><a href="#automation-story" class="hover:text-white transition-colors">Batch Inventory Scheduling</a></li>
+            <li><a href="#top" data-open-modal class="hover:text-white transition-colors">Sileta Desktop (PC / Mac)</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-[0.08em] text-white/50 mb-4">Financial Calculators</h3>
+          <ul class="space-y-2.5 text-sm text-white/80">
+            <li><a href="#calculators" onclick="switchCalcMode('profit')" class="hover:text-white transition-colors">Profit &amp; Margin Engine</a></li>
+            <li><a href="#calculators" onclick="switchCalcMode('profit')" class="hover:text-white transition-colors">Break-Even Calculator</a></li>
+            <li><a href="#calculators" onclick="switchCalcMode('fx')" class="hover:text-white transition-colors">Monthly Expenditure Tool</a></li>
+            <li><a href="#calculators" onclick="switchCalcMode('fx')" class="hover:text-white transition-colors">Live Exchange Rates</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-[0.08em] text-white/50 mb-4">Company &amp; Security</h3>
+          <ul class="space-y-2.5 text-sm text-white/80">
+            <li><a href="#automation-story" class="hover:text-white transition-colors">Bank-Grade Encryption</a></li>
+            <li><a href="#automation-story" class="hover:text-white transition-colors">Escrow &amp; Tax Vaults</a></li>
+            <li><a href="#top" data-open-modal class="hover:text-white transition-colors">Platform Availability</a></li>
+            <li><a href="#top" data-open-modal class="hover:text-white transition-colors">24/7 App Support</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Bar: Brand + Currency Pill + Legal Disclaimer -->
+      <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center font-display font-extrabold text-sm">S</div>
+          <span class="font-display font-bold text-lg">Sileta</span>
+          <span class="text-xs text-white/40 ml-2">© 2026 Sileta Financial OS</span>
+        </div>
+
+        <!-- Language / Currency Selector Pill -->
+        <div class="inline-flex items-center gap-2 bg-white/10 border border-white/10 px-4 py-2 rounded-full self-start md:self-auto">
+          <i data-lucide="globe" class="w-4 h-4 text-white/70"></i>
+          <select aria-label="Language and Currency" class="bg-transparent text-xs font-semibold text-white focus:outline-none cursor-pointer">
+            <option value="en-USD" class="bg-black">English • USD ($)</option>
+            <option value="en-EUR" class="bg-black">English • EUR (€)</option>
+            <option value="en-GBP" class="bg-black">English • GBP (£)</option>
+            <option value="en-BWP" class="bg-black">English • BWP (P)</option>
+            <option value="en-ZAR" class="bg-black">English • ZAR (R)</option>
+          </select>
+        </div>
+      </div>
+
+      <p class="mt-6 text-xs text-white/45 leading-relaxed max-w-4xl">
+        Disclaimer: Web calculators and previews provide real-time modeling estimates. Full automated payment execution, single-bill subscription consolidation, recurring rent and tax splits, fixed-quantity supplier dispatch, and live synced bank feeds require downloading the Sileta App on Mobile (iOS / Android) or PC (Windows / macOS).
+      </p>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- SECTION 6: INTERACTIVE MOBILE VS. PC DOWNLOAD MODAL                   -->
+  <!-- ===================================================================== -->
+  <div id="platform-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div id="platform-modal-card" class="relative w-full max-w-3xl bg-white rounded-[32px] p-6 sm:p-9 shadow-[0_32px_100px_rgba(0,0,0,0.35)] max-h-[92vh] overflow-y-auto">
+      <!-- Close Button -->
+      <button type="button" onclick="closePlatformModal()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-[#F4F4F6] hover:bg-[#EAEAEF] text-[#191C1F] flex items-center justify-center transition-colors cursor-pointer" aria-label="Close modal">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Default Selection View -->
+      <div id="modal-view-select">
+        <div class="mb-7 pr-10">
+          <span class="inline-block px-3 py-1 rounded-full bg-[#0075EB]/10 text-[#0075EB] text-xs font-bold mb-2">Get the Sileta App</span>
+          <h2 id="modal-title" class="font-display font-extrabold text-2xl sm:text-3xl text-[#191C1F] mb-2">
+            Where do you want to run Sileta?
+          </h2>
+          <p class="text-sm text-[#5E646E] leading-relaxed">
+            Download the Sileta App to unlock full automated payments, recurring supplier dispatch, and real-time analytics for the best experience.
+          </p>
+        </div>
+
+        <!-- Two Interactive Choice Cards Side-by-Side -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Card 1: Mobile (iOS & Android) -->
+          <div class="bg-[#F4F4F6] rounded-[24px] p-6 flex flex-col justify-between border border-black/[0.05] hover:border-[#0075EB]/40 transition-colors">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-11 h-11 rounded-2xl bg-[#191C1F] text-white flex items-center justify-center">
+                  <i data-lucide="smartphone" class="w-5 h-5"></i>
+                </div>
+                <!-- Clean Inline SVG QR Code -->
+                <div class="flex items-center gap-2.5 bg-white p-2 rounded-xl border border-black/[0.06]">
+                  <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Scan QR code for Sileta Mobile">
+                    <rect width="46" height="46" rx="4" fill="#FFFFFF"/>
+                    <rect x="3" y="3" width="12" height="12" rx="2" stroke="#191C1F" stroke-width="2.5"/>
+                    <rect x="7" y="7" width="4" height="4" fill="#191C1F"/>
+                    <rect x="31" y="3" width="12" height="12" rx="2" stroke="#191C1F" stroke-width="2.5"/>
+                    <rect x="35" y="7" width="4" height="4" fill="#191C1F"/>
+                    <rect x="3" y="31" width="12" height="12" rx="2" stroke="#191C1F" stroke-width="2.5"/>
+                    <rect x="7" y="35" width="4" height="4" fill="#191C1F"/>
+                    <rect x="19" y="4" width="4" height="4" fill="#191C1F"/>
+                    <rect x="24" y="9" width="4" height="4" fill="#191C1F"/>
+                    <rect x="19" y="14" width="4" height="4" fill="#0075EB"/>
+                    <rect x="4" y="19" width="4" height="4" fill="#191C1F"/>
+                    <rect x="12" y="19" width="4" height="4" fill="#191C1F"/>
+                    <rect x="19" y="21" width="6" height="6" rx="1" fill="#191C1F"/>
+                    <rect x="28" y="19" width="4" height="4" fill="#191C1F"/>
+                    <rect x="37" y="20" width="5" height="5" fill="#191C1F"/>
+                    <rect x="19" y="31" width="4" height="4" fill="#191C1F"/>
+                    <rect x="26" y="29" width="5" height="5" fill="#00B87C"/>
+                    <rect x="34" y="31" width="4" height="4" fill="#191C1F"/>
+                    <rect x="24" y="38" width="4" height="4" fill="#191C1F"/>
+                    <rect x="32" y="38" width="10" height="4" fill="#191C1F"/>
+                  </svg>
+                  <span class="text-[10px] font-bold leading-tight text-[#5E646E] max-w-[60px]">Scan with phone camera</span>
+                </div>
+              </div>
+
+              <h3 class="font-display font-extrabold text-xl text-[#191C1F] mb-2">
+                Sileta for Mobile
+              </h3>
+              <p class="text-xs font-semibold text-[#0075EB] mb-3">iOS &amp; Android</p>
+
+              <ul class="space-y-2 text-xs text-[#5E646E] mb-6">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#00B87C] shrink-0"></i>One-tap subscription freeze</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#00B87C] shrink-0"></i>Instant rent &amp; tax alerts</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#00B87C] shrink-0"></i>Live FX on the go</li>
+              </ul>
+            </div>
+
+            <div class="space-y-2.5">
+              <button type="button" onclick="triggerPlatformDownload('iOS (App Store)', 'Sileta-Mobile-iOS.ipa', 'Open the App Store prompt on your iPhone or scan the QR code above to link your Sileta OS wallet.')" class="w-full py-3 px-4 rounded-full bg-[#191C1F] text-white text-xs font-bold hover:bg-black transition-colors flex items-center justify-center gap-2 cursor-pointer">
+                <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
+                <span>Download for iOS</span>
+              </button>
+              <button type="button" onclick="triggerPlatformDownload('Android (Google Play)', 'Sileta-Mobile-Android.apk', 'Install via Google Play or enable verified APK install to activate instant rent & subscription autopilot.')" class="w-full py-3 px-4 rounded-full bg-white text-[#191C1F] border border-black/10 text-xs font-bold hover:bg-[#EAEAEF] transition-colors flex items-center justify-center gap-2 cursor-pointer">
+                <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                <span>Download for Android</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2: PC (Windows & macOS) -->
+          <div class="bg-[#F4F4F6] rounded-[24px] p-6 flex flex-col justify-between border border-black/[0.05] hover:border-[#0075EB]/40 transition-colors">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-11 h-11 rounded-2xl bg-[#0075EB] text-white flex items-center justify-center">
+                  <i data-lucide="laptop" class="w-5 h-5"></i>
+                </div>
+                <span class="px-2.5 py-1 rounded-full bg-white text-[#191C1F] text-[11px] font-bold border border-black/[0.06]">Desktop Pro</span>
+              </div>
+
+              <h3 class="font-display font-extrabold text-xl text-[#191C1F] mb-2">
+                Sileta for PC
+              </h3>
+              <p class="text-xs font-semibold text-[#0075EB] mb-3">Windows &amp; macOS</p>
+
+              <ul class="space-y-2 text-xs text-[#5E646E] mb-6">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#00B87C] shrink-0"></i>Full-screen profit &amp; break-even modeling</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#00B87C] shrink-0"></i>Bulk supplier batch scheduling</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#00B87C] shrink-0"></i>Automated tax &amp; invoice exports</li>
+              </ul>
+            </div>
+
+            <div class="space-y-2.5">
+              <button type="button" onclick="triggerPlatformDownload('Windows (64-bit)', 'Sileta-Setup-2.4.0.exe', 'Run Sileta-Setup-2.4.0.exe on Windows 10/11 and sign in to sync your business supplier schedules.')" class="w-full py-3 px-4 rounded-full bg-[#191C1F] text-white text-xs font-bold hover:bg-black transition-colors flex items-center justify-center gap-2 cursor-pointer">
+                <i data-lucide="monitor" class="w-3.5 h-3.5"></i>
+                <span>Download for Windows (.exe)</span>
+              </button>
+              <button type="button" onclick="triggerPlatformDownload('macOS (Apple Silicon & Intel)', 'Sileta-Desktop-2.4.0.dmg', 'Open Sileta-Desktop-2.4.0.dmg, drag Sileta into Applications, and launch to enable automated payouts.')" class="w-full py-3 px-4 rounded-full bg-white text-[#191C1F] border border-black/10 text-xs font-bold hover:bg-[#EAEAEF] transition-colors flex items-center justify-center gap-2 cursor-pointer">
+                <i data-lucide="command" class="w-3.5 h-3.5"></i>
+                <span>Download for macOS (.dmg)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Download Confirmation State -->
+      <div id="modal-view-confirm" class="hidden py-6 text-center max-w-lg mx-auto">
+        <div class="w-16 h-16 rounded-full bg-[#00B87C]/15 text-[#00B87C] flex items-center justify-center mx-auto mb-5">
+          <i data-lucide="check-circle-2" class="w-8 h-8"></i>
+        </div>
+        <span id="confirm-platform-pill" class="inline-block px-3 py-1 rounded-full bg-[#F4F4F6] text-[#191C1F] text-xs font-bold mb-3">Windows</span>
+        <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-[#191C1F] mb-2">
+          Preparing your Sileta installer...
+        </h3>
+        <p id="confirm-file-name" class="text-sm font-bold text-[#0075EB] tabular-nums mb-4">Sileta-Setup-2.4.0.exe</p>
+
+        <div class="bg-[#F4F4F6] rounded-2xl p-5 text-left mb-6">
+          <p class="text-xs font-bold uppercase tracking-wider text-[#5E646E] mb-2">Quick Setup Instructions</p>
+          <p id="confirm-instructions" class="text-sm text-[#191C1F] leading-relaxed"></p>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <button type="button" onclick="resetModalToSelect()" class="px-6 py-3 rounded-full bg-[#F4F4F6] text-[#191C1F] text-xs font-bold hover:bg-[#EAEAEF] transition-colors cursor-pointer">
+            ← Choose another device
+          </button>
+          <button type="button" onclick="closePlatformModal()" class="px-6 py-3 rounded-full bg-[#191C1F] text-white text-xs font-bold hover:bg-black transition-colors cursor-pointer">
+            Done
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- JAVASCRIPT: LENIS, GSAP CHOREOGRAPHY, CALCULATORS & INTERACTIONS      -->
+  <!-- ===================================================================== -->
+  <script>
+    // -----------------------------------------------------------------------
+    // 1. INITIALIZE LUCIDE ICONS
+    // -----------------------------------------------------------------------
+    lucide.createIcons();
+
+    // -----------------------------------------------------------------------
+    // 2. LENIS SMOOTH SCROLL + GSAP SCROLLTRIGGER SYNC
+    // -----------------------------------------------------------------------
+    gsap.registerPlugin(ScrollTrigger);
+
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+
+    // Smooth anchor navigation with Lenis
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (targetId && targetId.length > 1) {
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            lenis.scrollTo(targetEl, { offset: -72 });
+          }
+        }
+      });
+    });
+
+    // Header Scroll Glassmorphism Transition
+    const siteHeader = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 24) {
+        siteHeader.classList.add('scrolled');
+      } else {
+        siteHeader.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // -----------------------------------------------------------------------
+    // 3. GSAP HERO ENTRANCE, 3D PERSPECTIVE TILT & SCROLL-EXPANDING STAGE
+    // -----------------------------------------------------------------------
+    gsap.from('.hero-stagger', {
+      y: 28,
+      opacity: 0,
+      duration: 0.9,
+      stagger: 0.1,
+      ease: 'power3.out',
+      clearProps: 'transform'
+    });
+
+    // ScrollTrigger subtle scale-up & parallax float on hero stage
+    gsap.fromTo('#hero-stage',
+      { scale: 0.95 },
+      {
+        scale: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#hero-stage-wrapper',
+          start: 'top 85%',
+          end: 'bottom 30%',
+          scrub: true
+        }
+      }
+    );
+
+    gsap.to('#hero-card-left', {
+      y: -18,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#hero-stage-wrapper',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+
+    gsap.to('#hero-card-right', {
+      y: -26,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#hero-stage-wrapper',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+
+    // Mouse-move 3D perspective tilt on hero stage (desktop)
+    const heroWrapper = document.getElementById('hero-stage-wrapper');
+    const heroStage = document.getElementById('hero-stage');
+    if (heroWrapper && heroStage) {
+      heroWrapper.addEventListener('mousemove', (e) => {
+        if (window.innerWidth < 1024) return;
+        const rect = heroWrapper.getBoundingClientRect();
+        const relX = (e.clientX - rect.left) / rect.width - 0.5;
+        const relY = (e.clientY - rect.top) / rect.height - 0.5;
+        gsap.to(heroStage, {
+          rotateY: relX * 5,
+          rotateX: -relY * 4,
+          duration: 0.5,
+          ease: 'power2.out'
+        });
+      });
+
+      heroWrapper.addEventListener('mouseleave', () => {
+        gsap.to(heroStage, {
+          rotateY: 0,
+          rotateX: 0,
+          duration: 0.6,
+          ease: 'power2.out'
+        });
+      });
+    }
+
+    // Staggered Scroll Reveals for Bento Cards & Dark Story Cards
+    gsap.utils.toArray('.story-card').forEach((card) => {
+      gsap.from(card, {
+        y: 36,
+        opacity: 0,
+        duration: 0.75,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 86%',
+          once: true
+        }
+      });
+    });
+
+    // Desktop Pinned Storytelling (Section 5)
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 1024px)', () => {
+      ScrollTrigger.create({
+        trigger: '#pinned-story-container',
+        start: 'top 110px',
+        end: 'bottom bottom',
+        pin: '#pinned-left-col',
+        pinSpacing: false
+      });
+    });
+
+    // -----------------------------------------------------------------------
+    // 4. HERO INTERACTIVE CONTROLS (SUBSCRIPTION FREEZE + PHONE CURRENCY)
+    // -----------------------------------------------------------------------
+    let heroSubFrozen = false;
+    function toggleHeroSubFreeze() {
+      heroSubFrozen = !heroSubFrozen;
+      const list = document.getElementById('hero-sub-list');
+      const dot = document.getElementById('hero-freeze-dot');
+      const label = document.getElementById('hero-freeze-label');
+      const statusText = document.getElementById('hero-sub-status-text');
+      const badge = document.getElementById('hero-sub-badge');
+      const btn = document.getElementById('hero-sub-freeze-btn');
+
+      btn.setAttribute('aria-pressed', String(heroSubFrozen));
+      if (heroSubFrozen) {
+        list.classList.add('opacity-45');
+        dot.classList.remove('bg-[#00B87C]');
+        dot.classList.add('bg-[#0075EB]');
+        label.textContent = 'Frozen';
+        statusText.innerHTML = 'All 5 paused • <span class="tabular-nums">$0.00/mo</span>';
+        badge.textContent = 'Paused';
+        badge.className = 'px-2.5 py-1 rounded-full bg-white/15 text-white text-[11px] font-bold';
+      } else {
+        list.classList.remove('opacity-45');
+        dot.classList.remove('bg-[#0075EB]');
+        dot.classList.add('bg-[#00B87C]');
+        label.textContent = 'Active';
+        statusText.innerHTML = 'Auto-settles on 1st • <span class="tabular-nums">$148.00/mo</span>';
+        badge.textContent = 'Unified';
+        badge.className = 'px-2.5 py-1 rounded-full bg-[#00B87C]/20 text-[#00B87C] text-[11px] font-bold';
+      }
+    }
+
+    const FX_RATES_FROM_USD = {
+      USD: { rate: 1.0, symbol: '$' },
+      EUR: { rate: 0.92, symbol: '€' },
+      GBP: { rate: 0.78, symbol: '£' },
+      BWP: { rate: 13.50, symbol: 'P' },
+      ZAR: { rate: 18.20, symbol: 'R' },
+      JPY: { rate: 154.0, symbol: '¥' }
+    };
+
+    function formatMoney(amount, currencyCode) {
+      const meta = FX_RATES_FROM_USD[currencyCode] || FX_RATES_FROM_USD.USD;
+      const decimals = currencyCode === 'JPY' ? 0 : 2;
+      const formatted = Math.abs(amount).toLocaleString('en-US', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
+      return (amount < 0 ? '-' : '') + meta.symbol + formatted;
+    }
+
+    function setPhoneCurrency(cur) {
+      const meta = FX_RATES_FROM_USD[cur];
+      const baseBal = 24850;
+      const baseRent = 1450;
+      const baseTax = 920;
+      const baseSup = 3600;
+
+      document.querySelectorAll('.phone-cur-btn').forEach((btn) => {
+        if (btn.dataset.cur === cur) {
+          btn.className = 'phone-cur-btn flex-1 px-2.5 py-1 rounded-full text-[11px] font-bold transition-all bg-white text-[#191C1F] shadow-sm';
+        } else {
+          btn.className = 'phone-cur-btn flex-1 px-2.5 py-1 rounded-full text-[11px] font-bold transition-all text-[#5E646E] hover:text-[#191C1F]';
+        }
+      });
+
+      document.getElementById('phone-balance').textContent = formatMoney(baseBal * meta.rate, cur);
+      document.getElementById('phone-rent-val').textContent = meta.symbol + Math.round(baseRent * meta.rate).toLocaleString('en-US');
+      document.getElementById('phone-tax-val').textContent = meta.symbol + Math.round(baseTax * meta.rate).toLocaleString('en-US');
+      document.getElementById('phone-sup-val').textContent = meta.symbol + Math.round(baseSup * meta.rate).toLocaleString('en-US');
+      document.getElementById('phone-rate-note').textContent = `1 USD = ${meta.rate.toFixed(4)} ${cur} • Live FX Synced`;
+    }
+
+    // -----------------------------------------------------------------------
+    // 5. REVOLUT SEGMENTED "PERSONAL / BUSINESS" BENTO TAB SWITCHER
+    // -----------------------------------------------------------------------
+    let activeBentoTab = 'personal';
+
+    function positionBentoIndicator(tab) {
+      const btn = document.getElementById(tab === 'personal' ? 'tab-btn-personal' : 'tab-btn-business');
+      const indicator = document.getElementById('bento-tab-indicator');
+      if (btn && indicator) {
+        indicator.style.width = `${btn.offsetWidth}px`;
+        indicator.style.transform = `translateX(${btn.offsetLeft - 6}px)`;
+      }
+    }
+
+    function switchBentoTab(tab) {
+      activeBentoTab = tab;
+      const personalPanel = document.getElementById('bento-panel-personal');
+      const businessPanel = document.getElementById('bento-panel-business');
+      const btnPersonal = document.getElementById('tab-btn-personal');
+      const btnBusiness = document.getElementById('tab-btn-business');
+
+      const navJumpPersonal = document.getElementById('nav-jump-personal');
+      const navJumpBusiness = document.getElementById('nav-jump-business');
+
+      positionBentoIndicator(tab);
+
+      if (tab === 'personal') {
+        personalPanel.classList.remove('hidden');
+        personalPanel.classList.add('grid');
+        businessPanel.classList.add('hidden');
+        businessPanel.classList.remove('grid');
+
+        btnPersonal.classList.replace('text-[#5E646E]', 'text-[#191C1F]');
+        btnBusiness.classList.replace('text-[#191C1F]', 'text-[#5E646E]');
+
+        navJumpPersonal.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all bg-white text-[#191C1F] shadow-sm';
+        navJumpBusiness.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all text-[#5E646E] hover:text-[#191C1F]';
+
+        gsap.fromTo('#bento-panel-personal .bento-card',
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.45, stagger: 0.07, ease: 'power2.out', clearProps: 'transform' }
+        );
+      } else {
+        businessPanel.classList.remove('hidden');
+        businessPanel.classList.add('grid');
+        personalPanel.classList.add('hidden');
+        personalPanel.classList.remove('grid');
+
+        btnBusiness.classList.replace('text-[#5E646E]', 'text-[#191C1F]');
+        btnPersonal.classList.replace('text-[#191C1F]', 'text-[#5E646E]');
+
+        navJumpBusiness.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all bg-white text-[#191C1F] shadow-sm';
+        navJumpPersonal.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all text-[#5E646E] hover:text-[#191C1F]';
+
+        gsap.fromTo('#bento-panel-business .bento-card',
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.45, stagger: 0.07, ease: 'power2.out', clearProps: 'transform' }
+        );
+      }
+      ScrollTrigger.refresh();
+    }
+
+    function jumpToEcosystem(tab) {
+      switchBentoTab(tab);
+      const target = document.getElementById('bento-ecosystem');
+      if (target) {
+        lenis.scrollTo(target, { offset: -72 });
+      }
+    }
+
+    window.addEventListener('load', () => positionBentoIndicator(activeBentoTab));
+    window.addEventListener('resize', () => positionBentoIndicator(activeBentoTab));
+
+    // Interactive Personal Subscription Checklist
+    function updatePersonalBentoTotal() {
+      const checks = document.querySelectorAll('.personal-sub-check');
+      let sum = 0;
+      let count = 0;
+      checks.forEach((chk) => {
+        if (chk.checked) {
+          sum += parseFloat(chk.value) || 0;
+          count++;
+        }
+      });
+      const savings = count > 1 ? (sum * 0.148).toFixed(2) : '0.00';
+      document.getElementById('bento-personal-total').innerHTML = `$${sum.toFixed(2)}<span class="text-sm font-semibold text-[#5E646E]">/mo</span>`;
+      document.getElementById('bento-personal-savings').textContent = count > 0 ? `Saving $${savings}/mo via Sileta Bundle` : 'Select subscriptions to bundle';
+    }
+
+    // Interactive Business Supplier Unit Stepper
+    let supplierUnits = 500;
+    function stepSupplierUnits(delta) {
+      supplierUnits = Math.max(50, Math.min(5000, supplierUnits + delta));
+      const payout = supplierUnits * 12;
+      document.getElementById('supplier-units-display').textContent = `${supplierUnits} Units`;
+      document.getElementById('supplier-unit-inline').textContent = supplierUnits;
+      document.getElementById('supplier-payout-total').textContent = `$${payout.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+
+    // -----------------------------------------------------------------------
+    // 6. INTERACTIVE LIVE FINANCIAL CALCULATORS (PROFIT/BREAK-EVEN & FX)
+    // -----------------------------------------------------------------------
+    function switchCalcMode(mode) {
+      const panelProfit = document.getElementById('calc-panel-profit');
+      const panelFx = document.getElementById('calc-panel-fx');
+      const btnProfit = document.getElementById('calc-mode-btn-profit');
+      const btnFx = document.getElementById('calc-mode-btn-fx');
+
+      if (mode === 'profit') {
+        panelProfit.classList.remove('hidden');
+        panelProfit.classList.add('grid');
+        panelFx.classList.add('hidden');
+        panelFx.classList.remove('grid');
+
+        btnProfit.className = 'px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-white text-[#191C1F] shadow-sm transition-all cursor-pointer';
+        btnFx.className = 'px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-[#5E646E] hover:text-[#191C1F] transition-all cursor-pointer';
+      } else {
+        panelFx.classList.remove('hidden');
+        panelFx.classList.add('grid');
+        panelProfit.classList.add('hidden');
+        panelProfit.classList.remove('grid');
+
+        btnFx.className = 'px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-white text-[#191C1F] shadow-sm transition-all cursor-pointer';
+        btnProfit.className = 'px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-[#5E646E] hover:text-[#191C1F] transition-all cursor-pointer';
+      }
+    }
+
+    // Mode A: Profit, Fixed Cost & Break-Even Calculator
+    function syncProfitCalc(source) {
+      const pairs = [
+        ['fixed-cost', 25000],
+        ['sell-price', 500],
+        ['var-cost', 400],
+        ['units-sold', 1000]
+      ];
+
+      pairs.forEach(([id, sliderMax]) => {
+        const inp = document.getElementById(`input-${id}`);
+        const sld = document.getElementById(`slider-${id}`);
+        if (source === 'slider') {
+          inp.value = sld.value;
+        } else {
+          const val = Math.max(0, parseFloat(inp.value) || 0);
+          sld.value = Math.min(sliderMax, val);
+        }
+      });
+
+      const fixedCost = Math.max(0, parseFloat(document.getElementById('input-fixed-cost').value) || 0);
+      const sellPrice = Math.max(0, parseFloat(document.getElementById('input-sell-price').value) || 0);
+      const varCost = Math.max(0, parseFloat(document.getElementById('input-var-cost').value) || 0);
+      const unitsSold = Math.max(0, parseFloat(document.getElementById('input-units-sold').value) || 0);
+
+      const totalRevenue = sellPrice * unitsSold;
+      const totalCosts = fixedCost + (varCost * unitsSold);
+      const netProfit = totalRevenue - totalCosts;
+      const marginPct = totalRevenue > 0 ? (netProfit / totalRevenue) * 100 : 0;
+      const contributionMargin = sellPrice - varCost;
+
+      document.getElementById('out-revenue').textContent = formatMoney(totalRevenue, 'USD');
+      document.getElementById('out-total-cost').textContent = formatMoney(totalCosts, 'USD');
+
+      const profitEl = document.getElementById('out-net-profit');
+      const profitLabel = document.getElementById('out-profit-label');
+      const marginPill = document.getElementById('out-margin-pill');
+
+      if (netProfit >= 0) {
+        profitLabel.textContent = 'Net Monthly Profit';
+        profitLabel.className = 'text-xs font-bold uppercase tracking-wider text-[#00B87C]';
+        profitEl.textContent = '+' + formatMoney(netProfit, 'USD');
+        profitEl.className = 'font-display font-extrabold text-3xl tabular-nums text-[#00B87C]';
+        marginPill.textContent = `+${marginPct.toFixed(1)}%`;
+        marginPill.className = 'px-2.5 py-0.5 rounded-full bg-[#00B87C]/20 text-[#00B87C] text-[11px] font-bold tabular-nums';
+      } else {
+        profitLabel.textContent = 'Net Monthly Loss';
+        profitLabel.className = 'text-xs font-bold uppercase tracking-wider text-rose-400';
+        profitEl.textContent = formatMoney(netProfit, 'USD');
+        profitEl.className = 'font-display font-extrabold text-3xl tabular-nums text-rose-400';
+        marginPill.textContent = `${marginPct.toFixed(1)}%`;
+        marginPill.className = 'px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 text-[11px] font-bold tabular-nums';
+      }
+
+      const beEl = document.getElementById('out-breakeven');
+      const beBar = document.getElementById('out-breakeven-bar');
+      const beNote = document.getElementById('out-breakeven-note');
+
+      if (contributionMargin <= 0) {
+        beEl.textContent = 'Unreachable';
+        beBar.style.width = '10%';
+        beBar.className = 'h-full bg-rose-400 transition-all duration-200';
+        beNote.innerHTML = 'Selling price must exceed variable cost per unit to reach break-even.';
+      } else {
+        const breakEvenUnits = Math.ceil(fixedCost / contributionMargin);
+        beEl.textContent = `${breakEvenUnits.toLocaleString('en-US')} units`;
+        const pct = breakEvenUnits === 0 ? 100 : Math.min(100, Math.round((unitsSold / breakEvenUnits) * 100));
+        beBar.style.width = `${pct}%`;
+
+        if (unitsSold >= breakEvenUnits) {
+          beBar.className = 'h-full bg-[#00B87C] transition-all duration-200';
+          const surplus = unitsSold - breakEvenUnits;
+          beNote.innerHTML = `You are <strong class="text-white">${surplus.toLocaleString('en-US')} units above</strong> your monthly break-even threshold.`;
+        } else {
+          beBar.className = 'h-full bg-[#0075EB] transition-all duration-200';
+          const deficit = breakEvenUnits - unitsSold;
+          beNote.innerHTML = `Sell <strong class="text-white">${deficit.toLocaleString('en-US')} more units</strong> to cross your monthly break-even threshold.`;
+        }
+      }
+    }
+
+    // Mode B: Monthly Expenditure & Live Exchange Rate Calculator
+    function updateFxCalc() {
+      const subs = Math.max(0, parseFloat(document.getElementById('fx-subs').value) || 0);
+      const rent = Math.max(0, parseFloat(document.getElementById('fx-rent').value) || 0);
+      const tax = Math.max(0, parseFloat(document.getElementById('fx-tax').value) || 0);
+      const supplier = Math.max(0, parseFloat(document.getElementById('fx-supplier').value) || 0);
+
+      const totalBaseAmount = subs + rent + tax + supplier;
+      document.getElementById('fx-total-usd').textContent = formatMoney(totalBaseAmount, 'USD');
+
+      const fromCur = document.getElementById('fx-from-cur').value;
+      const toCur = document.getElementById('fx-to-cur').value;
+
+      const fromRate = FX_RATES_FROM_USD[fromCur].rate;
+      const toRate = FX_RATES_FROM_USD[toCur].rate;
+      const crossRate = toRate / fromRate;
+
+      const convertedTotal = totalBaseAmount * crossRate;
+
+      document.getElementById('fx-from-display').textContent = formatMoney(totalBaseAmount, fromCur);
+      document.getElementById('fx-to-display').textContent = formatMoney(convertedTotal, toCur);
+      document.getElementById('fx-rate-readout').textContent = `1 ${fromCur} = ${crossRate.toFixed(4)} ${toCur}`;
+    }
+
+    function swapFxCurrencies() {
+      const fromSelect = document.getElementById('fx-from-cur');
+      const toSelect = document.getElementById('fx-to-cur');
+      const temp = fromSelect.value;
+      fromSelect.value = toSelect.value;
+      toSelect.value = temp;
+      updateFxCalc();
+    }
+
+    // Initialize calculators on load
+    syncProfitCalc('input');
+    updateFxCalc();
+
+    // -----------------------------------------------------------------------
+    // 7. INTERACTIVE MOBILE VS. PC PLATFORM MODAL
+    // -----------------------------------------------------------------------
+    const modalBackdrop = document.getElementById('platform-modal');
+    const modalCard = document.getElementById('platform-modal-card');
+
+    function openPlatformModal() {
+      resetModalToSelect();
+      modalBackdrop.classList.remove('hidden');
+      modalBackdrop.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      lenis.stop();
+
+      gsap.fromTo(modalBackdrop, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'power2.out' });
+      gsap.fromTo(modalCard,
+        { opacity: 0, scale: 0.92, y: 18 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: 'power3.out' }
+      );
+    }
+
+    function closePlatformModal() {
+      gsap.to(modalCard, {
+        opacity: 0,
+        scale: 0.94,
+        y: 12,
+        duration: 0.2,
+        ease: 'power2.in'
+      });
+      gsap.to(modalBackdrop, {
+        opacity: 0,
+        duration: 0.22,
+        ease: 'power2.in',
+        onComplete: () => {
+          modalBackdrop.classList.add('hidden');
+          modalBackdrop.classList.remove('flex');
+          document.body.style.overflow = '';
+          lenis.start();
+        }
+      });
+    }
+
+    function triggerPlatformDownload(platformLabel, fileName, instructions) {
+      document.getElementById('modal-view-select').classList.add('hidden');
+      document.getElementById('modal-view-confirm').classList.remove('hidden');
+
+      document.getElementById('confirm-platform-pill').textContent = platformLabel;
+      document.getElementById('confirm-file-name').textContent = fileName;
+      document.getElementById('confirm-instructions').textContent = instructions;
+
+      gsap.fromTo('#modal-view-confirm',
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }
+      );
+    }
+
+    function resetModalToSelect() {
+      document.getElementById('modal-view-confirm').classList.add('hidden');
+      document.getElementById('modal-view-select').classList.remove('hidden');
+    }
+
+    // Bind every CTA button across the page to the Platform Modal
+    document.querySelectorAll('[data-open-modal]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        openPlatformModal();
+      });
+    });
+
+    // Close modal on backdrop click or Escape key
+    modalBackdrop.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) {
+        closePlatformModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modalBackdrop.classList.contains('hidden')) {
+        closePlatformModal();
+      }
+    });
+  </script>
+</body>
+</html>
