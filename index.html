@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -41,6 +40,10 @@
   </script>
 
   <style>
+    :root {
+      --revolut-ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
     body {
       background-color: #060608;
       color: #ffffff;
@@ -67,11 +70,67 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /* Very Faint Cobalt Architectural Grid (48px x 48px) */
+    /* Revolut-Style Hero Staggered Entrance */
+    @keyframes heroFadeUp {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 28px, 0);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    @keyframes heroImageSettle {
+      0% {
+        opacity: 0.35;
+        transform: scale(1.07);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1.01);
+      }
+    }
+
+    .hero-anim-1 { animation: heroFadeUp 0.85s var(--revolut-ease) 0.08s both; }
+    .hero-anim-2 { animation: heroFadeUp 0.85s var(--revolut-ease) 0.2s both; }
+    .hero-anim-3 { animation: heroFadeUp 0.85s var(--revolut-ease) 0.32s both; }
+    .hero-anim-4 { animation: heroFadeUp 0.9s var(--revolut-ease) 0.42s both; }
+    .hero-bg-settle { animation: heroImageSettle 1.6s var(--revolut-ease) forwards; }
+
+    /* Revolut-Style Scroll Reveal Transitions */
+    .reveal-up {
+      opacity: 0;
+      transform: translate3d(0, 32px, 0);
+      transition:
+        opacity 0.8s var(--revolut-ease),
+        transform 0.8s var(--revolut-ease);
+      will-change: opacity, transform;
+    }
+
+    .reveal-up.is-visible {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* Subtle Revolut Card Hover Motion */
+    .revolut-card-hover {
+      transition:
+        transform 0.45s var(--revolut-ease),
+        box-shadow 0.45s var(--revolut-ease),
+        border-color 0.35s ease;
+    }
+
+    .revolut-card-hover:hover {
+      transform: translateY(-4px);
+    }
+
+    /* Very Faint Cobalt Architectural Grid for Dark Lower Sections */
     .cobalt-grid {
       background-image:
-        linear-gradient(to right, rgba(37, 99, 235, 0.065) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(37, 99, 235, 0.065) 1px, transparent 1px);
+        linear-gradient(to right, rgba(37, 99, 235, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(37, 99, 235, 0.06) 1px, transparent 1px);
       background-size: 48px 48px;
       mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 100%);
       -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 100%);
@@ -79,15 +138,19 @@
 
     /* Dark Section Glass Card */
     .glass-card {
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.045);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      transition: border-color 0.25s ease, background-color 0.25s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition:
+        border-color 0.3s ease,
+        background-color 0.3s ease,
+        transform 0.45s var(--revolut-ease);
     }
 
     .glass-card:hover {
-      border-color: rgba(37, 99, 235, 0.4);
+      border-color: rgba(59, 130, 246, 0.45);
+      transform: translateY(-3px);
     }
 
     /* Hero Overlapping Subscription Card Deck */
@@ -95,28 +158,54 @@
       position: absolute;
       inset: 0;
       transition:
-        transform 0.78s cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 0.78s cubic-bezier(0.22, 1, 0.36, 1);
+        transform 0.8s var(--revolut-ease),
+        opacity 0.8s var(--revolut-ease);
       will-change: transform, opacity;
     }
 
     .deck-card-inner {
       transition:
-        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.4s var(--revolut-ease),
         border-color 0.35s ease,
-        box-shadow 0.35s ease;
+        box-shadow 0.4s ease;
     }
 
     .deck-slot[data-active="true"]:hover .deck-card-inner {
       transform: translateY(-8px) scale(1.02);
-      border-color: rgba(96, 165, 250, 0.55);
-      box-shadow: 0 28px 70px rgba(37, 99, 235, 0.28), 0 12px 32px rgba(0, 0, 0, 0.65);
+      border-color: rgba(96, 165, 250, 0.6);
+      box-shadow: 0 30px 75px rgba(37, 99, 235, 0.32), 0 14px 36px rgba(0, 0, 0, 0.7);
     }
 
-    /* GPU-Accelerated Revolut Morph Frame */
-    #heroMorphFrame {
-      will-change: transform, width, height, border-radius;
-      transform-origin: top left;
+    /* Tab Panel Crossfade */
+    @keyframes tabFadeIn {
+      from {
+        opacity: 0;
+        transform: translate3d(0, 10px, 0);
+      }
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    .tab-animate {
+      animation: tabFadeIn 0.4s var(--revolut-ease);
+    }
+
+    /* Modal Spring Entrance */
+    @keyframes modalSpring {
+      from {
+        opacity: 0;
+        transform: scale(0.95) translate3d(0, 14px, 0);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translate3d(0, 0, 0);
+      }
+    }
+
+    .modal-spring {
+      animation: modalSpring 0.32s var(--revolut-ease) forwards;
     }
 
     /* Clean Range Sliders */
@@ -145,7 +234,7 @@
     }
 
     input[type="range"].sileta-range-light::-webkit-slider-thumb:hover {
-      transform: scale(1.1);
+      transform: scale(1.12);
     }
 
     input[type="range"].sileta-range-light::-moz-range-thumb {
@@ -197,9 +286,9 @@
         </button>
         <button id="navCtaBtn" onclick="openDownloadModal('full automated settlements')" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-[#191C1F] hover:opacity-90 text-[13px] font-semibold transition-all group">
           <span>Get the App</span>
-          <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
+          <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
         </button>
-        <button id="mobileMenuBtn" class="md:hidden p-1.5 rounded-lg text-white hover:bg-white/10 transition-colors" aria-label="Toggle Menu">
+        <button id="mobileMenuBtn" class="md:hidden p-1.5 rounded-lg text-white hover:bg-white/15 transition-colors" aria-label="Toggle Menu">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
       </div>
@@ -216,200 +305,101 @@
   </header>
 
   <!-- =========================================================
-       2. REVOLUT-STYLE SCROLL-DRIVEN HERO & MORPH SHOWCASE STAGE
+       2. REVOLUT-STYLE FULL-BLEED PHOTOGRAPHY HERO
   ========================================================== -->
-  <section id="revolutScrollStage" class="relative h-[195vh] bg-white">
-    <div id="stickyHeroViewport" class="sticky top-0 h-screen w-full overflow-hidden bg-white">
+  <section id="heroSection" class="relative min-h-[92vh] sm:min-h-screen flex items-center pt-28 pb-20 sm:pt-32 sm:pb-24 overflow-hidden bg-[#060608]">
+    <!-- Full-Bleed Lifestyle Photo Background with Parallax & Ken Burns Settle -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <img
+        id="heroBgImg"
+        src="hero-bg.jpg"
+        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1650742030047-81300495569d?auto=format&fit=crop&w=1800&q=85';"
+        alt="Modern Sileta user managing payments effortlessly on the move"
+        class="hero-bg-settle w-full h-[112%] object-cover object-[50%_18%] sm:object-[52%_15%] will-change-transform"
+      />
+      <!-- Revolut-style Editorial Scrim: High readability left & bottom while preserving crisp center portrait -->
+      <div class="absolute inset-0 bg-gradient-to-r from-[#060608]/85 via-[#060608]/35 to-[#060608]/55"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#060608]/85 via-transparent to-[#060608]/40"></div>
+    </div>
 
-      <!-- STAGE TWO REVEAL (White Editorial 3-Card Layout underneath/around morphed image) -->
-      <div id="heroStageTwo" class="relative z-10 h-full max-w-6xl mx-auto px-5 sm:px-8 pt-20 sm:pt-24 pb-10 flex flex-col justify-center opacity-0 pointer-events-none">
-        <!-- Stage Two Headline -->
-        <div id="stageTwoHeader" class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-          <h2 class="font-display-tight font-extrabold text-3xl sm:text-5xl text-[#191C1F] leading-[1.06]">
-            Your money, <span class="font-editorial-italic text-cobalt font-normal text-[1.08em]">effortless</span> from day one.
-          </h2>
-          <p class="text-sm sm:text-base text-slate-500 mt-3">
-            Subscriptions, team payroll, and automated tax reserves unified in one calm place.
+    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 w-full">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-6 items-center">
+        <!-- Hero Left Copy (Cols 1-5: Leaves open central breathing room for portrait) -->
+        <div class="lg:col-span-5 space-y-6">
+          <h1 class="hero-anim-1 font-display-tight font-extrabold text-4xl sm:text-5xl lg:text-[56px] text-white leading-[1.05] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">
+            Every bill, subscription, and payout on <span class="font-editorial-italic text-cobalt-soft font-normal text-[1.08em]">autopilot.</span>
+          </h1>
+
+          <p class="hero-anim-2 text-base sm:text-lg text-slate-200 leading-relaxed max-w-md drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
+            Sileta automatically pays your Netflix, Spotify, Apple Music, electricity, water, rent, taxes, and team—so you never have to worry about paying a bill again.
+          </p>
+
+          <!-- Pill CTAs -->
+          <div class="hero-anim-3 flex flex-wrap items-center gap-3 pt-1">
+            <button onclick="openDownloadModal('automated bills and payouts')" class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-white text-[#191C1F] hover:bg-slate-100 font-semibold text-sm sm:text-base shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
+              <span>Download Sileta</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            </button>
+
+            <a href="#calculators" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#060608]/55 hover:bg-[#060608]/75 backdrop-blur-md border border-white/25 text-white font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-[1.02]">
+              <span>Try Live Calculators</span>
+            </a>
+          </div>
+
+          <!-- Subtle Trust Bar -->
+          <p class="hero-anim-3 font-mono text-[11px] sm:text-xs text-slate-300/90 pt-1 tracking-wide">
+            256-Bit Encrypted &bull; Automated Tax &amp; Bill Protection &bull; iOS, Android &amp; Desktop
           </p>
         </div>
 
-        <!-- 3-Card Revolut Showcase Row -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-center max-w-5xl mx-auto w-full">
-          <!-- Left Peripheral Card -->
-          <div id="stageLeftCard" class="hidden md:flex flex-col justify-between h-[340px] lg:h-[380px] rounded-3xl bg-[#F4F4F6] p-7 border border-slate-200/70">
-            <div>
-              <span class="font-mono text-[10px] font-semibold uppercase tracking-widest text-cobalt">Subscriptions</span>
-              <h3 class="font-display-tight font-bold text-2xl text-[#191C1F] mt-2">Zero manual renewals</h3>
-              <p class="text-sm text-slate-500 mt-2 leading-relaxed">
-                Netflix, Spotify, utilities, and rent settle automatically every month.
-              </p>
-            </div>
-            <div class="rounded-2xl bg-white p-4 shadow-sm space-y-2">
-              <div class="flex justify-between text-xs">
-                <span class="font-medium text-slate-600">Netflix &amp; Music</span>
-                <span class="font-mono font-bold text-[#191C1F]">$45.97</span>
-              </div>
-              <div class="flex justify-between text-xs">
-                <span class="font-medium text-slate-600">Utilities &amp; Rent</span>
-                <span class="font-mono font-bold text-[#191C1F]">$2,390.50</span>
-              </div>
-              <div class="pt-2 border-t border-slate-100 flex justify-between text-xs font-semibold text-emerald-600">
-                <span>Status</span>
-                <span>Auto-Settled ✓</span>
+        <!-- Hero Right (Cols 8-12): Auto-Advancing Overlapping Subscription Cards + Left/Right Arrows -->
+        <div class="hero-anim-4 lg:col-span-5 lg:col-start-8 flex flex-col items-center lg:items-end">
+          <div id="heroDeckWrapper" class="relative w-full max-w-[440px] flex items-center gap-2.5 sm:gap-3.5">
+            <!-- Left Arrow (Previous Subscription Card) -->
+            <button
+              onclick="stepHeroDeck(-1)"
+              aria-label="Previous subscription card"
+              class="relative z-50 w-10 h-10 shrink-0 rounded-full bg-[#060608]/55 hover:bg-cobalt border border-white/25 hover:border-cobalt text-white flex items-center justify-center backdrop-blur-xl transition-all duration-300 hover:scale-105 active:scale-95"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+
+            <!-- Overlapping Subscription Card Stack -->
+            <div class="relative flex-1 h-[300px] sm:h-[315px]">
+              <div id="heroCardDeck" class="relative w-full h-full">
+                <!-- Cards injected & positioned smoothly by JS -->
               </div>
             </div>
+
+            <!-- Right Arrow (Next Subscription Card) -->
+            <button
+              onclick="stepHeroDeck(1)"
+              aria-label="Next subscription card"
+              class="relative z-50 w-10 h-10 shrink-0 rounded-full bg-[#060608]/55 hover:bg-cobalt border border-white/25 hover:border-cobalt text-white flex items-center justify-center backdrop-blur-xl transition-all duration-300 hover:scale-105 active:scale-95"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </button>
           </div>
 
-          <!-- Center Target Slot (Hero Background Photo Morphs Precisely Here!) -->
-          <div id="morphTargetCenter" class="h-[340px] sm:h-[380px] rounded-3xl mx-auto w-full max-w-[330px] md:max-w-none"></div>
-
-          <!-- Right Peripheral Card -->
-          <div id="stageRightCard" class="hidden md:flex flex-col justify-between h-[340px] lg:h-[380px] rounded-3xl bg-[#060608] text-white p-7 border border-white/10">
-            <div>
-              <span class="font-mono text-[10px] font-semibold uppercase tracking-widest text-cobalt-soft">Team &amp; Taxes</span>
-              <h3 class="font-display-tight font-bold text-2xl text-white mt-2">Autopilot payroll &amp; tax</h3>
-              <p class="text-sm text-slate-400 mt-2 leading-relaxed">
-                Pay contractors, suppliers, and quarterly taxes without lifting a finger.
-              </p>
+          <!-- Minimal Deck Progress Indicator -->
+          <div class="w-full max-w-[440px] mt-8 px-14 flex items-center justify-between text-xs font-mono text-white/80">
+            <div id="heroDeckDots" class="flex items-center gap-1.5">
+              <!-- Dots injected by JS -->
             </div>
-            <div class="rounded-2xl bg-white/[0.06] border border-white/[0.08] p-4 space-y-2">
-              <div class="flex justify-between text-xs">
-                <span class="text-slate-300">Group Batch</span>
-                <span class="font-mono font-bold text-white">$8,400 / mo</span>
-              </div>
-              <div class="flex justify-between text-xs">
-                <span class="text-slate-300">Tax Reserve (22%)</span>
-                <span class="font-mono font-bold text-cobalt-soft">Segregated</span>
-              </div>
-              <div class="pt-2 border-t border-white/[0.08] flex justify-between text-xs font-semibold text-emerald-400">
-                <span>Schedule</span>
-                <span>1st of Month</span>
-              </div>
-            </div>
+            <span id="heroDeckCounter" class="tabular-figures">01 / 07</span>
           </div>
         </div>
       </div>
-
-      <!-- MORPHING HERO BACKGROUND PHOTO FRAME (Full-Bleed at top -> Shrinks into #morphTargetCenter) -->
-      <div id="heroMorphFrame" class="absolute top-0 left-0 z-20 overflow-hidden bg-[#101726]">
-        <!-- User's Hero Image (Place image as hero-bg.jpg; automatic editorial fallback if not present locally) -->
-        <img
-          id="heroBgImg"
-          src="hero-bg.jpg"
-          onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1712759519800-121e6ded66ee?auto=format&fit=crop&w=1800&q=85';"
-          alt="Modern professional managing Sileta automated finances on her phone"
-          class="w-full h-full object-cover object-[50%_18%] select-none"
-        />
-
-        <!-- Refined Editorial Scrim Overlay (Fades slightly as it becomes the center card) -->
-        <div id="heroPhotoScrim" class="absolute inset-0 bg-gradient-to-r from-[#060608]/80 via-[#060608]/40 to-[#060608]/60 pointer-events-none"></div>
-        <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#060608]/55 to-transparent pointer-events-none"></div>
-        <div class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#060608]/75 via-[#060608]/25 to-transparent pointer-events-none"></div>
-
-        <!-- Revolut Card Overlay Pill (Appears inside the center card once morphed!) -->
-        <div id="morphedCardBadge" class="absolute inset-x-4 bottom-4 rounded-2xl bg-white/95 backdrop-blur-md p-4 text-[#191C1F] shadow-xl opacity-0 translate-y-4 transition-all duration-300 pointer-events-none">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="font-mono text-[10px] uppercase tracking-wider text-slate-500">Sileta Autopilot</p>
-              <p class="font-mono tabular-figures text-lg font-bold text-[#191C1F] mt-0.5">$4,785.48 <span class="text-xs font-sans font-medium text-emerald-600">Settled ✓</span></p>
-            </div>
-            <span class="px-2.5 py-1 rounded-full bg-cobalt text-white text-[11px] font-semibold">Active</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- HERO FOREGROUND LAYER (Headline + CTAs on Left, Subscription Card Stack on Right) -->
-      <div id="heroForeground" class="relative z-30 h-full max-w-7xl mx-auto px-5 sm:px-8 pt-20 sm:pt-24 pb-10 flex items-center">
-        <div class="grid lg:grid-cols-12 gap-8 lg:gap-6 items-center w-full">
-
-          <!-- Hero Left Copy -->
-          <div class="lg:col-span-5 space-y-6">
-            <h1 class="font-display-tight font-extrabold text-4xl sm:text-5xl lg:text-[54px] text-white leading-[1.04] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">
-              Every bill, subscription, and payout on <span class="font-editorial-italic text-cobalt-soft font-normal text-[1.08em]">autopilot.</span>
-            </h1>
-
-            <p class="text-base sm:text-[17px] text-white/85 leading-relaxed max-w-md drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
-              Sileta automatically pays your Netflix, Spotify, Apple Music, electricity, water, rent, taxes, and team—so you never have to worry about paying a bill again.
-            </p>
-
-            <!-- Pill CTAs -->
-            <div class="flex flex-wrap items-center gap-3 pt-1">
-              <button onclick="openDownloadModal('automated bills and payouts')" class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-cobalt hover:bg-cobalt-light text-white font-semibold text-sm sm:text-base shadow-[0_8px_32px_rgba(37,99,235,0.5)] transition-all">
-                <span>Download Sileta</span>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7"/></svg>
-              </button>
-
-              <a href="#calculators" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/25 text-white font-semibold text-sm sm:text-base transition-all">
-                <span>Try Live Calculators</span>
-              </a>
-            </div>
-
-            <!-- Subtle Trust Bar -->
-            <p class="font-mono text-[11px] text-white/75 pt-1 tracking-wide">
-              256-Bit Encrypted &bull; Automated Tax &amp; Bill Protection &bull; iOS, Android &amp; Desktop
-            </p>
-          </div>
-
-          <!-- Center Breathing Room (Lets the woman with her phone shine!) -->
-          <div class="hidden lg:block lg:col-span-2"></div>
-
-          <!-- Hero Right: Auto-Advancing Overlapping Subscription Cards + Left/Right Arrows -->
-          <div class="lg:col-span-5 flex flex-col items-center lg:items-end">
-            <div id="heroDeckWrapper" class="relative w-full max-w-[430px] flex items-center gap-2.5 sm:gap-3.5">
-              <!-- Left Arrow (Previous Subscription Card) -->
-              <button
-                onclick="stepHeroDeck(-1)"
-                aria-label="Previous subscription card"
-                class="relative z-50 w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full bg-[#060608]/60 hover:bg-cobalt border border-white/25 hover:border-cobalt text-white flex items-center justify-center backdrop-blur-md transition-all hover:scale-105 active:scale-95"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-              </button>
-
-              <!-- Overlapping Subscription Card Stack -->
-              <div class="relative flex-1 h-[270px] sm:h-[295px]">
-                <div id="heroCardDeck" class="relative w-full h-full">
-                  <!-- Cards injected & positioned smoothly by JS -->
-                </div>
-              </div>
-
-              <!-- Right Arrow (Next Subscription Card) -->
-              <button
-                onclick="stepHeroDeck(1)"
-                aria-label="Next subscription card"
-                class="relative z-50 w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full bg-[#060608]/60 hover:bg-cobalt border border-white/25 hover:border-cobalt text-white flex items-center justify-center backdrop-blur-md transition-all hover:scale-105 active:scale-95"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-              </button>
-            </div>
-
-            <!-- Minimal Deck Progress Indicator -->
-            <div class="w-full max-w-[430px] mt-7 px-12 flex items-center justify-between text-xs font-mono text-white/80">
-              <div id="heroDeckDots" class="flex items-center gap-1.5">
-                <!-- Dots injected by JS -->
-              </div>
-              <span id="heroDeckCounter" class="tabular-figures">01 / 07</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Subtle Scroll Cue at Bottom of Initial Viewport -->
-      <div id="heroScrollCue" class="absolute bottom-5 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1 text-white/75 pointer-events-none transition-opacity duration-300">
-        <span class="font-mono text-[10px] uppercase tracking-[0.22em]">Scroll</span>
-        <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-      </div>
-
     </div>
   </section>
 
   <!-- =========================================================
        3. SUBSCRIPTIONS & CUSTOM APP SEARCH (PURE WHITE #FFFFFF)
   ========================================================== -->
-  <section id="how-it-works" class="py-24 sm:py-32 bg-white text-[#060608] border-t border-slate-100">
+  <section id="how-it-works" class="py-24 sm:py-32 bg-white text-[#060608]">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
       <!-- Centered Section Header -->
-      <div class="max-w-2xl mx-auto text-center">
+      <div class="reveal-up max-w-2xl mx-auto text-center">
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-cobalt font-semibold mb-3">
           Unified Subscriptions &amp; Bills
         </p>
@@ -422,7 +412,7 @@
       </div>
 
       <!-- Interactive "Add Any App" Rounded Pill Search Bar -->
-      <div class="max-w-2xl mx-auto mt-10">
+      <div class="reveal-up max-w-2xl mx-auto mt-10" style="transition-delay: 80ms;">
         <div class="relative">
           <svg class="w-5 h-5 text-slate-400 absolute left-5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/></svg>
           <input
@@ -451,12 +441,12 @@
       </div>
 
       <!-- Rounded #F4F4F6 Revolut-Style Visual Grid -->
-      <div id="subCardsGrid" class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div id="subCardsGrid" class="reveal-up mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4" style="transition-delay: 140ms;">
         <!-- Populated by JS -->
       </div>
 
       <!-- Single Monthly Consolidated Payment Pill Summary -->
-      <div class="mt-8 rounded-3xl bg-[#F4F4F6] p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div class="reveal-up mt-8 rounded-3xl bg-[#F4F4F6] p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6" style="transition-delay: 200ms;">
         <div class="flex flex-wrap items-center gap-8">
           <div>
             <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">Consolidated into 1 payment</p>
@@ -469,7 +459,7 @@
           </div>
         </div>
 
-        <button onclick="openDownloadModal('live subscription & bill auto-pay')" class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#060608] hover:bg-cobalt text-white font-semibold text-sm transition-colors shrink-0">
+        <button onclick="openDownloadModal('live subscription & bill auto-pay')" class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#191C1F] hover:bg-cobalt text-white font-semibold text-sm transition-all duration-300 hover:scale-[1.02] shrink-0">
           <svg class="w-4 h-4 text-cobalt-soft" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span>Activate Auto-Pay in App</span>
         </button>
@@ -487,7 +477,7 @@
 
     <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
       <!-- Centered Headline -->
-      <div class="max-w-2xl mx-auto text-center">
+      <div class="reveal-up max-w-2xl mx-auto text-center">
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-cobalt-soft font-semibold mb-3">
           Programmable Disbursements
         </p>
@@ -503,7 +493,7 @@
       <div class="mt-14 grid lg:grid-cols-2 gap-6 items-stretch">
 
         <!-- Card 1: Auto-Send to Anyone -->
-        <div class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+        <div class="reveal-up glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6" style="transition-delay: 80ms;">
           <div class="space-y-5">
             <div class="flex items-center justify-between gap-3">
               <div>
@@ -518,22 +508,22 @@
               <div class="grid sm:grid-cols-2 gap-3">
                 <div>
                   <label class="block text-xs text-slate-400 mb-1.5">Recipient &amp; Role</label>
-                  <input id="indRecipientInput" type="text" value="Daniela Cruz (Partner)" oninput="updateIndividualPreview()" class="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm text-white" />
+                  <input id="indRecipientInput" type="text" value="Daniela Cruz (Partner)" oninput="updateIndividualPreview()" class="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm text-white transition-colors" />
                 </div>
                 <div>
                   <label class="block text-xs text-slate-400 mb-1.5">Phone Number</label>
-                  <input id="indPhoneInput" type="tel" value="+1 (415) 890-3321" oninput="updateIndividualPreview()" class="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono text-white" />
+                  <input id="indPhoneInput" type="tel" value="+1 (415) 890-3321" oninput="updateIndividualPreview()" class="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono text-white transition-colors" />
                 </div>
               </div>
 
               <div class="grid sm:grid-cols-2 gap-3">
                 <div>
                   <label class="block text-xs text-slate-400 mb-1.5">Bank Account / Routing</label>
-                  <input id="indBankInput" type="text" value="Mercury •••• 9104" oninput="updateIndividualPreview()" class="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono text-white" />
+                  <input id="indBankInput" type="text" value="Mercury •••• 9104" oninput="updateIndividualPreview()" class="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono text-white transition-colors" />
                 </div>
                 <div>
                   <label class="block text-xs text-slate-400 mb-1.5">Monthly Amount ($)</label>
-                  <input id="indAmountInput" type="number" min="1" value="1450" oninput="updateIndividualPreview()" class="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono tabular-figures font-bold text-white" />
+                  <input id="indAmountInput" type="number" min="1" value="1450" oninput="updateIndividualPreview()" class="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono tabular-figures font-bold text-white transition-colors" />
                 </div>
               </div>
             </div>
@@ -552,7 +542,7 @@
           </div>
 
           <!-- App-Locked CTA -->
-          <button onclick="openDownloadModal('individual automated payouts')" class="w-full py-4 px-6 rounded-full bg-cobalt hover:bg-cobalt-light text-white font-semibold text-sm shadow-[0_0_24px_rgba(37,99,235,0.4)] transition-all flex items-center justify-center gap-2.5">
+          <button onclick="openDownloadModal('individual automated payouts')" class="w-full py-4 px-6 rounded-full bg-cobalt hover:bg-cobalt-light text-white font-semibold text-sm shadow-[0_0_24px_rgba(37,99,235,0.4)] transition-all duration-300 hover:scale-[1.01] flex items-center justify-center gap-2.5">
             <svg class="w-4 h-4 text-blue-200" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             <span>Activate Auto-Payout</span>
             <span class="px-2 py-0.5 rounded-full bg-white/15 text-[10px] font-mono uppercase tracking-wider">App Lock</span>
@@ -560,7 +550,7 @@
         </div>
 
         <!-- Card 2: Group & Contract Payouts -->
-        <div class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+        <div class="reveal-up glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6" style="transition-delay: 160ms;">
           <div class="space-y-5">
             <div class="flex items-center justify-between gap-3">
               <div>
@@ -583,7 +573,7 @@
             <div class="grid sm:grid-cols-2 gap-3">
               <div>
                 <label class="block text-xs text-slate-400 mb-1.5">Monthly Payout / Person ($)</label>
-                <input id="grpAmountInput" type="number" min="100" step="50" value="2800" oninput="renderGroupSummary()" class="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono tabular-figures font-bold text-white" />
+                <input id="grpAmountInput" type="number" min="100" step="50" value="2800" oninput="renderGroupSummary()" class="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono tabular-figures font-bold text-white transition-colors" />
               </div>
               <div>
                 <label class="block text-xs text-slate-400 mb-1.5">Contract Duration</label>
@@ -609,7 +599,7 @@
           </div>
 
           <!-- App-Locked CTA -->
-          <button onclick="openDownloadModal('group & contract payouts')" class="w-full py-4 px-6 rounded-full bg-white/[0.08] hover:bg-cobalt border border-white/[0.14] hover:border-cobalt text-white font-semibold text-sm transition-all flex items-center justify-center gap-2.5">
+          <button onclick="openDownloadModal('group & contract payouts')" class="w-full py-4 px-6 rounded-full bg-white/[0.08] hover:bg-cobalt border border-white/[0.14] hover:border-cobalt text-white font-semibold text-sm transition-all duration-300 hover:scale-[1.01] flex items-center justify-center gap-2.5">
             <svg class="w-4 h-4 text-cobalt-soft" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             <span>Start Group Contract</span>
             <span class="px-2 py-0.5 rounded-full bg-white/10 text-[10px] font-mono uppercase tracking-wider">App Lock</span>
@@ -626,7 +616,7 @@
   <section id="calculators" class="py-24 sm:py-32 bg-white text-[#060608]">
     <div class="max-w-6xl mx-auto px-5 sm:px-8">
       <!-- Centered Headline -->
-      <div class="max-w-2xl mx-auto text-center">
+      <div class="reveal-up max-w-2xl mx-auto text-center">
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-cobalt font-semibold mb-3">
           Interactive Financial Suite
         </p>
@@ -639,25 +629,25 @@
       </div>
 
       <!-- ONE Clean Tabbed Revolut-Style Card (#F4F4F6 rounded-3xl) -->
-      <div class="mt-12 rounded-3xl bg-[#F4F4F6] p-5 sm:p-8 lg:p-10">
+      <div class="reveal-up mt-12 rounded-3xl bg-[#F4F4F6] p-5 sm:p-8 lg:p-10" style="transition-delay: 100ms;">
         <!-- Pill Tabs -->
         <div class="flex flex-wrap gap-2 p-1.5 rounded-full bg-white border border-slate-200/80 w-fit mx-auto">
-          <button onclick="switchCalcTab('expenditure')" id="tab-expenditure" class="calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-[#060608] text-white transition-all">
+          <button onclick="switchCalcTab('expenditure')" id="tab-expenditure" class="calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-[#191C1F] text-white transition-all duration-300">
             Monthly Expenditure
           </button>
-          <button onclick="switchCalcTab('breakeven')" id="tab-breakeven" class="calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#060608] transition-all">
+          <button onclick="switchCalcTab('breakeven')" id="tab-breakeven" class="calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#191C1F] transition-all duration-300">
             Profit &amp; Break-Even
           </button>
-          <button onclick="switchCalcTab('unitcost')" id="tab-unitcost" class="calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#060608] transition-all">
+          <button onclick="switchCalcTab('unitcost')" id="tab-unitcost" class="calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#191C1F] transition-all duration-300">
             Unit Fixed Cost
           </button>
-          <button onclick="switchCalcTab('tax')" id="tab-tax" class="calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#060608] transition-all">
+          <button onclick="switchCalcTab('tax')" id="tab-tax" class="calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#191C1F] transition-all duration-300">
             Auto-Tax Estimator
           </button>
         </div>
 
         <!-- TAB 1: MONTHLY EXPENDITURE -->
-        <div id="panel-expenditure" class="calc-panel mt-8 grid lg:grid-cols-12 gap-6 items-center">
+        <div id="panel-expenditure" class="calc-panel tab-animate mt-8 grid lg:grid-cols-12 gap-6 items-center">
           <div class="lg:col-span-7 grid sm:grid-cols-2 gap-3">
             <label class="flex items-center justify-between p-4 rounded-2xl bg-white cursor-pointer border border-transparent hover:border-cobalt/30 transition-all">
               <div class="flex items-center gap-3">
@@ -708,14 +698,14 @@
             <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-400">Total Monthly Spend</p>
             <p id="expTotalOut" class="font-mono tabular-figures text-4xl sm:text-5xl font-bold text-[#060608]">$5,955.00</p>
             <p id="expAnnualOut" class="text-xs font-mono tabular-figures text-slate-500">Annualized: $71,460.00 / yr</p>
-            <button onclick="openDownloadModal('automated monthly bill consolidation')" class="mt-3 w-full py-3.5 px-5 rounded-full bg-cobalt hover:bg-cobalt-dark text-white text-sm font-semibold transition-colors">
+            <button onclick="openDownloadModal('automated monthly bill consolidation')" class="mt-3 w-full py-3.5 px-5 rounded-full bg-cobalt hover:bg-cobalt-dark text-white text-sm font-semibold transition-all duration-300 hover:scale-[1.01]">
               Automate This Monthly Spend
             </button>
           </div>
         </div>
 
         <!-- TAB 2: BUSINESS PROFIT & BREAK-EVEN -->
-        <div id="panel-breakeven" class="calc-panel hidden mt-8 grid lg:grid-cols-12 gap-6 items-center">
+        <div id="panel-breakeven" class="calc-panel hidden tab-animate mt-8 grid lg:grid-cols-12 gap-6 items-center">
           <div class="lg:col-span-6 space-y-3.5">
             <div class="p-4 rounded-2xl bg-white space-y-2">
               <div class="flex justify-between items-center">
@@ -763,7 +753,7 @@
               <p class="text-xs font-medium text-slate-500">Net Profit</p>
               <p id="beNetOut" class="font-mono tabular-figures text-2xl font-bold text-emerald-600 mt-1">$9,000</p>
             </div>
-            <div class="p-5 rounded-2xl bg-[#060608] text-white">
+            <div class="p-5 rounded-2xl bg-[#191C1F] text-white">
               <p class="text-xs font-medium text-slate-400">Break-Even Point</p>
               <p id="bePointOut" class="font-mono tabular-figures text-2xl font-bold text-white mt-1">160 Units</p>
             </div>
@@ -771,7 +761,7 @@
         </div>
 
         <!-- TAB 3: UNIT FIXED COST & AUTO-PAY -->
-        <div id="panel-unitcost" class="calc-panel hidden mt-8 grid lg:grid-cols-12 gap-6 items-center">
+        <div id="panel-unitcost" class="calc-panel hidden tab-animate mt-8 grid lg:grid-cols-12 gap-6 items-center">
           <div class="lg:col-span-6 space-y-4">
             <div class="p-5 rounded-2xl bg-white">
               <label class="block text-xs font-semibold text-slate-500 mb-2">Total Monthly Fixed Costs (Rent, Salaries, Utilities, SaaS)</label>
@@ -790,7 +780,7 @@
             <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-400">Fixed Cost per Unit</p>
             <p id="ufPerUnitOut" class="font-mono tabular-figures text-4xl sm:text-5xl font-bold text-cobalt">$20.00</p>
             <p class="text-xs text-slate-500">Every unit carries this exact fixed overhead share.</p>
-            <button onclick="openDownloadModal('automated fixed cost payments')" class="w-full py-3.5 px-6 rounded-full bg-[#060608] hover:bg-cobalt text-white text-sm font-semibold transition-colors inline-flex items-center justify-center gap-2">
+            <button onclick="openDownloadModal('automated fixed cost payments')" class="w-full py-3.5 px-6 rounded-full bg-[#191C1F] hover:bg-cobalt text-white text-sm font-semibold transition-all duration-300 inline-flex items-center justify-center gap-2">
               <svg class="w-4 h-4 text-cobalt-soft" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               <span>Let Sileta Auto-Pay Fixed Costs</span>
             </button>
@@ -798,7 +788,7 @@
         </div>
 
         <!-- TAB 4: AUTO-TAX ESTIMATOR -->
-        <div id="panel-tax" class="calc-panel hidden mt-8 grid lg:grid-cols-12 gap-6 items-center">
+        <div id="panel-tax" class="calc-panel hidden tab-animate mt-8 grid lg:grid-cols-12 gap-6 items-center">
           <div class="lg:col-span-6 p-6 rounded-2xl bg-white space-y-5">
             <div class="flex justify-between items-baseline">
               <label for="taxIncomeSlider" class="text-sm font-semibold text-[#060608]">Monthly Income / Revenue</label>
@@ -814,11 +804,11 @@
             </p>
           </div>
 
-          <div class="lg:col-span-6 rounded-3xl bg-[#060608] text-white p-7 text-center space-y-4">
+          <div class="lg:col-span-6 rounded-3xl bg-[#191C1F] text-white p-7 text-center space-y-4">
             <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-400">Estimated Monthly Tax Reserve</p>
             <p id="taxEstOut" class="font-mono tabular-figures text-4xl sm:text-5xl font-bold text-cobalt-soft">$5,280.00</p>
             <p id="taxQtrOut" class="text-xs font-mono tabular-figures text-slate-400">Quarterly Auto-Filing Set-Aside: $15,840.00</p>
-            <button onclick="openDownloadModal('automated tax reserve & filings')" class="w-full py-3.5 px-6 rounded-full bg-cobalt hover:bg-cobalt-light text-white text-sm font-semibold transition-colors inline-flex items-center justify-center gap-2">
+            <button onclick="openDownloadModal('automated tax reserve & filings')" class="w-full py-3.5 px-6 rounded-full bg-cobalt hover:bg-cobalt-light text-white text-sm font-semibold transition-all duration-300 inline-flex items-center justify-center gap-2">
               <svg class="w-4 h-4 text-blue-200" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               <span>Enable Auto-Tax Payments</span>
             </button>
@@ -837,7 +827,7 @@
     <div class="absolute bottom-0 right-[12%] w-[440px] h-[440px] rounded-full bg-cobalt/15 blur-[120px] pointer-events-none"></div>
 
     <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="max-w-2xl mx-auto text-center">
+      <div class="reveal-up max-w-2xl mx-auto text-center">
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-cobalt-soft font-semibold mb-3">
           Bank-Grade Safeguarding
         </p>
@@ -852,7 +842,7 @@
       <!-- 3 Clean Glass Trust Cards -->
       <div class="mt-14 grid md:grid-cols-3 gap-6">
         <!-- Card 1 -->
-        <div class="glass-card rounded-3xl p-7 sm:p-8 space-y-4">
+        <div class="reveal-up glass-card rounded-3xl p-7 sm:p-8 space-y-4" style="transition-delay: 80ms;">
           <div class="w-12 h-12 rounded-2xl bg-cobalt/20 border border-cobalt/35 flex items-center justify-center text-cobalt-soft">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
           </div>
@@ -863,7 +853,7 @@
         </div>
 
         <!-- Card 2 (with interactive Kill-Switch demo) -->
-        <div class="glass-card rounded-3xl p-7 sm:p-8 space-y-4">
+        <div class="reveal-up glass-card rounded-3xl p-7 sm:p-8 space-y-4" style="transition-delay: 160ms;">
           <div class="flex items-center justify-between">
             <div class="w-12 h-12 rounded-2xl bg-cobalt/20 border border-cobalt/35 flex items-center justify-center text-cobalt-soft">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636a9 9 0 11-12.728 0M12 3v9"/></svg>
@@ -879,7 +869,7 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="glass-card rounded-3xl p-7 sm:p-8 space-y-4">
+        <div class="reveal-up glass-card rounded-3xl p-7 sm:p-8 space-y-4" style="transition-delay: 240ms;">
           <div class="w-12 h-12 rounded-2xl bg-cobalt/20 border border-cobalt/35 flex items-center justify-center text-cobalt-soft">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
@@ -898,7 +888,7 @@
   <section class="py-20 sm:py-28 bg-white text-[#060608]">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
       <!-- Bold Revolut-Style Conversion Card -->
-      <div class="relative rounded-3xl overflow-hidden bg-[#060608] text-white grid lg:grid-cols-12 items-center">
+      <div class="reveal-up relative rounded-3xl overflow-hidden bg-[#060608] text-white grid lg:grid-cols-12 items-center">
         <div class="lg:col-span-7 p-8 sm:p-12 lg:p-16 space-y-6 relative z-10">
           <h2 class="font-display-tight font-extrabold text-3xl sm:text-5xl leading-[1.08]">
             Put your finances on <span class="font-editorial-italic text-cobalt-soft font-normal text-[1.08em]">autopilot</span> today.
@@ -907,11 +897,11 @@
             Download Sileta on Mobile or Desktop to link your accounts and settle every bill, subscription, and payout automatically.
           </p>
           <div class="flex flex-wrap gap-3 pt-2">
-            <button onclick="openDownloadModal('Sileta for Mobile (iOS & Android)')" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-cobalt hover:bg-cobalt-light text-white font-semibold text-sm transition-all">
+            <button onclick="openDownloadModal('Sileta for Mobile (iOS & Android)')" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-cobalt hover:bg-cobalt-light text-white font-semibold text-sm transition-all duration-300 hover:scale-[1.02]">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
               <span>Download for Mobile (iOS / Android)</span>
             </button>
-            <button onclick="openDownloadModal('Sileta for PC (Windows & macOS)')" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-[#060608] hover:bg-slate-100 font-semibold text-sm transition-all">
+            <button onclick="openDownloadModal('Sileta for PC (Windows & macOS)')" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-[#060608] hover:bg-slate-100 font-semibold text-sm transition-all duration-300 hover:scale-[1.02]">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
               <span>Download for PC (Windows / macOS)</span>
             </button>
@@ -962,7 +952,7 @@
        APP-LOCK GATE & DOWNLOAD POP-UP MODAL (MOBILE & PC)
   ========================================================== -->
   <div id="downloadModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-    <div class="relative w-full max-w-xl rounded-3xl bg-[#0D1017] border border-white/[0.12] shadow-[0_32px_90px_rgba(0,0,0,0.85)] p-6 sm:p-8 text-white">
+    <div class="modal-spring relative w-full max-w-xl rounded-3xl bg-[#0D1017] border border-white/[0.12] shadow-[0_32px_90px_rgba(0,0,0,0.85)] p-6 sm:p-8 text-white">
       <button onclick="closeDownloadModal()" class="absolute top-5 right-5 p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-slate-300 hover:text-white transition-colors" aria-label="Close modal">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
@@ -1024,7 +1014,7 @@
        MINIMAL LOG IN MODAL
   ========================================================== -->
   <div id="loginModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-    <div class="relative w-full max-w-md rounded-3xl bg-white text-[#060608] shadow-2xl p-6 sm:p-8">
+    <div class="modal-spring relative w-full max-w-md rounded-3xl bg-white text-[#060608] shadow-2xl p-6 sm:p-8">
       <button onclick="closeLoginModal()" class="absolute top-5 right-5 p-2 rounded-full bg-[#F4F4F6] hover:bg-slate-200 text-slate-600 transition-colors" aria-label="Close login modal">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
@@ -1034,7 +1024,7 @@
 
       <form onsubmit="handleLoginSubmit(event)" class="mt-5 space-y-4">
         <input id="loginEmail" type="email" required placeholder="name@email.com" class="w-full px-4 py-3.5 rounded-2xl bg-[#F4F4F6] border border-transparent focus:border-cobalt focus:bg-white outline-none text-sm text-[#060608]" />
-        <button type="submit" class="w-full py-3.5 rounded-full bg-[#060608] hover:bg-cobalt text-white font-semibold text-sm transition-colors">
+        <button type="submit" class="w-full py-3.5 rounded-full bg-[#191C1F] hover:bg-cobalt text-white font-semibold text-sm transition-colors">
           Continue
         </button>
       </form>
@@ -1050,7 +1040,7 @@
   <div id="toastWrap" class="fixed bottom-5 right-5 z-[120] flex flex-col gap-2 max-w-xs w-full pointer-events-none px-4 sm:px-0"></div>
 
   <!-- =========================================================
-       VANILLA JAVASCRIPT (ZERO DEPENDENCIES)
+       VANILLA JAVASCRIPT (REVOLUT MOTION + INTERACTIVE ENGINES)
   ========================================================== -->
   <script>
     const fmtMoney = (n, d = 2) => (Number(n) || 0).toLocaleString('en-US', {
@@ -1071,6 +1061,56 @@
     }
 
     // ---------------------------------------------------------
+    // HERO IMAGE PARALLAX + DRAG/DROP LOCAL PHOTO SUPPORT
+    // ---------------------------------------------------------
+    const heroSection = document.getElementById('heroSection');
+    const heroBgImg = document.getElementById('heroBgImg');
+    let parallaxTicking = false;
+
+    window.addEventListener('scroll', () => {
+      if (!parallaxTicking) {
+        requestAnimationFrame(() => {
+          const y = window.scrollY;
+          if (y < window.innerHeight * 1.2) {
+            const offset = Math.min(90, y * 0.16);
+            heroBgImg.style.transform = `translate3d(0, ${offset}px, 0) scale(1.01)`;
+          }
+          parallaxTicking = false;
+        });
+        parallaxTicking = true;
+      }
+    }, { passive: true });
+
+    // Optional silent drag-and-drop onto hero to preview any local image immediately
+    heroSection.addEventListener('dragover', (e) => e.preventDefault());
+    heroSection.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const file = e.dataTransfer?.files?.[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          heroBgImg.src = ev.target.result;
+          showToast('Hero background updated', 'Image applied cleanly.');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // ---------------------------------------------------------
+    // REVOLUT-STYLE SCROLL REVEAL OBSERVER
+    // ---------------------------------------------------------
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
+
+    // ---------------------------------------------------------
     // REVOLUT-EXACT SLIM TRANSPARENT -> FROSTED WHITE HEADER
     // ---------------------------------------------------------
     const siteHeader = document.getElementById('siteHeader');
@@ -1081,8 +1121,9 @@
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
 
-    function setHeaderTheme(lightMode) {
-      if (lightMode) {
+    function updateHeaderOnScroll() {
+      const scrolled = window.scrollY > 36;
+      if (scrolled) {
         siteHeader.className = 'fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-xl shadow-[0_1px_0_rgba(0,0,0,0.06)] transition-all duration-300';
         navBrandText.className = 'font-display font-bold text-xl tracking-tight text-[#191C1F] transition-colors duration-300';
         navLinks.className = 'hidden md:flex items-center gap-6 text-[13.5px] font-medium text-slate-600 transition-colors duration-300';
@@ -1101,117 +1142,15 @@
         });
         navLoginBtn.className = 'hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[13px] font-medium text-white/95 hover:text-white transition-colors';
         navCtaBtn.className = 'inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-[#191C1F] hover:opacity-90 text-[13px] font-semibold transition-opacity group';
-        mobileMenuBtn.className = 'md:hidden p-1.5 rounded-lg text-white hover:bg-white/10 transition-colors';
+        mobileMenuBtn.className = 'md:hidden p-1.5 rounded-lg text-white hover:bg-white/15 transition-colors';
       }
     }
+
+    window.addEventListener('scroll', updateHeaderOnScroll, { passive: true });
+    updateHeaderOnScroll();
 
     mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
     function closeMobileMenu() { mobileMenu.classList.add('hidden'); }
-
-    // ---------------------------------------------------------
-    // REVOLUT.COM SCROLL-DOWN MORPH ANIMATION ENGINE
-    // ---------------------------------------------------------
-    const scrollStage = document.getElementById('revolutScrollStage');
-    const stickyViewport = document.getElementById('stickyHeroViewport');
-    const morphFrame = document.getElementById('heroMorphFrame');
-    const morphTarget = document.getElementById('morphTargetCenter');
-    const heroForeground = document.getElementById('heroForeground');
-    const heroPhotoScrim = document.getElementById('heroPhotoScrim');
-    const heroStageTwo = document.getElementById('heroStageTwo');
-    const stageTwoHeader = document.getElementById('stageTwoHeader');
-    const stageLeftCard = document.getElementById('stageLeftCard');
-    const stageRightCard = document.getElementById('stageRightCard');
-    const morphedCardBadge = document.getElementById('morphedCardBadge');
-    const heroScrollCue = document.getElementById('heroScrollCue');
-
-    const clamp01 = v => Math.max(0, Math.min(1, v));
-    const lerp = (a, b, t) => a + (b - a) * t;
-    const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
-    const easeInOutCubic = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-
-    let scrollRaf = null;
-    let lastHeaderLight = null;
-
-    function updateRevolutScroll() {
-      scrollRaf = null;
-      const stageRect = scrollStage.getBoundingClientRect();
-      const maxScroll = Math.max(1, scrollStage.offsetHeight - window.innerHeight);
-      const rawProgress = clamp01(-stageRect.top / maxScroll);
-
-      // 1. Header switches to frosted white once background starts shrinking
-      const shouldBeLight = rawProgress > 0.25 || window.scrollY > scrollStage.offsetHeight * 0.35;
-      if (shouldBeLight !== lastHeaderLight) {
-        lastHeaderLight = shouldBeLight;
-        setHeaderTheme(shouldBeLight);
-      }
-
-      // 2. Hero Foreground fades & lifts away smoothly (0 -> 0.36)
-      const fgOut = easeOutCubic(clamp01(rawProgress / 0.36));
-      heroForeground.style.opacity = String(1 - fgOut);
-      heroForeground.style.transform = `translate3d(0, ${-fgOut * 44}px, 0) scale(${1 - fgOut * 0.03})`;
-      heroForeground.style.pointerEvents = fgOut > 0.45 ? 'none' : 'auto';
-      heroScrollCue.style.opacity = String(Math.max(0, 1 - rawProgress * 6));
-
-      // 3. Morph Hero Background Photo -> Center Card (0.04 -> 0.78)
-      const morphT = easeInOutCubic(clamp01((rawProgress - 0.04) / 0.74));
-      const vpW = stickyViewport.clientWidth;
-      const vpH = stickyViewport.clientHeight;
-      const targetRect = morphTarget.getBoundingClientRect();
-      const vpRect = stickyViewport.getBoundingClientRect();
-
-      const targetX = targetRect.left - vpRect.left;
-      const targetY = targetRect.top - vpRect.top;
-      const targetW = targetRect.width || 300;
-      const targetH = targetRect.height || 360;
-
-      const curW = lerp(vpW, targetW, morphT);
-      const curH = lerp(vpH, targetH, morphT);
-      const curX = lerp(0, targetX, morphT);
-      const curY = lerp(0, targetY, morphT);
-      const curRadius = lerp(0, 24, morphT);
-
-      morphFrame.style.width = `${curW}px`;
-      morphFrame.style.height = `${curH}px`;
-      morphFrame.style.transform = `translate3d(${curX}px, ${curY}px, 0)`;
-      morphFrame.style.borderRadius = `${curRadius}px`;
-      morphFrame.style.boxShadow = morphT > 0.25
-        ? `0 24px 60px rgba(0, 0, 0, ${(morphT * 0.16).toFixed(3)})`
-        : 'none';
-
-      // Lighten dark scrim slightly as it becomes the crisp lifestyle card
-      heroPhotoScrim.style.opacity = String(lerp(1, 0.35, morphT));
-
-      // 4. Reveal Stage Two White Editorial Layout + Flanking Cards (0.38 -> 0.92)
-      const stageTwoT = easeOutCubic(clamp01((rawProgress - 0.38) / 0.45));
-      heroStageTwo.style.opacity = String(stageTwoT);
-      heroStageTwo.style.pointerEvents = stageTwoT > 0.5 ? 'auto' : 'none';
-      stageTwoHeader.style.transform = `translate3d(0, ${(1 - stageTwoT) * 28}px, 0)`;
-
-      const leftT = easeOutCubic(clamp01((rawProgress - 0.48) / 0.42));
-      stageLeftCard.style.opacity = String(leftT);
-      stageLeftCard.style.transform = `translate3d(${(1 - leftT) * -28}px, ${(1 - leftT) * 32}px, 0)`;
-
-      const rightT = easeOutCubic(clamp01((rawProgress - 0.54) / 0.42));
-      stageRightCard.style.opacity = String(rightT);
-      stageRightCard.style.transform = `translate3d(${(1 - rightT) * 28}px, ${(1 - rightT) * 32}px, 0)`;
-
-      // 5. Pop in the Sileta Autopilot overlay badge inside the morphed center card
-      if (rawProgress >= 0.68) {
-        morphedCardBadge.classList.remove('opacity-0', 'translate-y-4');
-      } else {
-        morphedCardBadge.classList.add('opacity-0', 'translate-y-4');
-      }
-    }
-
-    function requestScrollUpdate() {
-      if (!scrollRaf) {
-        scrollRaf = requestAnimationFrame(updateRevolutScroll);
-      }
-    }
-
-    window.addEventListener('scroll', requestScrollUpdate, { passive: true });
-    window.addEventListener('resize', requestScrollUpdate);
-    updateRevolutScroll();
 
     // ---------------------------------------------------------
     // HERO OVERLAPPING SUBSCRIPTION CARD DECK
@@ -1222,7 +1161,7 @@
         category: 'Streaming',
         price: '$22.99',
         cycle: 'Auto-paid 22nd of month',
-        gradient: 'from-[#161B26]/95 via-[#0F1420]/95 to-[#0A0D14]/95',
+        gradient: 'from-[#161B26]/90 via-[#0F1420]/90 to-[#0A0D14]/95',
         accent: 'bg-rose-500/20 text-rose-300 border-rose-500/30',
         code: 'N'
       },
@@ -1231,7 +1170,7 @@
         category: 'Music',
         price: '$11.99',
         cycle: 'Auto-paid 14th of month',
-        gradient: 'from-[#101F1A]/95 via-[#0C1714]/95 to-[#0A0D14]/95',
+        gradient: 'from-[#101F1A]/90 via-[#0C1714]/90 to-[#0A0D14]/95',
         accent: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
         code: 'S'
       },
@@ -1240,7 +1179,7 @@
         category: 'Music',
         price: '$10.99',
         cycle: 'Auto-paid 19th of month',
-        gradient: 'from-[#1F131B]/95 via-[#150E14]/95 to-[#0A0D14]/95',
+        gradient: 'from-[#1F131B]/90 via-[#150E14]/90 to-[#0A0D14]/95',
         accent: 'bg-pink-500/20 text-pink-300 border-pink-500/30',
         code: 'A'
       },
@@ -1249,7 +1188,7 @@
         category: 'Utility',
         price: '$142.50',
         cycle: 'Meter-synced auto-pay',
-        gradient: 'from-[#1D1A10]/95 via-[#14130D]/95 to-[#0A0D14]/95',
+        gradient: 'from-[#1D1A10]/90 via-[#14130D]/90 to-[#0A0D14]/95',
         accent: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
         code: '⚡'
       },
@@ -1258,7 +1197,7 @@
         category: 'Utility',
         price: '$48.00',
         cycle: 'Municipal auto-settlement',
-        gradient: 'from-[#0F1B29]/95 via-[#0C1420]/95 to-[#0A0D14]/95',
+        gradient: 'from-[#0F1B29]/90 via-[#0C1420]/90 to-[#0A0D14]/95',
         accent: 'bg-sky-500/20 text-sky-300 border-sky-500/30',
         code: 'W'
       },
@@ -1267,7 +1206,7 @@
         category: 'Housing',
         price: '$2,200.00',
         cycle: 'Scheduled 1st of month',
-        gradient: 'from-[#121C36]/95 via-[#0D1426]/95 to-[#0A0D14]/95',
+        gradient: 'from-[#121C36]/90 via-[#0D1426]/90 to-[#0A0D14]/95',
         accent: 'bg-cobalt/25 text-cobalt-soft border-cobalt/40',
         code: 'R'
       },
@@ -1276,7 +1215,7 @@
         category: 'Tax Vault',
         price: '$449.00',
         cycle: 'Auto-split every deposit',
-        gradient: 'from-[#17162E]/95 via-[#101020]/95 to-[#0A0D14]/95',
+        gradient: 'from-[#17162E]/90 via-[#101020]/90 to-[#0A0D14]/95',
         accent: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30',
         code: 'T'
       }
@@ -1293,29 +1232,32 @@
 
     deckContainer.innerHTML = heroCards.map((c, idx) => `
       <div class="deck-slot" data-index="${idx}" data-active="${idx === 0 ? 'true' : 'false'}">
-        <div class="deck-card-inner h-full w-full rounded-[26px] p-5 sm:p-6 bg-gradient-to-br ${c.gradient} border border-white/[0.18] shadow-[0_24px_60px_rgba(0,0,0,0.55)] backdrop-blur-xl flex flex-col justify-between cursor-pointer select-none" onclick="openDownloadModal('${c.name} auto-pay')">
+        <div class="deck-card-inner h-full w-full rounded-[28px] p-6 sm:p-7 bg-gradient-to-br ${c.gradient} border border-white/[0.18] shadow-[0_24px_60px_rgba(0,0,0,0.6)] backdrop-blur-2xl flex flex-col justify-between cursor-pointer select-none" onclick="openDownloadModal('${c.name} auto-pay')">
+          <!-- Top Row -->
           <div class="flex items-start justify-between gap-3">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-2xl border ${c.accent} flex items-center justify-center font-display font-bold text-base">
+              <div class="w-11 h-11 rounded-2xl border ${c.accent} flex items-center justify-center font-display font-bold text-base">
                 ${c.code}
               </div>
               <div>
                 <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-400">${c.category}</p>
-                <h3 class="font-display-tight font-bold text-lg sm:text-xl text-white mt-0.5">${c.name}</h3>
+                <h3 class="font-display-tight font-bold text-xl text-white mt-0.5">${c.name}</h3>
               </div>
             </div>
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[11px] font-semibold text-emerald-400">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[11px] font-semibold text-emerald-400">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
               Auto-Paid
             </span>
           </div>
 
-          <div class="my-auto pt-3">
+          <!-- Center Amount -->
+          <div class="my-auto pt-4">
             <p class="text-xs text-slate-400">Monthly Autopilot Amount</p>
-            <p class="font-mono tabular-figures text-3xl font-bold text-white mt-1">${c.price}<span class="text-sm font-sans font-normal text-slate-400"> / mo</span></p>
+            <p class="font-mono tabular-figures text-3xl sm:text-4xl font-bold text-white mt-1">${c.price}<span class="text-sm font-sans font-normal text-slate-400"> / mo</span></p>
           </div>
 
-          <div class="pt-3.5 border-t border-white/[0.08] flex items-center justify-between text-xs">
+          <!-- Footer Meta -->
+          <div class="pt-4 border-t border-white/[0.1] flex items-center justify-between text-xs">
             <span class="text-slate-300 font-medium">${c.cycle}</span>
             <span class="font-mono text-[11px] text-cobalt-soft flex items-center gap-1">
               <span>Via Sileta</span>
@@ -1351,7 +1293,7 @@
               void slot.offsetWidth;
               slot.style.transition = '';
             }
-          }, 790);
+          }, 810);
           return;
         }
 
@@ -1380,23 +1322,23 @@
         } else if (diff === 1) {
           slot.style.zIndex = '30';
           slot.style.opacity = '0.82';
-          slot.style.transform = 'translate3d(14px, 14px, 0) scale(0.95)';
+          slot.style.transform = 'translate3d(16px, 16px, 0) scale(0.95)';
           slot.style.pointerEvents = 'none';
         } else if (diff === 2) {
           slot.style.zIndex = '20';
           slot.style.opacity = '0.52';
-          slot.style.transform = 'translate3d(26px, 26px, 0) scale(0.90)';
+          slot.style.transform = 'translate3d(30px, 30px, 0) scale(0.90)';
           slot.style.pointerEvents = 'none';
         } else {
           slot.style.zIndex = '5';
           slot.style.opacity = '0';
-          slot.style.transform = 'translate3d(38px, 38px, 0) scale(0.86)';
+          slot.style.transform = 'translate3d(42px, 42px, 0) scale(0.86)';
           slot.style.pointerEvents = 'none';
         }
       });
 
       dotsContainer.innerHTML = heroCards.map((_, i) => `
-        <button onclick="jumpHeroDeck(${i})" aria-label="Go to card ${i + 1}" class="h-1.5 rounded-full transition-all duration-300 ${i === activeDeckIndex ? 'w-6 bg-cobalt-soft' : 'w-1.5 bg-white/35 hover:bg-white/60'}"></button>
+        <button onclick="jumpHeroDeck(${i})" aria-label="Go to card ${i + 1}" class="h-1.5 rounded-full transition-all duration-300 ${i === activeDeckIndex ? 'w-6 bg-white' : 'w-1.5 bg-white/35 hover:bg-white/60'}"></button>
       `).join('');
       counterEl.textContent = `${String(activeDeckIndex + 1).padStart(2, '0')} / ${String(n).padStart(2, '0')}`;
     }
@@ -1461,14 +1403,14 @@
     function renderSubGrid() {
       const grid = document.getElementById('subCardsGrid');
       grid.innerHTML = subsList.map(s => `
-        <div class="rounded-3xl bg-[#F4F4F6] p-6 flex flex-col justify-between gap-5 transition-all ${s.active ? '' : 'opacity-50'}">
+        <div class="revolut-card-hover rounded-3xl bg-[#F4F4F6] p-6 flex flex-col justify-between gap-5 ${s.active ? '' : 'opacity-50'}">
           <div class="flex items-start justify-between gap-3">
             <div>
               <span class="font-mono text-[10px] font-semibold uppercase tracking-wider text-cobalt">${s.tag}</span>
               <h3 class="font-display-tight font-bold text-lg text-[#060608] mt-1">${s.name}</h3>
             </div>
             <button onclick="toggleSubCard('${s.id}')" aria-label="Toggle ${s.name}" class="w-11 h-6 rounded-full p-0.5 transition-colors shrink-0 ${s.active ? 'bg-cobalt' : 'bg-slate-300'}">
-              <div class="w-5 h-5 rounded-full bg-white shadow transition-transform ${s.active ? 'translate-x-5' : 'translate-x-0'}"></div>
+              <div class="w-5 h-5 rounded-full bg-white shadow transition-transform duration-300 ${s.active ? 'translate-x-5' : 'translate-x-0'}"></div>
             </button>
           </div>
           <div class="flex items-baseline justify-between pt-3 border-t border-slate-200/80">
@@ -1524,7 +1466,7 @@
       matches.slice(0, 4).forEach(m => {
         const added = subsList.some(s => s.name.toLowerCase() === m.name.toLowerCase());
         html += `
-          <div class="rounded-2xl bg-[#F4F4F6] p-4 flex items-center justify-between gap-3">
+          <div class="rounded-2xl bg-[#F4F4F6] p-4 flex items-center justify-between gap-3 tab-animate">
             <div>
               <p class="font-semibold text-sm text-[#060608]">${m.name}</p>
               <p class="text-xs text-slate-500">${m.tag} &bull; <span class="font-mono">${fmtMoney(m.price)}/mo</span></p>
@@ -1541,7 +1483,7 @@
       if (!exact) {
         const clean = q.replace(/</g, '&lt;').replace(/"/g, '&quot;');
         html = `
-          <div class="rounded-2xl bg-cobalt/10 border border-cobalt/25 p-4 flex flex-wrap items-center justify-between gap-3">
+          <div class="rounded-2xl bg-cobalt/10 border border-cobalt/25 p-4 flex flex-wrap items-center justify-between gap-3 tab-animate">
             <div>
               <p class="font-semibold text-sm text-[#060608]">&ldquo;${clean}&rdquo;</p>
               <p class="text-xs text-slate-600">Custom biller &bull; Auto-consolidated monthly</p>
@@ -1640,13 +1582,19 @@
     // SECTION 5: TABBED INTERACTIVE CALCULATORS
     // ---------------------------------------------------------
     function switchCalcTab(key) {
-      document.querySelectorAll('.calc-panel').forEach(p => p.classList.add('hidden'));
-      document.getElementById('panel-' + key).classList.remove('hidden');
+      document.querySelectorAll('.calc-panel').forEach(p => {
+        p.classList.add('hidden');
+        p.classList.remove('tab-animate');
+      });
+      const activePanel = document.getElementById('panel-' + key);
+      activePanel.classList.remove('hidden');
+      void activePanel.offsetWidth;
+      activePanel.classList.add('tab-animate');
 
       document.querySelectorAll('.calc-tab').forEach(b => {
-        b.className = 'calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#060608] transition-all';
+        b.className = 'calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#191C1F] transition-all duration-300';
       });
-      document.getElementById('tab-' + key).className = 'calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-[#060608] text-white transition-all';
+      document.getElementById('tab-' + key).className = 'calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-[#191C1F] text-white transition-all duration-300';
     }
 
     function syncCalcRange(rangeId, inputId, fn) {
@@ -1654,7 +1602,6 @@
       fn();
     }
 
-    // Tab 1: Monthly Expenditure
     function calcExpenditure() {
       const checks = document.querySelectorAll('.exp-check');
       const vals = document.querySelectorAll('.exp-val');
@@ -1667,7 +1614,6 @@
     }
     calcExpenditure();
 
-    // Tab 2: Profit & Break-Even
     function calcBreakEven() {
       const price = parseFloat(document.getElementById('bePrice').value) || 0;
       const varCost = parseFloat(document.getElementById('beVar').value) || 0;
@@ -1696,7 +1642,6 @@
     }
     calcBreakEven();
 
-    // Tab 3: Unit Fixed Cost
     function calcUnitCost() {
       const fixed = parseFloat(document.getElementById('ufFixedInput').value) || 0;
       const units = Math.max(1, parseFloat(document.getElementById('ufUnitsInput').value) || 1);
@@ -1704,7 +1649,6 @@
     }
     calcUnitCost();
 
-    // Tab 4: Auto-Tax Estimator
     function calcTaxEst() {
       const inc = parseFloat(document.getElementById('taxIncomeSlider').value) || 0;
       const est = inc * 0.22;
@@ -1790,4 +1734,3 @@
   </script>
 </body>
 </html>
-```
