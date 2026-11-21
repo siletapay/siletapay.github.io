@@ -53,6 +53,14 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
+    /* Feathered Borderless Navbar Blur (No Visible Box or Edge) */
+    .nav-feathered-blur {
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      mask-image: linear-gradient(to bottom, #000 0%, #000 48%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 48%, transparent 100%);
+    }
+
     /* Typographic Scale & Pairing Refinements */
     .font-display-tight {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -260,31 +268,34 @@
 <body class="selection:bg-cobalt/30 selection:text-white">
 
   <!-- =========================================================
-       1. REVOLUT-EXACT SLIM NAVBAR (TRANSPARENT -> FROSTED BLUR)
+       1. BORDERLESS FEATHERED-BLUR NAVBAR (ZERO BOX / ZERO FILL)
   ========================================================== -->
-  <header id="siteHeader" class="fixed top-0 inset-x-0 z-50 bg-transparent transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-6">
+  <header id="siteHeader" class="fixed top-0 inset-x-0 z-50">
+    <!-- Pure Feathered Blur Layer (Fades cleanly out with zero box edge) -->
+    <div id="navBlurLayer" class="nav-feathered-blur pointer-events-none absolute inset-x-0 top-0 h-24 opacity-0 transition-opacity duration-300"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-6">
       <!-- Left: Wordmark Only + Clean Inline Links -->
       <div class="flex items-center gap-8">
         <a href="#" class="focus:outline-none">
-          <span class="font-display font-bold text-xl tracking-tight text-white">Sileta</span>
+          <span id="navBrandText" class="font-display font-bold text-xl tracking-tight text-white transition-colors duration-300">Sileta</span>
         </a>
 
         <!-- Slim Nav Links -->
-        <nav class="hidden md:flex items-center gap-6 text-[13.5px] font-medium text-white/85">
-          <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
-          <a href="#payouts" class="hover:text-white transition-colors">Payouts</a>
-          <a href="#calculators" class="hover:text-white transition-colors">Calculators</a>
-          <a href="#security" class="hover:text-white transition-colors">Security</a>
+        <nav id="navLinks" class="hidden md:flex items-center gap-6 text-[13.5px] font-medium text-white/85 transition-colors duration-300">
+          <a href="#how-it-works" class="nav-link hover:text-white transition-colors">How It Works</a>
+          <a href="#payouts" class="nav-link hover:text-white transition-colors">Payouts</a>
+          <a href="#calculators" class="nav-link hover:text-white transition-colors">Calculators</a>
+          <a href="#security" class="nav-link hover:text-white transition-colors">Security</a>
         </nav>
       </div>
 
       <!-- Right: Revolut-Exact Compact Controls ("Log in" + slim pill CTA with north-east arrow) -->
       <div class="flex items-center gap-2">
-        <button onclick="openLoginModal()" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[13px] font-medium text-white/95 hover:text-white transition-colors">
+        <button id="navLoginBtn" onclick="openLoginModal()" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[13px] font-medium text-white/95 hover:text-white transition-colors">
           Log in
         </button>
-        <button onclick="openDownloadModal('full automated settlements')" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-[#191C1F] hover:opacity-90 text-[13px] font-semibold transition-all group">
+        <button id="navCtaBtn" onclick="openDownloadModal('full automated settlements')" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-[#191C1F] hover:opacity-90 text-[13px] font-semibold transition-all group">
           <span>Get the App</span>
           <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
         </button>
@@ -295,7 +306,7 @@
     </div>
 
     <!-- Floating Revolut-Style Mobile Dropdown Card -->
-    <div id="mobileMenu" class="hidden md:hidden mx-4 mt-1 rounded-3xl bg-[#0D1017]/90 backdrop-blur-2xl text-white shadow-2xl border border-white/[0.12] p-3 space-y-1">
+    <div id="mobileMenu" class="relative z-10 hidden md:hidden mx-4 mt-1 rounded-3xl bg-[#0D1017]/90 backdrop-blur-2xl text-white shadow-2xl border border-white/[0.12] p-3 space-y-1">
       <a href="#how-it-works" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-200 hover:bg-white/[0.08] hover:text-white">How It Works</a>
       <a href="#payouts" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-200 hover:bg-white/[0.08] hover:text-white">Payouts</a>
       <a href="#calculators" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-200 hover:bg-white/[0.08] hover:text-white">Calculators</a>
@@ -396,7 +407,7 @@
   <!-- =========================================================
        3. SUBSCRIPTIONS & CUSTOM APP SEARCH (PURE WHITE #FFFFFF)
   ========================================================== -->
-  <section id="how-it-works" class="py-24 sm:py-32 bg-white text-[#060608]">
+  <section id="how-it-works" data-nav-theme="light" class="py-24 sm:py-32 bg-white text-[#060608]">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
       <!-- Centered Section Header -->
       <div class="reveal-up max-w-2xl mx-auto text-center">
@@ -613,7 +624,7 @@
   <!-- =========================================================
        5. SIMPLE INTERACTIVE CALCULATORS (PURE WHITE #FFFFFF)
   ========================================================== -->
-  <section id="calculators" class="py-24 sm:py-32 bg-white text-[#060608]">
+  <section id="calculators" data-nav-theme="light" class="py-24 sm:py-32 bg-white text-[#060608]">
     <div class="max-w-6xl mx-auto px-5 sm:px-8">
       <!-- Centered Headline -->
       <div class="reveal-up max-w-2xl mx-auto text-center">
@@ -885,7 +896,7 @@
   <!-- =========================================================
        7. FINAL CONVERSION BANNER (WHITE)
   ========================================================== -->
-  <section class="py-20 sm:py-28 bg-white text-[#060608]">
+  <section data-nav-theme="light" class="py-20 sm:py-28 bg-white text-[#060608]">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
       <!-- Bold Revolut-Style Conversion Card -->
       <div class="reveal-up relative rounded-3xl overflow-hidden bg-[#060608] text-white grid lg:grid-cols-12 items-center">
@@ -932,7 +943,7 @@
       <!-- Top Multi-Column Grid (Mobile stacked/accordions, PC 12-col grid matching based.com) -->
       <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 pb-14 border-b border-white/[0.1]">
 
-        <!-- Column 1: Brand, Mission & Support Email (based.com left column) -->
+        <!-- Column 1: Brand, Mission & Support Email -->
         <div class="md:col-span-3 space-y-4">
           <a href="#" class="inline-block font-display font-extrabold text-2xl tracking-tight text-white uppercase">SILETA</a>
           <p class="text-sm text-slate-400 leading-relaxed max-w-xs">
@@ -989,7 +1000,7 @@
           </ul>
         </div>
 
-        <!-- Column 4: Based.com-Style Conversion Block ("Get Your Routine" equivalent) -->
+        <!-- Column 4: Based.com-Style Conversion Block -->
         <div class="md:col-span-4 rounded-2xl bg-white/[0.04] border border-white/[0.09] p-6 space-y-4">
           <h3 class="font-display-tight font-bold text-xl text-white">Put Your Finances On Autopilot</h3>
           <p class="text-sm text-slate-400 leading-relaxed">
@@ -1005,7 +1016,7 @@
         </div>
       </div>
 
-      <!-- Bottom Legal & Copyright Row (based.com bottom bar) -->
+      <!-- Bottom Legal & Copyright Row -->
       <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
         <p>&copy;2026, Sileta Financial Inc.</p>
         <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
@@ -1180,23 +1191,62 @@
     document.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
 
     // ---------------------------------------------------------
-    // TRANSPARENT -> FROSTED BLUR HEADER (NEVER TURNS WHITE)
+    // BORDERLESS FEATHERED-BLUR NAVBAR + SECTION-AWARE CONTRAST
     // ---------------------------------------------------------
-    const siteHeader = document.getElementById('siteHeader');
+    const navBlurLayer = document.getElementById('navBlurLayer');
+    const navBrandText = document.getElementById('navBrandText');
+    const navLinks = document.getElementById('navLinks');
+    const navLoginBtn = document.getElementById('navLoginBtn');
+    const navCtaBtn = document.getElementById('navCtaBtn');
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
+    const lightSections = Array.from(document.querySelectorAll('[data-nav-theme="light"]'));
 
-    function updateHeaderOnScroll() {
-      const scrolled = window.scrollY > 36;
-      if (scrolled) {
-        siteHeader.className = 'fixed top-0 inset-x-0 z-50 bg-[#060608]/40 backdrop-blur-2xl border-b border-white/[0.08] transition-all duration-300';
+    let navTicking = false;
+
+    function updateHeaderState() {
+      const scrolled = window.scrollY > 24;
+      // Show feathered blur cleanly without any box/border
+      navBlurLayer.style.opacity = scrolled ? '1' : '0';
+
+      // Check if navbar midpoint (y = 32) is over a pure white section
+      const overLight = lightSections.some(sec => {
+        const rect = sec.getBoundingClientRect();
+        return rect.top <= 36 && rect.bottom >= 36;
+      });
+
+      if (overLight) {
+        navBrandText.className = 'font-display font-bold text-xl tracking-tight text-[#191C1F] transition-colors duration-300';
+        navLinks.className = 'hidden md:flex items-center gap-6 text-[13.5px] font-medium text-[#191C1F]/75 transition-colors duration-300';
+        document.querySelectorAll('.nav-link').forEach(a => {
+          a.className = 'nav-link hover:text-[#191C1F] transition-colors';
+        });
+        navLoginBtn.className = 'hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[13px] font-medium text-[#191C1F] hover:opacity-75 transition-opacity';
+        navCtaBtn.className = 'inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#191C1F] text-white hover:opacity-85 text-[13px] font-semibold transition-all group';
+        mobileMenuBtn.className = 'md:hidden p-1.5 rounded-lg text-[#191C1F] hover:bg-black/5 transition-colors';
       } else {
-        siteHeader.className = 'fixed top-0 inset-x-0 z-50 bg-transparent border-b border-transparent transition-all duration-300';
+        navBrandText.className = 'font-display font-bold text-xl tracking-tight text-white transition-colors duration-300';
+        navLinks.className = 'hidden md:flex items-center gap-6 text-[13.5px] font-medium text-white/85 transition-colors duration-300';
+        document.querySelectorAll('.nav-link').forEach(a => {
+          a.className = 'nav-link hover:text-white transition-colors';
+        });
+        navLoginBtn.className = 'hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[13px] font-medium text-white/95 hover:text-white transition-colors';
+        navCtaBtn.className = 'inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-[#191C1F] hover:opacity-90 text-[13px] font-semibold transition-all group';
+        mobileMenuBtn.className = 'md:hidden p-1.5 rounded-lg text-white hover:bg-white/15 transition-colors';
       }
     }
 
-    window.addEventListener('scroll', updateHeaderOnScroll, { passive: true });
-    updateHeaderOnScroll();
+    window.addEventListener('scroll', () => {
+      if (!navTicking) {
+        requestAnimationFrame(() => {
+          updateHeaderState();
+          navTicking = false;
+        });
+        navTicking = true;
+      }
+    }, { passive: true });
+    window.addEventListener('resize', updateHeaderState, { passive: true });
+    updateHeaderState();
 
     mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
     function closeMobileMenu() { mobileMenu.classList.add('hidden'); }
@@ -1205,7 +1255,7 @@
     // FOOTER MOBILE ACCORDIONS (BASED.COM STYLE)
     // ---------------------------------------------------------
     function toggleFooterAccordion(listId, iconId) {
-      if (window.innerWidth >= 768) return; // Desktop stays always expanded
+      if (window.innerWidth >= 768) return;
       const list = document.getElementById(listId);
       const icon = document.getElementById(iconId);
       const isHidden = list.classList.contains('hidden');
