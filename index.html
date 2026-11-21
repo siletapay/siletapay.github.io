@@ -6,7 +6,7 @@
   <title>Sileta — Every bill, subscription, and payout on autopilot</title>
   <meta name="description" content="Sileta automatically pays your Netflix, Spotify, Apple Music, electricity, water, rent, taxes, and team—so you never have to worry about paying a bill again." />
 
-  <!-- Google Fonts: Plus Jakarta Sans (Display), Instrument Serif (Editorial Accent), DM Sans (UI/Body), JetBrains Mono (Financial Figures), Archivo (Based.com-style Footer Wordmark) -->
+  <!-- Google Fonts: Plus Jakarta Sans (Display), Instrument Serif (Editorial Accent), DM Sans (UI/Body), JetBrains Mono (Financial Figures), Archivo (Based.com-style Footer) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -46,6 +46,7 @@
     }
 
     html, body {
+      width: 100%;
       max-width: 100%;
       overflow-x: hidden;
       overflow-x: clip;
@@ -84,25 +85,6 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /* Based.com Signature Giant Bottom Footer Wordmark + Vertical Fade-Out */
-    .based-giant-wordmark {
-      font-family: 'Archivo', sans-serif;
-      font-weight: 900;
-      font-size: clamp(3.15rem, 19.8vw, 16.5rem);
-      line-height: 0.84;
-      letter-spacing: -0.035em;
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.34) 0%,
-        rgba(212, 212, 216, 0.14) 52%,
-        rgba(10, 10, 12, 0) 94%
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
-    }
-
     /* Revolut-Style Hero Staggered Entrance */
     @keyframes heroFadeUp {
       0% {
@@ -135,10 +117,10 @@
     /* Revolut-Style Scroll Reveal Transitions */
     .reveal-up {
       opacity: 0;
-      transform: translate3d(0, 32px, 0);
+      transform: translate3d(0, 28px, 0);
       transition:
-        opacity 0.8s var(--revolut-ease),
-        transform 0.8s var(--revolut-ease);
+        opacity 0.75s var(--revolut-ease),
+        transform 0.75s var(--revolut-ease);
       will-change: opacity, transform;
     }
 
@@ -295,18 +277,16 @@
   <!-- =========================================================
        1. BORDERLESS FEATHERED-BLUR NAVBAR (ZERO BOX / ZERO FILL)
   ========================================================== -->
-  <header id="siteHeader" class="fixed top-0 inset-x-0 z-50">
-    <!-- Pure Feathered Blur Layer (Fades cleanly out with zero box edge) -->
+  <header id="siteHeader" class="fixed top-0 inset-x-0 z-50 w-full">
     <div id="navBlurLayer" class="nav-feathered-blur pointer-events-none absolute inset-x-0 top-0 h-24 opacity-0 transition-opacity duration-300"></div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-3">
       <!-- Left: Wordmark Only + Clean Inline Links -->
       <div class="flex items-center gap-8 min-w-0">
         <a href="#" class="focus:outline-none shrink-0">
           <span id="navBrandText" class="font-display font-bold text-xl tracking-tight text-white transition-colors duration-300">Sileta</span>
         </a>
 
-        <!-- Slim Nav Links -->
         <nav id="navLinks" class="hidden md:flex items-center gap-6 text-[13.5px] font-medium text-white/85 transition-colors duration-300">
           <a href="#how-it-works" class="nav-link hover:text-white transition-colors">How It Works</a>
           <a href="#payouts" class="nav-link hover:text-white transition-colors">Payouts</a>
@@ -315,7 +295,7 @@
         </nav>
       </div>
 
-      <!-- Right: Revolut-Exact Compact Controls ("Log in" + slim pill CTA with north-east arrow) -->
+      <!-- Right: Revolut-Exact Compact Controls -->
       <div class="flex items-center gap-2 shrink-0">
         <button id="navLoginBtn" onclick="openLoginModal()" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[13px] font-medium text-white/95 hover:text-white transition-colors">
           Log in
@@ -330,7 +310,7 @@
       </div>
     </div>
 
-    <!-- Floating Revolut-Style Mobile Dropdown Card -->
+    <!-- Floating Mobile Dropdown Card -->
     <div id="mobileMenu" class="relative z-10 hidden md:hidden mx-4 mt-1 rounded-3xl bg-[#0D1017]/95 backdrop-blur-2xl text-white shadow-2xl border border-white/[0.12] p-3 space-y-1">
       <a href="#how-it-works" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-200 hover:bg-white/[0.08] hover:text-white">How It Works</a>
       <a href="#payouts" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-200 hover:bg-white/[0.08] hover:text-white">Payouts</a>
@@ -343,7 +323,7 @@
   <!-- =========================================================
        2. REVOLUT-STYLE FULL-BLEED PHOTOGRAPHY HERO
   ========================================================== -->
-  <section id="heroSection" class="relative min-h-[92vh] sm:min-h-screen flex items-center pt-24 pb-16 sm:pt-32 sm:pb-24 overflow-hidden bg-[#060608]">
+  <section id="heroSection" class="relative w-full min-h-[90vh] sm:min-h-screen flex items-center pt-24 pb-16 sm:pt-32 sm:pb-24 overflow-hidden bg-[#060608]">
     <!-- Full-Bleed Lifestyle Photo Background with Parallax & Ken Burns Settle -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
       <img
@@ -353,16 +333,15 @@
         alt="Modern Sileta user managing payments effortlessly on the move"
         class="hero-bg-settle w-full h-[112%] object-cover object-[50%_15%] sm:object-[52%_15%] will-change-transform"
       />
-      <!-- Revolut-style Editorial Scrim -->
-      <div class="absolute inset-0 bg-gradient-to-r from-[#060608]/90 via-[#060608]/55 to-[#060608]/70 lg:from-[#060608]/85 lg:via-[#060608]/35 lg:to-[#060608]/55"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#060608]/90 via-[#060608]/55 to-[#060608]/75 lg:from-[#060608]/85 lg:via-[#060608]/35 lg:to-[#060608]/55"></div>
       <div class="absolute inset-0 bg-gradient-to-t from-[#060608]/90 via-transparent to-[#060608]/45"></div>
     </div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 w-full">
-      <div class="grid lg:grid-cols-12 gap-10 lg:gap-6 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6 items-center">
         <!-- Hero Left Copy -->
-        <div class="lg:col-span-5 space-y-5 sm:space-y-6 min-w-0">
-          <h1 class="hero-anim-1 font-display-tight font-extrabold text-[32px] sm:text-5xl lg:text-[56px] text-white leading-[1.06] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">
+        <div class="w-full min-w-0 lg:col-span-5 space-y-5 sm:space-y-6">
+          <h1 class="hero-anim-1 font-display-tight font-extrabold text-[30px] sm:text-5xl lg:text-[56px] text-white leading-[1.08] break-words drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">
             Every bill, subscription, and payout on <span class="font-editorial-italic text-cobalt-soft font-normal text-[1.08em]">autopilot.</span>
           </h1>
 
@@ -372,12 +351,12 @@
 
           <!-- Pill CTAs -->
           <div class="hero-anim-3 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 pt-1">
-            <button onclick="openDownloadModal('automated bills and payouts')" class="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-white text-[#191C1F] hover:bg-slate-100 font-semibold text-sm sm:text-base shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
+            <button onclick="openDownloadModal('automated bills and payouts')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-white text-[#191C1F] hover:bg-slate-100 font-semibold text-sm sm:text-base shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
               <span>Download Sileta</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7"/></svg>
             </button>
 
-            <a href="#calculators" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#060608]/55 hover:bg-[#060608]/75 backdrop-blur-md border border-white/25 text-white font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-[1.02]">
+            <a href="#calculators" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#060608]/55 hover:bg-[#060608]/75 backdrop-blur-md border border-white/25 text-white font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-[1.02]">
               <span>Try Live Calculators</span>
             </a>
           </div>
@@ -389,8 +368,8 @@
         </div>
 
         <!-- Hero Right: Auto-Advancing Overlapping Subscription Cards -->
-        <div class="hero-anim-4 lg:col-span-5 lg:col-start-8 flex flex-col items-center lg:items-end min-w-0">
-          <div id="heroDeckWrapper" class="relative w-full max-w-[380px] sm:max-w-[440px] flex items-center gap-0 sm:gap-3.5">
+        <div class="hero-anim-4 w-full min-w-0 lg:col-span-5 lg:col-start-8 flex flex-col items-center lg:items-end">
+          <div id="heroDeckWrapper" class="relative w-full max-w-[360px] sm:max-w-[440px] pr-3 sm:pr-0 flex items-center gap-0 sm:gap-3.5">
             <!-- Left Arrow (Tablet & PC flanking) -->
             <button
               onclick="stepHeroDeck(-1)"
@@ -401,7 +380,7 @@
             </button>
 
             <!-- Overlapping Subscription Card Stack -->
-            <div class="relative flex-1 min-w-0 h-[265px] sm:h-[310px]">
+            <div class="relative flex-1 min-w-0 h-[250px] sm:h-[305px]">
               <div id="heroCardDeck" class="relative w-full h-full">
                 <!-- Cards injected & positioned smoothly by JS -->
               </div>
@@ -418,7 +397,7 @@
           </div>
 
           <!-- Mobile Left/Right Arrows + Progress Dots & Counter -->
-          <div class="w-full max-w-[380px] sm:max-w-[440px] mt-7 sm:mt-8 sm:px-14 flex items-center justify-between gap-3 text-xs font-mono text-white/85">
+          <div class="w-full max-w-[360px] sm:max-w-[440px] mt-7 sm:mt-8 sm:px-14 flex items-center justify-between gap-3 text-xs font-mono text-white/85">
             <button
               onclick="stepHeroDeck(-1)"
               aria-label="Previous subscription card"
@@ -428,9 +407,7 @@
             </button>
 
             <div class="flex items-center gap-3 sm:w-full sm:justify-between">
-              <div id="heroDeckDots" class="flex items-center gap-1.5">
-                <!-- Dots injected by JS -->
-              </div>
+              <div id="heroDeckDots" class="flex items-center gap-1.5"></div>
               <span id="heroDeckCounter" class="tabular-figures">01 / 07</span>
             </div>
 
@@ -450,14 +427,14 @@
   <!-- =========================================================
        3. SUBSCRIPTIONS & CUSTOM APP SEARCH (PURE WHITE #FFFFFF)
   ========================================================== -->
-  <section id="how-it-works" data-nav-theme="light" class="py-20 sm:py-32 bg-white text-[#060608] overflow-hidden">
+  <section id="how-it-works" data-nav-theme="light" class="w-full py-20 sm:py-32 bg-white text-[#060608] overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-8">
       <!-- Centered Section Header -->
       <div class="reveal-up max-w-2xl mx-auto text-center">
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-cobalt font-semibold mb-3">
           Unified Subscriptions &amp; Bills
         </p>
-        <h2 class="font-display-tight font-extrabold text-[28px] sm:text-4xl lg:text-5xl text-[#060608] leading-[1.08]">
+        <h2 class="font-display-tight font-extrabold text-[26px] sm:text-4xl lg:text-5xl text-[#060608] leading-[1.08] break-words">
           Never pay a subscription <span class="font-editorial-italic text-cobalt font-normal text-[1.08em]">manually</span> again.
         </h2>
         <p class="text-sm sm:text-lg text-slate-500 mt-4 leading-relaxed">
@@ -495,13 +472,11 @@
       </div>
 
       <!-- Rounded #F4F4F6 Revolut-Style Visual Grid -->
-      <div id="subCardsGrid" class="reveal-up mt-10 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4" style="transition-delay: 140ms;">
-        <!-- Populated by JS -->
-      </div>
+      <div id="subCardsGrid" class="reveal-up mt-10 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4" style="transition-delay: 140ms;"></div>
 
       <!-- Single Monthly Consolidated Payment Pill Summary -->
       <div class="reveal-up mt-8 rounded-3xl bg-[#F4F4F6] p-5 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6" style="transition-delay: 200ms;">
-        <div class="flex flex-wrap items-center gap-6 sm:gap-8">
+        <div class="flex flex-wrap items-center gap-6 sm:gap-8 min-w-0">
           <div class="min-w-0">
             <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">Consolidated into 1 payment</p>
             <p id="subConsolidatedTotal" class="font-mono tabular-figures text-2xl sm:text-4xl font-bold text-[#060608] mt-1">$2,885.47<span class="text-sm sm:text-base font-sans font-medium text-slate-500"> / mo</span></p>
@@ -513,8 +488,8 @@
           </div>
         </div>
 
-        <button onclick="openDownloadModal('live subscription & bill auto-pay')" class="w-full md:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#191C1F] hover:bg-cobalt text-white font-semibold text-sm transition-all duration-300 hover:scale-[1.02] shrink-0">
-          <svg class="w-4 h-4 text-cobalt-soft" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <button onclick="openDownloadModal('live subscription & bill auto-pay')" class="w-full md:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-4 rounded-full bg-[#191C1F] hover:bg-cobalt text-white font-semibold text-sm transition-all duration-300 hover:scale-[1.02] shrink-0">
+          <svg class="w-4 h-4 text-cobalt-soft shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span>Activate Auto-Pay in App</span>
         </button>
       </div>
@@ -525,7 +500,7 @@
        4. AUTOMATED INDIVIDUAL & GROUP PAYOUTS
        (DARK SECTION #060608 + SUBTLE COBALT GLOW)
   ========================================================== -->
-  <section id="payouts" class="relative py-20 sm:py-32 bg-[#060608] overflow-hidden">
+  <section id="payouts" class="relative w-full py-20 sm:py-32 bg-[#060608] overflow-hidden">
     <div class="absolute inset-0 cobalt-grid pointer-events-none"></div>
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[620px] h-[420px] rounded-full bg-cobalt/15 blur-[120px] pointer-events-none"></div>
 
@@ -535,7 +510,7 @@
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-cobalt-soft font-semibold mb-3">
           Programmable Disbursements
         </p>
-        <h2 class="font-display-tight font-extrabold text-[28px] sm:text-4xl lg:text-5xl text-white leading-[1.08]">
+        <h2 class="font-display-tight font-extrabold text-[26px] sm:text-4xl lg:text-5xl text-white leading-[1.08] break-words">
           Send money to one person or an <span class="font-editorial-italic text-cobalt-soft font-normal text-[1.08em]">entire team</span> automatically.
         </h2>
         <p class="text-sm sm:text-lg text-slate-400 mt-4 leading-relaxed">
@@ -544,10 +519,10 @@
       </div>
 
       <!-- Two Clean Side-by-Side Glass Cards -->
-      <div class="mt-12 sm:mt-14 grid lg:grid-cols-2 gap-6 items-stretch">
+      <div class="mt-12 sm:mt-14 grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
 
         <!-- Card 1: Auto-Send to Anyone -->
-        <div class="reveal-up glass-card rounded-3xl p-5 sm:p-8 flex flex-col justify-between space-y-6 min-w-0" style="transition-delay: 80ms;">
+        <div class="reveal-up w-full min-w-0 glass-card rounded-3xl p-5 sm:p-8 flex flex-col justify-between space-y-6" style="transition-delay: 80ms;">
           <div class="space-y-5 min-w-0">
             <div class="flex items-start justify-between gap-3">
               <div class="min-w-0">
@@ -559,7 +534,7 @@
 
             <!-- Interactive Form Preview -->
             <div class="space-y-3 pt-1">
-              <div class="grid sm:grid-cols-2 gap-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div class="min-w-0">
                   <label class="block text-xs text-slate-400 mb-1.5">Recipient &amp; Role</label>
                   <input id="indRecipientInput" type="text" value="Daniela Cruz (Partner)" oninput="updateIndividualPreview()" class="w-full min-w-0 px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm text-white transition-colors" />
@@ -570,7 +545,7 @@
                 </div>
               </div>
 
-              <div class="grid sm:grid-cols-2 gap-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div class="min-w-0">
                   <label class="block text-xs text-slate-400 mb-1.5">Bank Account / Routing</label>
                   <input id="indBankInput" type="text" value="Mercury •••• 9104" oninput="updateIndividualPreview()" class="w-full min-w-0 px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono text-white transition-colors" />
@@ -604,7 +579,7 @@
         </div>
 
         <!-- Card 2: Group & Contract Payouts -->
-        <div class="reveal-up glass-card rounded-3xl p-5 sm:p-8 flex flex-col justify-between space-y-6 min-w-0" style="transition-delay: 160ms;">
+        <div class="reveal-up w-full min-w-0 glass-card rounded-3xl p-5 sm:p-8 flex flex-col justify-between space-y-6" style="transition-delay: 160ms;">
           <div class="space-y-5 min-w-0">
             <div class="flex items-start justify-between gap-3">
               <div class="min-w-0">
@@ -624,7 +599,7 @@
             </div>
 
             <!-- Controls: Monthly Payout Amount & Contract Duration -->
-            <div class="grid sm:grid-cols-2 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div class="min-w-0">
                 <label class="block text-xs text-slate-400 mb-1.5">Monthly Payout / Person ($)</label>
                 <input id="grpAmountInput" type="number" min="100" step="50" value="2800" oninput="renderGroupSummary()" class="w-full min-w-0 px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono tabular-figures font-bold text-white transition-colors" />
@@ -642,9 +617,7 @@
 
             <!-- Compact Group Members Preview -->
             <div class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-4 space-y-2.5">
-              <div id="grpMembersList" class="space-y-2 max-h-28 overflow-y-auto pr-1">
-                <!-- Populated by JS -->
-              </div>
+              <div id="grpMembersList" class="space-y-2 max-h-28 overflow-y-auto pr-1"></div>
               <div class="pt-2.5 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-2 text-xs">
                 <span class="text-slate-400">Monthly Batch (<span id="grpMemberCount">3</span> members)</span>
                 <span id="grpSummaryTotal" class="font-mono tabular-figures text-sm font-bold text-white">$8,400 / mo &bull; 6 mo</span>
@@ -667,14 +640,14 @@
   <!-- =========================================================
        5. SIMPLE INTERACTIVE CALCULATORS (PURE WHITE #FFFFFF)
   ========================================================== -->
-  <section id="calculators" data-nav-theme="light" class="py-20 sm:py-32 bg-white text-[#060608] overflow-hidden">
+  <section id="calculators" data-nav-theme="light" class="w-full py-20 sm:py-32 bg-white text-[#060608] overflow-hidden">
     <div class="max-w-6xl mx-auto px-4 sm:px-8">
       <!-- Centered Headline -->
       <div class="reveal-up max-w-2xl mx-auto text-center">
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-cobalt font-semibold mb-3">
           Interactive Financial Suite
         </p>
-        <h2 class="font-display-tight font-extrabold text-[28px] sm:text-4xl lg:text-5xl text-[#060608] leading-[1.08]">
+        <h2 class="font-display-tight font-extrabold text-[26px] sm:text-4xl lg:text-5xl text-[#060608] leading-[1.08] break-words">
           Smart financial <span class="font-editorial-italic text-cobalt font-normal text-[1.08em]">calculators,</span> built right in.
         </h2>
         <p class="text-sm sm:text-lg text-slate-500 mt-4 leading-relaxed">
@@ -684,7 +657,7 @@
 
       <!-- ONE Clean Tabbed Revolut-Style Card (#F4F4F6 rounded-3xl) -->
       <div class="reveal-up mt-10 sm:mt-12 rounded-3xl bg-[#F4F4F6] p-4 sm:p-8 lg:p-10" style="transition-delay: 100ms;">
-        <!-- Pill Tabs (2x2 Grid on Mobile, Single Pill Bar on Tablet/PC) -->
+        <!-- Pill Tabs -->
         <div class="grid grid-cols-2 sm:inline-flex gap-1.5 sm:gap-2 p-1.5 rounded-2xl sm:rounded-full bg-white border border-slate-200/80 w-full sm:w-fit mx-auto sm:flex">
           <button onclick="switchCalcTab('expenditure')" id="tab-expenditure" class="calc-tab px-3 sm:px-5 py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-semibold bg-[#191C1F] text-white transition-all duration-300 text-center">
             Monthly Spend
@@ -701,8 +674,8 @@
         </div>
 
         <!-- TAB 1: MONTHLY EXPENDITURE -->
-        <div id="panel-expenditure" class="calc-panel tab-animate mt-7 sm:mt-8 grid lg:grid-cols-12 gap-5 sm:gap-6 items-center">
-          <div class="lg:col-span-7 grid sm:grid-cols-2 gap-3 min-w-0">
+        <div id="panel-expenditure" class="calc-panel tab-animate mt-7 sm:mt-8 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
+          <div class="w-full min-w-0 lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3">
             <label class="flex items-center justify-between gap-2 p-4 rounded-2xl bg-white cursor-pointer border border-transparent hover:border-cobalt/30 transition-all min-w-0">
               <div class="flex items-center gap-2.5 min-w-0">
                 <input type="checkbox" checked class="exp-check w-4 h-4 accent-cobalt rounded shrink-0" onchange="calcExpenditure()" />
@@ -748,7 +721,7 @@
             </label>
           </div>
 
-          <div class="lg:col-span-5 rounded-3xl bg-white p-6 sm:p-7 text-center space-y-3 shadow-sm min-w-0">
+          <div class="w-full min-w-0 lg:col-span-5 rounded-3xl bg-white p-6 sm:p-7 text-center space-y-3 shadow-sm">
             <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-400">Total Monthly Spend</p>
             <p id="expTotalOut" class="font-mono tabular-figures text-3xl sm:text-5xl font-bold text-[#060608] break-words">$5,955.00</p>
             <p id="expAnnualOut" class="text-xs font-mono tabular-figures text-slate-500">Annualized: $71,460.00 / yr</p>
@@ -759,8 +732,8 @@
         </div>
 
         <!-- TAB 2: BUSINESS PROFIT & BREAK-EVEN -->
-        <div id="panel-breakeven" class="calc-panel hidden tab-animate mt-7 sm:mt-8 grid lg:grid-cols-12 gap-5 sm:gap-6 items-center">
-          <div class="lg:col-span-6 space-y-3.5 min-w-0">
+        <div id="panel-breakeven" class="calc-panel hidden tab-animate mt-7 sm:mt-8 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
+          <div class="w-full min-w-0 lg:col-span-6 space-y-3.5">
             <div class="p-4 rounded-2xl bg-white space-y-2">
               <div class="flex justify-between items-center gap-2">
                 <label class="text-xs font-semibold text-slate-600">Unit Price ($)</label>
@@ -794,29 +767,29 @@
             </div>
           </div>
 
-          <div class="lg:col-span-6 grid grid-cols-2 gap-3 sm:gap-4 min-w-0">
+          <div class="w-full min-w-0 lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div class="p-4 sm:p-5 rounded-2xl bg-white min-w-0">
               <p class="text-xs font-medium text-slate-500">Total Revenue</p>
-              <p id="beRevOut" class="font-mono tabular-figures text-xl sm:text-2xl font-bold text-[#060608] mt-1 truncate">$33,600</p>
+              <p id="beRevOut" class="font-mono tabular-figures text-2xl font-bold text-[#060608] mt-1 truncate">$33,600</p>
             </div>
             <div class="p-4 sm:p-5 rounded-2xl bg-white min-w-0">
               <p class="text-xs font-medium text-slate-500">Gross Profit</p>
-              <p id="beGrossOut" class="font-mono tabular-figures text-xl sm:text-2xl font-bold text-cobalt mt-1 truncate">$21,000</p>
+              <p id="beGrossOut" class="font-mono tabular-figures text-2xl font-bold text-cobalt mt-1 truncate">$21,000</p>
             </div>
             <div class="p-4 sm:p-5 rounded-2xl bg-white min-w-0">
               <p class="text-xs font-medium text-slate-500">Net Profit</p>
-              <p id="beNetOut" class="font-mono tabular-figures text-xl sm:text-2xl font-bold text-emerald-600 mt-1 truncate">$9,000</p>
+              <p id="beNetOut" class="font-mono tabular-figures text-2xl font-bold text-emerald-600 mt-1 truncate">$9,000</p>
             </div>
             <div class="p-4 sm:p-5 rounded-2xl bg-[#191C1F] text-white min-w-0">
               <p class="text-xs font-medium text-slate-400">Break-Even Point</p>
-              <p id="bePointOut" class="font-mono tabular-figures text-xl sm:text-2xl font-bold text-white mt-1 truncate">160 Units</p>
+              <p id="bePointOut" class="font-mono tabular-figures text-2xl font-bold text-white mt-1 truncate">160 Units</p>
             </div>
           </div>
         </div>
 
         <!-- TAB 3: UNIT FIXED COST & AUTO-PAY -->
-        <div id="panel-unitcost" class="calc-panel hidden tab-animate mt-7 sm:mt-8 grid lg:grid-cols-12 gap-5 sm:gap-6 items-center">
-          <div class="lg:col-span-6 space-y-4 min-w-0">
+        <div id="panel-unitcost" class="calc-panel hidden tab-animate mt-7 sm:mt-8 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
+          <div class="w-full min-w-0 lg:col-span-6 space-y-4">
             <div class="p-5 rounded-2xl bg-white">
               <label class="block text-xs font-semibold text-slate-500 mb-2">Total Monthly Fixed Costs (Rent, Salaries, Utilities, SaaS)</label>
               <div class="flex items-center gap-2">
@@ -830,20 +803,20 @@
             </div>
           </div>
 
-          <div class="lg:col-span-6 rounded-3xl bg-white p-6 sm:p-7 text-center space-y-4 shadow-sm min-w-0">
+          <div class="w-full min-w-0 lg:col-span-6 rounded-3xl bg-white p-6 sm:p-7 text-center space-y-4 shadow-sm">
             <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-400">Fixed Cost per Unit</p>
             <p id="ufPerUnitOut" class="font-mono tabular-figures text-3xl sm:text-5xl font-bold text-cobalt">$20.00</p>
             <p class="text-xs text-slate-500">Every unit carries this exact fixed overhead share.</p>
             <button onclick="openDownloadModal('automated fixed cost payments')" class="w-full py-3.5 px-5 rounded-full bg-[#191C1F] hover:bg-cobalt text-white text-sm font-semibold transition-all duration-300 inline-flex items-center justify-center gap-2">
               <svg class="w-4 h-4 text-cobalt-soft shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              <span>Let Sileta Auto-Pay Fixed Costs</span>
+              <span>Auto-Pay Fixed Costs</span>
             </button>
           </div>
         </div>
 
         <!-- TAB 4: AUTO-TAX ESTIMATOR -->
-        <div id="panel-tax" class="calc-panel hidden tab-animate mt-7 sm:mt-8 grid lg:grid-cols-12 gap-5 sm:gap-6 items-center">
-          <div class="lg:col-span-6 p-5 sm:p-6 rounded-2xl bg-white space-y-5 min-w-0">
+        <div id="panel-tax" class="calc-panel hidden tab-animate mt-7 sm:mt-8 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-center">
+          <div class="w-full min-w-0 lg:col-span-6 p-5 sm:p-6 rounded-2xl bg-white space-y-5">
             <div class="flex justify-between items-baseline gap-2">
               <label for="taxIncomeSlider" class="text-sm font-semibold text-[#060608]">Monthly Income / Revenue</label>
               <span id="taxIncomeVal" class="font-mono tabular-figures text-xl sm:text-2xl font-bold text-[#060608]">$24,000</span>
@@ -858,7 +831,7 @@
             </p>
           </div>
 
-          <div class="lg:col-span-6 rounded-3xl bg-[#191C1F] text-white p-6 sm:p-7 text-center space-y-4 min-w-0">
+          <div class="w-full min-w-0 lg:col-span-6 rounded-3xl bg-[#191C1F] text-white p-6 sm:p-7 text-center space-y-4">
             <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-400">Estimated Monthly Tax Reserve</p>
             <p id="taxEstOut" class="font-mono tabular-figures text-3xl sm:text-5xl font-bold text-cobalt-soft">$5,280.00</p>
             <p id="taxQtrOut" class="text-xs font-mono tabular-figures text-slate-400">Quarterly Auto-Filing Set-Aside: $15,840.00</p>
@@ -876,7 +849,7 @@
        6. SECURITY & PEACE OF MIND
        (DARK SECTION #060608 + FAINT COBALT GRID + GLOW)
   ========================================================== -->
-  <section id="security" class="relative py-20 sm:py-32 bg-[#060608] overflow-hidden">
+  <section id="security" class="relative w-full py-20 sm:py-32 bg-[#060608] overflow-hidden">
     <div class="absolute inset-0 cobalt-grid pointer-events-none"></div>
     <div class="absolute bottom-0 right-[12%] w-[440px] h-[440px] rounded-full bg-cobalt/15 blur-[120px] pointer-events-none"></div>
 
@@ -885,7 +858,7 @@
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-cobalt-soft font-semibold mb-3">
           Bank-Grade Safeguarding
         </p>
-        <h2 class="font-display-tight font-extrabold text-[28px] sm:text-4xl lg:text-5xl text-white leading-[1.08]">
+        <h2 class="font-display-tight font-extrabold text-[26px] sm:text-4xl lg:text-5xl text-white leading-[1.08] break-words">
           Your money, protected <span class="font-editorial-italic text-cobalt-soft font-normal text-[1.08em]">around the clock.</span>
         </h2>
         <p class="text-sm sm:text-lg text-slate-400 mt-4 leading-relaxed">
@@ -894,9 +867,9 @@
       </div>
 
       <!-- 3 Clean Glass Trust Cards -->
-      <div class="mt-12 sm:mt-14 grid md:grid-cols-3 gap-5 sm:gap-6">
+      <div class="mt-12 sm:mt-14 grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
         <!-- Card 1 -->
-        <div class="reveal-up glass-card rounded-3xl p-6 sm:p-8 space-y-4" style="transition-delay: 80ms;">
+        <div class="reveal-up w-full min-w-0 glass-card rounded-3xl p-6 sm:p-8 space-y-4" style="transition-delay: 80ms;">
           <div class="w-12 h-12 rounded-2xl bg-cobalt/20 border border-cobalt/35 flex items-center justify-center text-cobalt-soft">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
           </div>
@@ -907,7 +880,7 @@
         </div>
 
         <!-- Card 2 (with interactive Kill-Switch demo) -->
-        <div class="reveal-up glass-card rounded-3xl p-6 sm:p-8 space-y-4" style="transition-delay: 160ms;">
+        <div class="reveal-up w-full min-w-0 glass-card rounded-3xl p-6 sm:p-8 space-y-4" style="transition-delay: 160ms;">
           <div class="flex flex-wrap items-center justify-between gap-2">
             <div class="w-12 h-12 rounded-2xl bg-cobalt/20 border border-cobalt/35 flex items-center justify-center text-cobalt-soft shrink-0">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636a9 9 0 11-12.728 0M12 3v9"/></svg>
@@ -923,7 +896,7 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="reveal-up glass-card rounded-3xl p-6 sm:p-8 space-y-4" style="transition-delay: 240ms;">
+        <div class="reveal-up w-full min-w-0 glass-card rounded-3xl p-6 sm:p-8 space-y-4" style="transition-delay: 240ms;">
           <div class="w-12 h-12 rounded-2xl bg-cobalt/20 border border-cobalt/35 flex items-center justify-center text-cobalt-soft">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
@@ -939,23 +912,23 @@
   <!-- =========================================================
        7. FINAL CONVERSION BANNER (WHITE)
   ========================================================== -->
-  <section data-nav-theme="light" class="py-16 sm:py-28 bg-white text-[#060608] overflow-hidden">
+  <section data-nav-theme="light" class="w-full py-16 sm:py-28 bg-white text-[#060608] overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-8">
       <!-- Bold Revolut-Style Conversion Card -->
-      <div class="reveal-up relative rounded-3xl overflow-hidden bg-[#060608] text-white grid lg:grid-cols-12 items-center">
-        <div class="lg:col-span-7 p-6 sm:p-12 lg:p-16 space-y-6 relative z-10 min-w-0">
-          <h2 class="font-display-tight font-extrabold text-[28px] sm:text-4xl lg:text-5xl leading-[1.08]">
+      <div class="reveal-up relative rounded-3xl overflow-hidden bg-[#060608] text-white grid grid-cols-1 lg:grid-cols-12 items-center">
+        <div class="w-full min-w-0 lg:col-span-7 p-6 sm:p-12 lg:p-16 space-y-5 sm:space-y-6 relative z-10">
+          <h2 class="font-display-tight font-extrabold text-[26px] sm:text-4xl lg:text-5xl leading-[1.08] break-words">
             Put your finances on <span class="font-editorial-italic text-cobalt-soft font-normal text-[1.08em]">autopilot</span> today.
           </h2>
           <p class="text-sm sm:text-lg text-slate-300 max-w-lg leading-relaxed">
             Download Sileta on Mobile or Desktop to link your accounts and settle every bill, subscription, and payout automatically.
           </p>
           <div class="flex flex-col sm:flex-row sm:flex-wrap gap-3 pt-2">
-            <button onclick="openDownloadModal('Sileta for Mobile (iOS & Android)')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-cobalt hover:bg-cobalt-light text-white font-semibold text-sm transition-all duration-300 hover:scale-[1.02]">
+            <button onclick="openDownloadModal('Sileta for Mobile (iOS & Android)')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 rounded-full bg-cobalt hover:bg-cobalt-light text-white font-semibold text-xs sm:text-sm transition-all duration-300 hover:scale-[1.02]">
               <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
               <span>Download for Mobile (iOS / Android)</span>
             </button>
-            <button onclick="openDownloadModal('Sileta for PC (Windows & macOS)')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-[#060608] hover:bg-slate-100 font-semibold text-sm transition-all duration-300 hover:scale-[1.02]">
+            <button onclick="openDownloadModal('Sileta for PC (Windows & macOS)')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 rounded-full bg-white text-[#060608] hover:bg-slate-100 font-semibold text-xs sm:text-sm transition-all duration-300 hover:scale-[1.02]">
               <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
               <span>Download for PC (Windows / macOS)</span>
             </button>
@@ -963,7 +936,7 @@
         </div>
 
         <!-- Blended Curated Lifestyle Imagery -->
-        <div class="lg:col-span-5 relative h-56 sm:h-64 lg:h-full min-h-[240px] lg:min-h-[280px]">
+        <div class="w-full lg:col-span-5 relative h-52 sm:h-64 lg:h-full min-h-[220px] lg:min-h-[280px]">
           <img
             src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1400&q=80"
             alt="Effortless digital payment lifestyle"
@@ -978,16 +951,17 @@
   </section>
 
   <!-- =========================================================
-       8. BASED.COM-STYLE FOOTER (MATTE CHARCOAL #0A0A0C + ARCHIVO + FADE-OUT WORDMARK)
+       8. BASED.COM-STYLE FOOTER:
+          TOP COLUMNS -> GIANT FADED WORDMARK -> BOTTOM COPYRIGHT ROW
   ========================================================== -->
-  <footer class="bg-[#0A0A0C] text-white border-t border-white/[0.08] pt-14 sm:pt-20 overflow-hidden font-based">
+  <footer class="w-full bg-[#0A0A0C] text-white border-t border-white/[0.08] pt-14 sm:pt-20 pb-8 overflow-hidden font-based">
     <div class="max-w-7xl mx-auto px-4 sm:px-8">
 
       <!-- Top Multi-Column Grid (Mobile stacked/accordions, Tablet 2x2, PC 12-col grid) -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-12 sm:pb-14 border-b border-white/[0.09]">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-10 sm:pb-14 border-b border-white/[0.09]">
 
         <!-- Column 1: Brand, Mission & Support Email -->
-        <div class="md:col-span-6 lg:col-span-3 space-y-4">
+        <div class="w-full min-w-0 md:col-span-6 lg:col-span-3 space-y-4">
           <a href="#" class="inline-block font-based font-black text-2xl tracking-tight text-white uppercase">SILETA</a>
           <p class="font-sans text-sm text-zinc-400 leading-relaxed max-w-xs">
             Our mission is to build the cleanest, most effortless automated financial engine for everyday bills and business payouts.
@@ -1012,7 +986,7 @@
         </div>
 
         <!-- Column 2: Customer Care (Accordion on Mobile, Open List on Tablet & PC) -->
-        <div class="md:col-span-3 lg:col-span-2 border-t border-white/[0.08] md:border-none pt-4 md:pt-0">
+        <div class="w-full min-w-0 md:col-span-3 lg:col-span-2 border-t border-white/[0.08] md:border-none pt-4 md:pt-0">
           <button type="button" onclick="toggleFooterAccordion('footCareList', 'footCareIcon')" class="w-full flex items-center justify-between md:cursor-default text-left">
             <span class="font-based font-bold text-xs uppercase tracking-[0.14em] text-white">Customer Care</span>
             <span id="footCareIcon" class="md:hidden text-lg font-mono text-zinc-400">+</span>
@@ -1028,7 +1002,7 @@
         </div>
 
         <!-- Column 3: Quick Links (Accordion on Mobile, Open List on Tablet & PC) -->
-        <div class="md:col-span-3 lg:col-span-3 border-t border-b md:border-none border-white/[0.08] py-4 md:py-0">
+        <div class="w-full min-w-0 md:col-span-3 lg:col-span-3 border-t border-b md:border-none border-white/[0.08] py-4 md:py-0">
           <button type="button" onclick="toggleFooterAccordion('footQuickList', 'footQuickIcon')" class="w-full flex items-center justify-between md:cursor-default text-left">
             <span class="font-based font-bold text-xs uppercase tracking-[0.14em] text-white">Quick Links</span>
             <span id="footQuickIcon" class="md:hidden text-lg font-mono text-zinc-400">+</span>
@@ -1044,14 +1018,14 @@
         </div>
 
         <!-- Column 4: Based.com-Style Conversion Block -->
-        <div class="md:col-span-12 lg:col-span-4 rounded-2xl bg-[#141416] border border-white/[0.08] p-6 space-y-4">
+        <div class="w-full min-w-0 md:col-span-12 lg:col-span-4 rounded-2xl bg-[#141416] border border-white/[0.08] p-5 sm:p-6 space-y-4">
           <h3 class="font-based font-extrabold text-lg text-white tracking-tight">Put Your Finances On Autopilot</h3>
           <p class="font-sans text-sm text-zinc-400 leading-relaxed">
             Consolidate your subscriptions, utilities, rent, taxes, and team payouts in less than 60 seconds.
           </p>
           <button onclick="openDownloadModal('Sileta Instant Setup')" class="w-full py-3.5 px-5 rounded-full bg-white text-[#0A0A0C] hover:bg-zinc-200 font-based font-bold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2">
             <span>GET STARTED NOW (60s)</span>
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
+            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
           </button>
           <p class="font-sans text-xs text-zinc-400 text-center">
             142,000+ households &amp; teams automated
@@ -1059,23 +1033,37 @@
         </div>
       </div>
 
-      <!-- Bottom Legal & Copyright Row -->
-      <div class="pt-7 pb-5 sm:pb-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-xs text-zinc-500">
+      <!-- Giant Edge-to-Edge Faded SILETA Wordmark (Matches based.com Mobile & PC) -->
+      <div class="w-full pt-8 sm:pt-12 pb-2 sm:pb-4 select-none pointer-events-none">
+        <svg viewBox="0 0 1000 195" class="w-full h-auto block" aria-hidden="true">
+          <defs>
+            <linearGradient id="basedWordmarkFade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.34" />
+              <stop offset="52%" stop-color="#D4D4D8" stop-opacity="0.12" />
+              <stop offset="96%" stop-color="#0A0A0C" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <text
+            x="500"
+            y="172"
+            text-anchor="middle"
+            font-family="'Archivo', 'Plus Jakarta Sans', sans-serif"
+            font-weight="900"
+            font-size="224"
+            letter-spacing="4"
+            fill="url(#basedWordmarkFade)"
+          >SILETA</text>
+        </svg>
+      </div>
+
+      <!-- VERY BOTTOM: Legal & Copyright Row (Below Giant Wordmark, Exact based.com Order) -->
+      <div class="pt-5 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-xs text-zinc-500 text-center sm:text-left">
         <p>&copy;2026, Sileta Financial Inc.</p>
-        <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
           <button onclick="showToast('Privacy Notice', '256-bit encrypted custody with zero third-party data selling.')" class="hover:text-zinc-200 transition-colors">Privacy Notice</button>
           <button onclick="showToast('Accessibility Statement', 'WCAG AA contrast and full keyboard navigation supported.')" class="hover:text-zinc-200 transition-colors">Accessibility Statement</button>
           <button onclick="showToast('Terms of Service', 'Standard automated clearing & custodial safeguarding terms apply.')" class="hover:text-zinc-200 transition-colors">Terms of Service</button>
           <a href="#security" class="hover:text-zinc-200 transition-colors">Security Portal</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Based.com Signature Giant Edge-to-Edge Wordmark with Vertical Fade-Out -->
-    <div class="w-full overflow-hidden pt-3 sm:pt-5 pb-2 select-none pointer-events-none">
-      <div class="max-w-[1440px] mx-auto px-2 sm:px-4">
-        <div class="based-giant-wordmark text-center uppercase">
-          SILETA
         </div>
       </div>
     </div>
@@ -1104,7 +1092,7 @@
         Download Sileta on Mobile or PC to activate automated bills, group contracts, and live tax payments.
       </p>
 
-      <div class="mt-6 grid sm:grid-cols-12 gap-5 items-center">
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-12 gap-5 items-center">
         <!-- Mobile & PC Pill Buttons -->
         <div class="sm:col-span-7 space-y-2.5">
           <button onclick="triggerAppDownload('Sileta for iOS (App Store)')" class="w-full px-5 py-3.5 rounded-full bg-cobalt hover:bg-cobalt-light text-white text-sm font-semibold flex items-center gap-3 transition-all">
@@ -1229,8 +1217,9 @@
     });
 
     // ---------------------------------------------------------
-    // REVOLUT-STYLE SCROLL REVEAL OBSERVER
+    // REVOLUT-STYLE SCROLL REVEAL OBSERVER (WITH SAFETY CHECK)
     // ---------------------------------------------------------
+    const revealEls = Array.from(document.querySelectorAll('.reveal-up'));
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1238,9 +1227,17 @@
           revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.04, rootMargin: '0px 0px -10px 0px' });
 
-    document.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // Fallback safety reveal in case a narrow mobile browser skips IntersectionObserver
+    setTimeout(() => {
+      revealEls.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 120) el.classList.add('is-visible');
+      });
+    }, 1200);
 
     // ---------------------------------------------------------
     // BORDERLESS FEATHERED-BLUR NAVBAR + SECTION-AWARE CONTRAST
@@ -1401,16 +1398,16 @@
 
     deckContainer.innerHTML = heroCards.map((c, idx) => `
       <div class="deck-slot" data-index="${idx}" data-active="${idx === 0 ? 'true' : 'false'}">
-        <div class="deck-card-inner h-full w-full rounded-[24px] sm:rounded-[28px] p-5 sm:p-7 bg-gradient-to-br ${c.gradient} border border-white/[0.18] shadow-[0_24px_60px_rgba(0,0,0,0.6)] backdrop-blur-2xl flex flex-col justify-between cursor-pointer select-none overflow-hidden" onclick="openDownloadModal('${c.name} auto-pay')">
+        <div class="deck-card-inner h-full w-full rounded-[24px] sm:rounded-[28px] p-4 sm:p-7 bg-gradient-to-br ${c.gradient} border border-white/[0.18] shadow-[0_24px_60px_rgba(0,0,0,0.6)] backdrop-blur-2xl flex flex-col justify-between cursor-pointer select-none overflow-hidden" onclick="openDownloadModal('${c.name} auto-pay')">
           <!-- Top Row -->
           <div class="flex items-start justify-between gap-2 min-w-0">
             <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-              <div class="w-10 h-10 sm:w-11 sm:h-11 shrink-0 rounded-2xl border ${c.accent} flex items-center justify-center font-display font-bold text-sm sm:text-base">
+              <div class="w-9 h-9 sm:w-11 sm:h-11 shrink-0 rounded-xl sm:rounded-2xl border ${c.accent} flex items-center justify-center font-display font-bold text-sm sm:text-base">
                 ${c.code}
               </div>
               <div class="min-w-0">
-                <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-400 truncate">${c.category}</p>
-                <h3 class="font-display-tight font-bold text-lg sm:text-xl text-white mt-0.5 truncate">${c.name}</h3>
+                <p class="font-mono text-[10px] uppercase tracking-[0.16em] text-slate-400 truncate">${c.category}</p>
+                <h3 class="font-display-tight font-bold text-base sm:text-xl text-white mt-0.5 truncate">${c.name}</h3>
               </div>
             </div>
             <span class="shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[10px] sm:text-[11px] font-semibold text-emerald-400">
@@ -1420,13 +1417,13 @@
           </div>
 
           <!-- Center Amount -->
-          <div class="my-auto pt-3 sm:pt-4 min-w-0">
+          <div class="my-auto pt-2 sm:pt-4 min-w-0">
             <p class="text-[11px] sm:text-xs text-slate-400">Monthly Autopilot Amount</p>
             <p class="font-mono tabular-figures text-2xl sm:text-4xl font-bold text-white mt-1 truncate">${c.price}<span class="text-xs sm:text-sm font-sans font-normal text-slate-400"> / mo</span></p>
           </div>
 
           <!-- Footer Meta -->
-          <div class="pt-3.5 sm:pt-4 border-t border-white/[0.1] flex items-center justify-between gap-2 text-[11px] sm:text-xs min-w-0">
+          <div class="pt-3 sm:pt-4 border-t border-white/[0.1] flex items-center justify-between gap-2 text-[11px] sm:text-xs min-w-0">
             <span class="text-slate-300 font-medium truncate">${c.cycle}</span>
             <span class="font-mono text-[10px] sm:text-[11px] text-cobalt-soft flex items-center gap-1 shrink-0 whitespace-nowrap">
               <span>Via Sileta</span>
@@ -1442,11 +1439,11 @@
     function layoutDeck(direction = 'init', oldIdx = 0) {
       const n = heroCards.length;
       const isMobile = window.innerWidth < 640;
-      const xStep1 = isMobile ? 8 : 16;
-      const yStep1 = isMobile ? 10 : 16;
-      const xStep2 = isMobile ? 15 : 30;
-      const yStep2 = isMobile ? 18 : 30;
-      const exitX = isMobile ? 22 : 42;
+      const xStep1 = isMobile ? 6 : 16;
+      const yStep1 = isMobile ? 8 : 16;
+      const xStep2 = isMobile ? 12 : 30;
+      const yStep2 = isMobile ? 16 : 30;
+      const exitX = isMobile ? 18 : 42;
 
       cardSlots.forEach((slot, idx) => {
         const diff = (idx - activeDeckIndex + n) % n;
@@ -1456,7 +1453,7 @@
         if (direction === 'next' && idx === oldIdx) {
           slot.style.zIndex = '45';
           slot.style.opacity = '0';
-          slot.style.transform = `translate3d(${exitX}px, -18px, 0) scale(0.96) rotate(2.5deg)`;
+          slot.style.transform = `translate3d(${exitX}px, -16px, 0) scale(0.96) rotate(2deg)`;
           slot.style.pointerEvents = 'none';
 
           setTimeout(() => {
@@ -1464,7 +1461,7 @@
               slot.style.transition = 'none';
               slot.style.zIndex = '5';
               slot.style.opacity = '0';
-              slot.style.transform = `translate3d(${xStep2}px, ${yStep2 + 10}px, 0) scale(0.88)`;
+              slot.style.transform = `translate3d(${xStep2}px, ${yStep2 + 8}px, 0) scale(0.88)`;
               void slot.offsetWidth;
               slot.style.transition = '';
             }
@@ -1476,7 +1473,7 @@
           slot.style.transition = 'none';
           slot.style.zIndex = '50';
           slot.style.opacity = '0';
-          slot.style.transform = `translate3d(-${exitX}px, -16px, 0) scale(1.02) rotate(-2.5deg)`;
+          slot.style.transform = `translate3d(-${exitX}px, -14px, 0) scale(1.02) rotate(-2deg)`;
           void slot.offsetWidth;
 
           requestAnimationFrame(() => {
@@ -1811,7 +1808,7 @@
 
       const netEl = document.getElementById('beNetOut');
       netEl.textContent = fmtMoney(net, 0);
-      netEl.className = `font-mono tabular-figures text-xl sm:text-2xl font-bold mt-1 truncate ${net >= 0 ? 'text-emerald-600' : 'text-rose-600'}`;
+      netEl.className = `font-mono tabular-figures text-2xl font-bold mt-1 truncate ${net >= 0 ? 'text-emerald-600' : 'text-rose-600'}`;
 
       document.getElementById('bePointOut').textContent = beUnits !== null ? `${beUnits.toLocaleString()} Units` : 'N/A';
     }
