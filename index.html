@@ -44,11 +44,16 @@
       --revolut-ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+      overflow-x: clip;
+    }
+
     body {
       background-color: #060608;
       color: #ffffff;
       font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -76,6 +81,15 @@
 
     .tabular-figures {
       font-variant-numeric: tabular-nums;
+    }
+
+    /* Based.com Signature Giant Bottom Footer Wordmark */
+    .based-giant-wordmark {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3.3rem, 20.5vw, 17.2rem);
+      line-height: 0.82;
+      letter-spacing: -0.045em;
     }
 
     /* Revolut-Style Hero Staggered Entrance */
@@ -274,10 +288,10 @@
     <!-- Pure Feathered Blur Layer (Fades cleanly out with zero box edge) -->
     <div id="navBlurLayer" class="nav-feathered-blur pointer-events-none absolute inset-x-0 top-0 h-24 opacity-0 transition-opacity duration-300"></div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-6">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
       <!-- Left: Wordmark Only + Clean Inline Links -->
-      <div class="flex items-center gap-8">
-        <a href="#" class="focus:outline-none">
+      <div class="flex items-center gap-8 min-w-0">
+        <a href="#" class="focus:outline-none shrink-0">
           <span id="navBrandText" class="font-display font-bold text-xl tracking-tight text-white transition-colors duration-300">Sileta</span>
         </a>
 
@@ -291,11 +305,11 @@
       </div>
 
       <!-- Right: Revolut-Exact Compact Controls ("Log in" + slim pill CTA with north-east arrow) -->
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2 shrink-0">
         <button id="navLoginBtn" onclick="openLoginModal()" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[13px] font-medium text-white/95 hover:text-white transition-colors">
           Log in
         </button>
-        <button id="navCtaBtn" onclick="openDownloadModal('full automated settlements')" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-[#191C1F] hover:opacity-90 text-[13px] font-semibold transition-all group">
+        <button id="navCtaBtn" onclick="openDownloadModal('full automated settlements')" class="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-white text-[#191C1F] hover:opacity-90 text-[12.5px] sm:text-[13px] font-semibold transition-all group whitespace-nowrap">
           <span>Get the App</span>
           <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
         </button>
@@ -306,7 +320,7 @@
     </div>
 
     <!-- Floating Revolut-Style Mobile Dropdown Card -->
-    <div id="mobileMenu" class="relative z-10 hidden md:hidden mx-4 mt-1 rounded-3xl bg-[#0D1017]/90 backdrop-blur-2xl text-white shadow-2xl border border-white/[0.12] p-3 space-y-1">
+    <div id="mobileMenu" class="relative z-10 hidden md:hidden mx-4 mt-1 rounded-3xl bg-[#0D1017]/95 backdrop-blur-2xl text-white shadow-2xl border border-white/[0.12] p-3 space-y-1">
       <a href="#how-it-works" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-200 hover:bg-white/[0.08] hover:text-white">How It Works</a>
       <a href="#payouts" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-200 hover:bg-white/[0.08] hover:text-white">Payouts</a>
       <a href="#calculators" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-200 hover:bg-white/[0.08] hover:text-white">Calculators</a>
@@ -318,7 +332,7 @@
   <!-- =========================================================
        2. REVOLUT-STYLE FULL-BLEED PHOTOGRAPHY HERO
   ========================================================== -->
-  <section id="heroSection" class="relative min-h-[92vh] sm:min-h-screen flex items-center pt-28 pb-20 sm:pt-32 sm:pb-24 overflow-hidden bg-[#060608]">
+  <section id="heroSection" class="relative min-h-[92vh] sm:min-h-screen flex items-center pt-24 pb-16 sm:pt-32 sm:pb-24 overflow-hidden bg-[#060608]">
     <!-- Full-Bleed Lifestyle Photo Background with Parallax & Ken Burns Settle -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
       <img
@@ -326,78 +340,98 @@
         src="hero-bg.jpg"
         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1650742030047-81300495569d?auto=format&fit=crop&w=1800&q=85';"
         alt="Modern Sileta user managing payments effortlessly on the move"
-        class="hero-bg-settle w-full h-[112%] object-cover object-[50%_18%] sm:object-[52%_15%] will-change-transform"
+        class="hero-bg-settle w-full h-[112%] object-cover object-[50%_15%] sm:object-[52%_15%] will-change-transform"
       />
       <!-- Revolut-style Editorial Scrim -->
-      <div class="absolute inset-0 bg-gradient-to-r from-[#060608]/85 via-[#060608]/35 to-[#060608]/55"></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-[#060608]/85 via-transparent to-[#060608]/40"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#060608]/90 via-[#060608]/55 to-[#060608]/70 lg:from-[#060608]/85 lg:via-[#060608]/35 lg:to-[#060608]/55"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#060608]/90 via-transparent to-[#060608]/45"></div>
     </div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 w-full">
-      <div class="grid lg:grid-cols-12 gap-12 lg:gap-6 items-center">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 w-full">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-6 items-center">
         <!-- Hero Left Copy -->
-        <div class="lg:col-span-5 space-y-6">
-          <h1 class="hero-anim-1 font-display-tight font-extrabold text-4xl sm:text-5xl lg:text-[56px] text-white leading-[1.05] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">
+        <div class="lg:col-span-5 space-y-5 sm:space-y-6 min-w-0">
+          <h1 class="hero-anim-1 font-display-tight font-extrabold text-[32px] sm:text-5xl lg:text-[56px] text-white leading-[1.06] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">
             Every bill, subscription, and payout on <span class="font-editorial-italic text-cobalt-soft font-normal text-[1.08em]">autopilot.</span>
           </h1>
 
-          <p class="hero-anim-2 text-base sm:text-lg text-slate-200 leading-relaxed max-w-md drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
+          <p class="hero-anim-2 text-sm sm:text-lg text-slate-200 leading-relaxed max-w-md drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
             Sileta automatically pays your Netflix, Spotify, Apple Music, electricity, water, rent, taxes, and team—so you never have to worry about paying a bill again.
           </p>
 
           <!-- Pill CTAs -->
-          <div class="hero-anim-3 flex flex-wrap items-center gap-3 pt-1">
-            <button onclick="openDownloadModal('automated bills and payouts')" class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-white text-[#191C1F] hover:bg-slate-100 font-semibold text-sm sm:text-base shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
+          <div class="hero-anim-3 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 pt-1">
+            <button onclick="openDownloadModal('automated bills and payouts')" class="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-white text-[#191C1F] hover:bg-slate-100 font-semibold text-sm sm:text-base shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
               <span>Download Sileta</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7"/></svg>
             </button>
 
-            <a href="#calculators" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#060608]/55 hover:bg-[#060608]/75 backdrop-blur-md border border-white/25 text-white font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-[1.02]">
+            <a href="#calculators" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#060608]/55 hover:bg-[#060608]/75 backdrop-blur-md border border-white/25 text-white font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-[1.02]">
               <span>Try Live Calculators</span>
             </a>
           </div>
 
           <!-- Subtle Trust Bar -->
-          <p class="hero-anim-3 font-mono text-[11px] sm:text-xs text-slate-300/90 pt-1 tracking-wide">
+          <p class="hero-anim-3 font-mono text-[11px] sm:text-xs text-slate-300/90 pt-1 tracking-wide leading-relaxed">
             256-Bit Encrypted &bull; Automated Tax &amp; Bill Protection &bull; iOS, Android &amp; Desktop
           </p>
         </div>
 
-        <!-- Hero Right: Auto-Advancing Overlapping Subscription Cards + Left/Right Arrows -->
-        <div class="hero-anim-4 lg:col-span-5 lg:col-start-8 flex flex-col items-center lg:items-end">
-          <div id="heroDeckWrapper" class="relative w-full max-w-[440px] flex items-center gap-2.5 sm:gap-3.5">
-            <!-- Left Arrow (Previous Subscription Card) -->
+        <!-- Hero Right: Auto-Advancing Overlapping Subscription Cards (Mobile-Safe Width + Flanking Arrows on Tablet/PC) -->
+        <div class="hero-anim-4 lg:col-span-5 lg:col-start-8 flex flex-col items-center lg:items-end min-w-0">
+          <div id="heroDeckWrapper" class="relative w-full max-w-[380px] sm:max-w-[440px] flex items-center gap-0 sm:gap-3.5">
+            <!-- Left Arrow (Tablet & PC flanking) -->
             <button
               onclick="stepHeroDeck(-1)"
               aria-label="Previous subscription card"
-              class="relative z-50 w-10 h-10 shrink-0 rounded-full bg-[#060608]/55 hover:bg-cobalt border border-white/25 hover:border-cobalt text-white flex items-center justify-center backdrop-blur-xl transition-all duration-300 hover:scale-105 active:scale-95"
+              class="hidden sm:flex relative z-50 w-10 h-10 shrink-0 rounded-full bg-[#060608]/55 hover:bg-cobalt border border-white/25 hover:border-cobalt text-white items-center justify-center backdrop-blur-xl transition-all duration-300 hover:scale-105 active:scale-95"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
             </button>
 
-            <!-- Overlapping Subscription Card Stack -->
-            <div class="relative flex-1 h-[300px] sm:h-[315px]">
+            <!-- Overlapping Subscription Card Stack (Full Width on Mobile so text never clips or overflows) -->
+            <div class="relative flex-1 min-w-0 h-[265px] sm:h-[310px]">
               <div id="heroCardDeck" class="relative w-full h-full">
                 <!-- Cards injected & positioned smoothly by JS -->
               </div>
             </div>
 
-            <!-- Right Arrow (Next Subscription Card) -->
+            <!-- Right Arrow (Tablet & PC flanking) -->
             <button
               onclick="stepHeroDeck(1)"
               aria-label="Next subscription card"
-              class="relative z-50 w-10 h-10 shrink-0 rounded-full bg-[#060608]/55 hover:bg-cobalt border border-white/25 hover:border-cobalt text-white flex items-center justify-center backdrop-blur-xl transition-all duration-300 hover:scale-105 active:scale-95"
+              class="hidden sm:flex relative z-50 w-10 h-10 shrink-0 rounded-full bg-[#060608]/55 hover:bg-cobalt border border-white/25 hover:border-cobalt text-white items-center justify-center backdrop-blur-xl transition-all duration-300 hover:scale-105 active:scale-95"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
             </button>
           </div>
 
-          <!-- Minimal Deck Progress Indicator -->
-          <div class="w-full max-w-[440px] mt-8 px-14 flex items-center justify-between text-xs font-mono text-white/80">
-            <div id="heroDeckDots" class="flex items-center gap-1.5">
-              <!-- Dots injected by JS -->
+          <!-- Mobile Left/Right Arrows + Progress Dots & Counter -->
+          <div class="w-full max-w-[380px] sm:max-w-[440px] mt-7 sm:mt-8 sm:px-14 flex items-center justify-between gap-3 text-xs font-mono text-white/85">
+            <!-- Mobile Left Arrow -->
+            <button
+              onclick="stepHeroDeck(-1)"
+              aria-label="Previous subscription card"
+              class="sm:hidden w-9 h-9 shrink-0 rounded-full bg-[#060608]/65 hover:bg-cobalt border border-white/25 text-white flex items-center justify-center backdrop-blur-xl transition-all active:scale-95"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+
+            <div class="flex items-center gap-3 sm:w-full sm:justify-between">
+              <div id="heroDeckDots" class="flex items-center gap-1.5">
+                <!-- Dots injected by JS -->
+              </div>
+              <span id="heroDeckCounter" class="tabular-figures">01 / 07</span>
             </div>
-            <span id="heroDeckCounter" class="tabular-figures">01 / 07</span>
+
+            <!-- Mobile Right Arrow -->
+            <button
+              onclick="stepHeroDeck(1)"
+              aria-label="Next subscription card"
+              class="sm:hidden w-9 h-9 shrink-0 rounded-full bg-[#060608]/65 hover:bg-cobalt border border-white/25 text-white flex items-center justify-center backdrop-blur-xl transition-all active:scale-95"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </button>
           </div>
         </div>
       </div>
@@ -407,32 +441,32 @@
   <!-- =========================================================
        3. SUBSCRIPTIONS & CUSTOM APP SEARCH (PURE WHITE #FFFFFF)
   ========================================================== -->
-  <section id="how-it-works" data-nav-theme="light" class="py-24 sm:py-32 bg-white text-[#060608]">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+  <section id="how-it-works" data-nav-theme="light" class="py-20 sm:py-32 bg-white text-[#060608] overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8">
       <!-- Centered Section Header -->
       <div class="reveal-up max-w-2xl mx-auto text-center">
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-cobalt font-semibold mb-3">
           Unified Subscriptions &amp; Bills
         </p>
-        <h2 class="font-display-tight font-extrabold text-3xl sm:text-5xl text-[#060608] leading-[1.08]">
+        <h2 class="font-display-tight font-extrabold text-[28px] sm:text-4xl lg:text-5xl text-[#060608] leading-[1.08]">
           Never pay a subscription <span class="font-editorial-italic text-cobalt font-normal text-[1.08em]">manually</span> again.
         </h2>
-        <p class="text-base sm:text-lg text-slate-500 mt-4 leading-relaxed">
+        <p class="text-sm sm:text-lg text-slate-500 mt-4 leading-relaxed">
           Netflix, Spotify, Apple Music, electricity, water, rent, and taxes — all settled seamlessly through one predictable monthly Sileta payment.
         </p>
       </div>
 
       <!-- Interactive "Add Any App" Rounded Pill Search Bar -->
-      <div class="reveal-up max-w-2xl mx-auto mt-10" style="transition-delay: 80ms;">
+      <div class="reveal-up max-w-2xl mx-auto mt-9 sm:mt-10" style="transition-delay: 80ms;">
         <div class="relative">
-          <svg class="w-5 h-5 text-slate-400 absolute left-5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/></svg>
+          <svg class="w-5 h-5 text-slate-400 absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/></svg>
           <input
             id="appSearchInput"
             type="text"
-            placeholder="Search any app or biller to add... (e.g. Adobe, iCloud, Gym, Starlink, DSTV)"
-            class="w-full pl-14 pr-24 py-4 rounded-full bg-[#F4F4F6] border border-transparent focus:border-cobalt focus:bg-white focus:ring-4 focus:ring-cobalt/10 outline-none text-sm sm:text-base text-[#060608] placeholder:text-slate-400 transition-all"
+            placeholder="Search any app or biller to add..."
+            class="w-full pl-12 sm:pl-14 pr-20 py-3.5 sm:py-4 rounded-full bg-[#F4F4F6] border border-transparent focus:border-cobalt focus:bg-white focus:ring-4 focus:ring-cobalt/10 outline-none text-sm sm:text-base text-[#060608] placeholder:text-slate-400 transition-all"
           />
-          <button id="appSearchClear" onclick="clearAppSearch()" class="hidden absolute right-4 top-1/2 -translate-y-1/2 px-3 py-1 rounded-full bg-slate-200 hover:bg-slate-300 text-xs font-semibold text-slate-700">
+          <button id="appSearchClear" onclick="clearAppSearch()" class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 px-3 py-1 rounded-full bg-slate-200 hover:bg-slate-300 text-xs font-semibold text-slate-700">
             Clear
           </button>
         </div>
@@ -452,25 +486,25 @@
       </div>
 
       <!-- Rounded #F4F4F6 Revolut-Style Visual Grid -->
-      <div id="subCardsGrid" class="reveal-up mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4" style="transition-delay: 140ms;">
+      <div id="subCardsGrid" class="reveal-up mt-10 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4" style="transition-delay: 140ms;">
         <!-- Populated by JS -->
       </div>
 
       <!-- Single Monthly Consolidated Payment Pill Summary -->
-      <div class="reveal-up mt-8 rounded-3xl bg-[#F4F4F6] p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6" style="transition-delay: 200ms;">
-        <div class="flex flex-wrap items-center gap-8">
-          <div>
+      <div class="reveal-up mt-8 rounded-3xl bg-[#F4F4F6] p-5 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6" style="transition-delay: 200ms;">
+        <div class="flex flex-wrap items-center gap-6 sm:gap-8">
+          <div class="min-w-0">
             <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">Consolidated into 1 payment</p>
-            <p id="subConsolidatedTotal" class="font-mono tabular-figures text-3xl sm:text-4xl font-bold text-[#060608] mt-1">$2,885.47<span class="text-base font-sans font-medium text-slate-500"> / mo</span></p>
+            <p id="subConsolidatedTotal" class="font-mono tabular-figures text-2xl sm:text-4xl font-bold text-[#060608] mt-1">$2,885.47<span class="text-sm sm:text-base font-sans font-medium text-slate-500"> / mo</span></p>
           </div>
           <div class="h-10 w-px bg-slate-300 hidden sm:block"></div>
           <div>
             <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-500">Active Auto-Pay Rules</p>
-            <p id="subActiveLabel" class="font-display font-bold text-xl text-cobalt mt-1">7 Services Active</p>
+            <p id="subActiveLabel" class="font-display font-bold text-lg sm:text-xl text-cobalt mt-1">7 Services Active</p>
           </div>
         </div>
 
-        <button onclick="openDownloadModal('live subscription & bill auto-pay')" class="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#191C1F] hover:bg-cobalt text-white font-semibold text-sm transition-all duration-300 hover:scale-[1.02] shrink-0">
+        <button onclick="openDownloadModal('live subscription & bill auto-pay')" class="w-full md:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#191C1F] hover:bg-cobalt text-white font-semibold text-sm transition-all duration-300 hover:scale-[1.02] shrink-0">
           <svg class="w-4 h-4 text-cobalt-soft" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           <span>Activate Auto-Pay in App</span>
         </button>
@@ -482,66 +516,66 @@
        4. AUTOMATED INDIVIDUAL & GROUP PAYOUTS
        (DARK SECTION #060608 + SUBTLE COBALT GLOW)
   ========================================================== -->
-  <section id="payouts" class="relative py-24 sm:py-32 bg-[#060608] overflow-hidden">
+  <section id="payouts" class="relative py-20 sm:py-32 bg-[#060608] overflow-hidden">
     <div class="absolute inset-0 cobalt-grid pointer-events-none"></div>
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[620px] h-[420px] rounded-full bg-cobalt/15 blur-[120px] pointer-events-none"></div>
 
-    <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-8">
       <!-- Centered Headline -->
       <div class="reveal-up max-w-2xl mx-auto text-center">
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-cobalt-soft font-semibold mb-3">
           Programmable Disbursements
         </p>
-        <h2 class="font-display-tight font-extrabold text-3xl sm:text-5xl text-white leading-[1.08]">
+        <h2 class="font-display-tight font-extrabold text-[28px] sm:text-4xl lg:text-5xl text-white leading-[1.08]">
           Send money to one person or an <span class="font-editorial-italic text-cobalt-soft font-normal text-[1.08em]">entire team</span> automatically.
         </h2>
-        <p class="text-base sm:text-lg text-slate-400 mt-4 leading-relaxed">
+        <p class="text-sm sm:text-lg text-slate-400 mt-4 leading-relaxed">
           Schedule recurring transfers to family, partners, or suppliers — or launch contract payroll groups where recipients onboard themselves.
         </p>
       </div>
 
       <!-- Two Clean Side-by-Side Glass Cards -->
-      <div class="mt-14 grid lg:grid-cols-2 gap-6 items-stretch">
+      <div class="mt-12 sm:mt-14 grid lg:grid-cols-2 gap-6 items-stretch">
 
         <!-- Card 1: Auto-Send to Anyone -->
-        <div class="reveal-up glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6" style="transition-delay: 80ms;">
-          <div class="space-y-5">
-            <div class="flex items-center justify-between gap-3">
-              <div>
-                <h3 class="font-display-tight font-bold text-2xl text-white">Auto-Send to Anyone</h3>
-                <p class="text-sm text-slate-400 mt-1">Relatives, business partners, workers, or suppliers.</p>
+        <div class="reveal-up glass-card rounded-3xl p-5 sm:p-8 flex flex-col justify-between space-y-6 min-w-0" style="transition-delay: 80ms;">
+          <div class="space-y-5 min-w-0">
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <h3 class="font-display-tight font-bold text-xl sm:text-2xl text-white">Auto-Send to Anyone</h3>
+                <p class="text-xs sm:text-sm text-slate-400 mt-1">Relatives, business partners, workers, or suppliers.</p>
               </div>
               <span class="px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.1] text-xs font-mono text-slate-300 shrink-0">1-to-1</span>
             </div>
 
             <!-- Interactive Form Preview -->
-            <div class="space-y-3 pt-2">
+            <div class="space-y-3 pt-1">
               <div class="grid sm:grid-cols-2 gap-3">
-                <div>
+                <div class="min-w-0">
                   <label class="block text-xs text-slate-400 mb-1.5">Recipient &amp; Role</label>
-                  <input id="indRecipientInput" type="text" value="Daniela Cruz (Partner)" oninput="updateIndividualPreview()" class="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm text-white transition-colors" />
+                  <input id="indRecipientInput" type="text" value="Daniela Cruz (Partner)" oninput="updateIndividualPreview()" class="w-full min-w-0 px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm text-white transition-colors" />
                 </div>
-                <div>
+                <div class="min-w-0">
                   <label class="block text-xs text-slate-400 mb-1.5">Phone Number</label>
-                  <input id="indPhoneInput" type="tel" value="+1 (415) 890-3321" oninput="updateIndividualPreview()" class="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono text-white transition-colors" />
+                  <input id="indPhoneInput" type="tel" value="+1 (415) 890-3321" oninput="updateIndividualPreview()" class="w-full min-w-0 px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono text-white transition-colors" />
                 </div>
               </div>
 
               <div class="grid sm:grid-cols-2 gap-3">
-                <div>
+                <div class="min-w-0">
                   <label class="block text-xs text-slate-400 mb-1.5">Bank Account / Routing</label>
-                  <input id="indBankInput" type="text" value="Mercury •••• 9104" oninput="updateIndividualPreview()" class="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono text-white transition-colors" />
+                  <input id="indBankInput" type="text" value="Mercury •••• 9104" oninput="updateIndividualPreview()" class="w-full min-w-0 px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono text-white transition-colors" />
                 </div>
-                <div>
+                <div class="min-w-0">
                   <label class="block text-xs text-slate-400 mb-1.5">Monthly Amount ($)</label>
-                  <input id="indAmountInput" type="number" min="1" value="1450" oninput="updateIndividualPreview()" class="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono tabular-figures font-bold text-white transition-colors" />
+                  <input id="indAmountInput" type="number" min="1" value="1450" oninput="updateIndividualPreview()" class="w-full min-w-0 px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono tabular-figures font-bold text-white transition-colors" />
                 </div>
               </div>
             </div>
 
             <!-- Live Scheduled Preview Pill -->
-            <div class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-4 flex items-center justify-between gap-3">
-              <div class="min-w-0">
+            <div class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-4 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
+              <div class="min-w-0 flex-1">
                 <p id="indPreviewName" class="text-sm font-semibold text-white truncate">Daniela Cruz (Partner)</p>
                 <p id="indPreviewMeta" class="text-xs font-mono text-slate-400 truncate mt-0.5">+1 (415) 890-3321 &bull; Mercury •••• 9104</p>
               </div>
@@ -553,28 +587,28 @@
           </div>
 
           <!-- App-Locked CTA -->
-          <button onclick="openDownloadModal('individual automated payouts')" class="w-full py-4 px-6 rounded-full bg-cobalt hover:bg-cobalt-light text-white font-semibold text-sm shadow-[0_0_24px_rgba(37,99,235,0.4)] transition-all duration-300 hover:scale-[1.01] flex items-center justify-center gap-2.5">
-            <svg class="w-4 h-4 text-blue-200" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <button onclick="openDownloadModal('individual automated payouts')" class="w-full py-4 px-5 rounded-full bg-cobalt hover:bg-cobalt-light text-white font-semibold text-sm shadow-[0_0_24px_rgba(37,99,235,0.4)] transition-all duration-300 hover:scale-[1.01] flex flex-wrap items-center justify-center gap-2">
+            <svg class="w-4 h-4 text-blue-200 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             <span>Activate Auto-Payout</span>
             <span class="px-2 py-0.5 rounded-full bg-white/15 text-[10px] font-mono uppercase tracking-wider">App Lock</span>
           </button>
         </div>
 
         <!-- Card 2: Group & Contract Payouts -->
-        <div class="reveal-up glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6" style="transition-delay: 160ms;">
-          <div class="space-y-5">
-            <div class="flex items-center justify-between gap-3">
-              <div>
-                <h3 class="font-display-tight font-bold text-2xl text-white">Group &amp; Contract Payouts</h3>
-                <p class="text-sm text-slate-400 mt-1">Recipients sign in via group link to enter their own bank details.</p>
+        <div class="reveal-up glass-card rounded-3xl p-5 sm:p-8 flex flex-col justify-between space-y-6 min-w-0" style="transition-delay: 160ms;">
+          <div class="space-y-5 min-w-0">
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <h3 class="font-display-tight font-bold text-xl sm:text-2xl text-white">Group &amp; Contract Payouts</h3>
+                <p class="text-xs sm:text-sm text-slate-400 mt-1">Recipients sign in via group link to enter their own bank details.</p>
               </div>
               <span class="px-3 py-1 rounded-full bg-cobalt/20 border border-cobalt/40 text-xs font-mono text-cobalt-soft shrink-0">Batch</span>
             </div>
 
             <!-- Group Link Bar -->
-            <div class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-3.5 flex flex-wrap items-center justify-between gap-2">
-              <span class="font-mono text-xs text-cobalt-soft truncate">sileta.app/join/team-ops-92</span>
-              <div class="flex items-center gap-2">
+            <div class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+              <span class="font-mono text-xs text-cobalt-soft truncate min-w-0">sileta.app/join/team-ops-92</span>
+              <div class="flex items-center gap-2 shrink-0">
                 <button onclick="copyInviteLink()" class="px-3 py-1.5 rounded-full bg-white/[0.08] hover:bg-white/[0.15] text-xs font-medium text-white transition-colors">Copy Link</button>
                 <button onclick="addSimulatedMember()" class="px-3 py-1.5 rounded-full bg-cobalt/25 hover:bg-cobalt/40 text-xs font-medium text-cobalt-soft transition-colors">+ Simulate Join</button>
               </div>
@@ -582,13 +616,13 @@
 
             <!-- Controls: Monthly Payout Amount & Contract Duration -->
             <div class="grid sm:grid-cols-2 gap-3">
-              <div>
+              <div class="min-w-0">
                 <label class="block text-xs text-slate-400 mb-1.5">Monthly Payout / Person ($)</label>
-                <input id="grpAmountInput" type="number" min="100" step="50" value="2800" oninput="renderGroupSummary()" class="w-full px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono tabular-figures font-bold text-white transition-colors" />
+                <input id="grpAmountInput" type="number" min="100" step="50" value="2800" oninput="renderGroupSummary()" class="w-full min-w-0 px-4 py-3 rounded-2xl bg-white/[0.04] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm font-mono tabular-figures font-bold text-white transition-colors" />
               </div>
-              <div>
+              <div class="min-w-0">
                 <label class="block text-xs text-slate-400 mb-1.5">Contract Duration</label>
-                <select id="grpDurationSelect" onchange="renderGroupSummary()" class="w-full px-4 py-3 rounded-2xl bg-[#0C0F17] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm text-white">
+                <select id="grpDurationSelect" onchange="renderGroupSummary()" class="w-full min-w-0 px-4 py-3 rounded-2xl bg-[#0C0F17] border border-white/[0.09] focus:border-cobalt-light outline-none text-sm text-white">
                   <option value="3">3 Months</option>
                   <option value="6" selected>6 Months</option>
                   <option value="12">12 Months</option>
@@ -602,7 +636,7 @@
               <div id="grpMembersList" class="space-y-2 max-h-28 overflow-y-auto pr-1">
                 <!-- Populated by JS -->
               </div>
-              <div class="pt-2.5 border-t border-white/[0.08] flex items-center justify-between text-xs">
+              <div class="pt-2.5 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-2 text-xs">
                 <span class="text-slate-400">Monthly Batch (<span id="grpMemberCount">3</span> members)</span>
                 <span id="grpSummaryTotal" class="font-mono tabular-figures text-sm font-bold text-white">$8,400 / mo &bull; 6 mo</span>
               </div>
@@ -610,8 +644,8 @@
           </div>
 
           <!-- App-Locked CTA -->
-          <button onclick="openDownloadModal('group & contract payouts')" class="w-full py-4 px-6 rounded-full bg-white/[0.08] hover:bg-cobalt border border-white/[0.14] hover:border-cobalt text-white font-semibold text-sm transition-all duration-300 hover:scale-[1.01] flex items-center justify-center gap-2.5">
-            <svg class="w-4 h-4 text-cobalt-soft" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <button onclick="openDownloadModal('group & contract payouts')" class="w-full py-4 px-5 rounded-full bg-white/[0.08] hover:bg-cobalt border border-white/[0.14] hover:border-cobalt text-white font-semibold text-sm transition-all duration-300 hover:scale-[1.01] flex flex-wrap items-center justify-center gap-2">
+            <svg class="w-4 h-4 text-cobalt-soft shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             <span>Start Group Contract</span>
             <span class="px-2 py-0.5 rounded-full bg-white/10 text-[10px] font-mono uppercase tracking-wider">App Lock</span>
           </button>
@@ -624,90 +658,90 @@
   <!-- =========================================================
        5. SIMPLE INTERACTIVE CALCULATORS (PURE WHITE #FFFFFF)
   ========================================================== -->
-  <section id="calculators" data-nav-theme="light" class="py-24 sm:py-32 bg-white text-[#060608]">
-    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+  <section id="calculators" data-nav-theme="light" class="py-20 sm:py-32 bg-white text-[#060608] overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
       <!-- Centered Headline -->
       <div class="reveal-up max-w-2xl mx-auto text-center">
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-cobalt font-semibold mb-3">
           Interactive Financial Suite
         </p>
-        <h2 class="font-display-tight font-extrabold text-3xl sm:text-5xl text-[#060608] leading-[1.08]">
+        <h2 class="font-display-tight font-extrabold text-[28px] sm:text-4xl lg:text-5xl text-[#060608] leading-[1.08]">
           Smart financial <span class="font-editorial-italic text-cobalt font-normal text-[1.08em]">calculators,</span> built right in.
         </h2>
-        <p class="text-base sm:text-lg text-slate-500 mt-4 leading-relaxed">
+        <p class="text-sm sm:text-lg text-slate-500 mt-4 leading-relaxed">
           Know your exact monthly burn, break-even target, unit fixed cost, and tax reserve in seconds.
         </p>
       </div>
 
       <!-- ONE Clean Tabbed Revolut-Style Card (#F4F4F6 rounded-3xl) -->
-      <div class="reveal-up mt-12 rounded-3xl bg-[#F4F4F6] p-5 sm:p-8 lg:p-10" style="transition-delay: 100ms;">
-        <!-- Pill Tabs -->
-        <div class="flex flex-wrap gap-2 p-1.5 rounded-full bg-white border border-slate-200/80 w-fit mx-auto">
-          <button onclick="switchCalcTab('expenditure')" id="tab-expenditure" class="calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-[#191C1F] text-white transition-all duration-300">
-            Monthly Expenditure
+      <div class="reveal-up mt-10 sm:mt-12 rounded-3xl bg-[#F4F4F6] p-4 sm:p-8 lg:p-10" style="transition-delay: 100ms;">
+        <!-- Pill Tabs (2x2 Grid on Mobile, Single Pill Bar on Tablet/PC) -->
+        <div class="grid grid-cols-2 sm:inline-flex gap-1.5 sm:gap-2 p-1.5 rounded-2xl sm:rounded-full bg-white border border-slate-200/80 w-full sm:w-fit mx-auto sm:flex">
+          <button onclick="switchCalcTab('expenditure')" id="tab-expenditure" class="calc-tab px-3 sm:px-5 py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-semibold bg-[#191C1F] text-white transition-all duration-300 text-center">
+            Monthly Spend
           </button>
-          <button onclick="switchCalcTab('breakeven')" id="tab-breakeven" class="calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#191C1F] transition-all duration-300">
+          <button onclick="switchCalcTab('breakeven')" id="tab-breakeven" class="calc-tab px-3 sm:px-5 py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#191C1F] transition-all duration-300 text-center">
             Profit &amp; Break-Even
           </button>
-          <button onclick="switchCalcTab('unitcost')" id="tab-unitcost" class="calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#191C1F] transition-all duration-300">
+          <button onclick="switchCalcTab('unitcost')" id="tab-unitcost" class="calc-tab px-3 sm:px-5 py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#191C1F] transition-all duration-300 text-center">
             Unit Fixed Cost
           </button>
-          <button onclick="switchCalcTab('tax')" id="tab-tax" class="calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#191C1F] transition-all duration-300">
-            Auto-Tax Estimator
+          <button onclick="switchCalcTab('tax')" id="tab-tax" class="calc-tab px-3 sm:px-5 py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#191C1F] transition-all duration-300 text-center">
+            Auto-Tax
           </button>
         </div>
 
         <!-- TAB 1: MONTHLY EXPENDITURE -->
-        <div id="panel-expenditure" class="calc-panel tab-animate mt-8 grid lg:grid-cols-12 gap-6 items-center">
-          <div class="lg:col-span-7 grid sm:grid-cols-2 gap-3">
-            <label class="flex items-center justify-between p-4 rounded-2xl bg-white cursor-pointer border border-transparent hover:border-cobalt/30 transition-all">
-              <div class="flex items-center gap-3">
-                <input type="checkbox" checked class="exp-check w-4 h-4 accent-cobalt rounded" onchange="calcExpenditure()" />
-                <span class="text-sm font-semibold text-[#060608]">Subscriptions</span>
+        <div id="panel-expenditure" class="calc-panel tab-animate mt-7 sm:mt-8 grid lg:grid-cols-12 gap-5 sm:gap-6 items-center">
+          <div class="lg:col-span-7 grid sm:grid-cols-2 gap-3 min-w-0">
+            <label class="flex items-center justify-between gap-2 p-4 rounded-2xl bg-white cursor-pointer border border-transparent hover:border-cobalt/30 transition-all min-w-0">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <input type="checkbox" checked class="exp-check w-4 h-4 accent-cobalt rounded shrink-0" onchange="calcExpenditure()" />
+                <span class="text-sm font-semibold text-[#060608] truncate">Subscriptions</span>
               </div>
-              <div class="flex items-center gap-1 font-mono tabular-figures text-sm font-bold text-[#060608]">
+              <div class="flex items-center gap-1 font-mono tabular-figures text-sm font-bold text-[#060608] shrink-0">
                 <span>$</span>
                 <input type="number" value="95" min="0" class="exp-val w-16 text-right bg-slate-100 rounded-lg px-2 py-1 outline-none" oninput="calcExpenditure()" />
               </div>
             </label>
 
-            <label class="flex items-center justify-between p-4 rounded-2xl bg-white cursor-pointer border border-transparent hover:border-cobalt/30 transition-all">
-              <div class="flex items-center gap-3">
-                <input type="checkbox" checked class="exp-check w-4 h-4 accent-cobalt rounded" onchange="calcExpenditure()" />
-                <span class="text-sm font-semibold text-[#060608]">Rent / Lease</span>
+            <label class="flex items-center justify-between gap-2 p-4 rounded-2xl bg-white cursor-pointer border border-transparent hover:border-cobalt/30 transition-all min-w-0">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <input type="checkbox" checked class="exp-check w-4 h-4 accent-cobalt rounded shrink-0" onchange="calcExpenditure()" />
+                <span class="text-sm font-semibold text-[#060608] truncate">Rent / Lease</span>
               </div>
-              <div class="flex items-center gap-1 font-mono tabular-figures text-sm font-bold text-[#060608]">
+              <div class="flex items-center gap-1 font-mono tabular-figures text-sm font-bold text-[#060608] shrink-0">
                 <span>$</span>
                 <input type="number" value="2200" min="0" class="exp-val w-16 text-right bg-slate-100 rounded-lg px-2 py-1 outline-none" oninput="calcExpenditure()" />
               </div>
             </label>
 
-            <label class="flex items-center justify-between p-4 rounded-2xl bg-white cursor-pointer border border-transparent hover:border-cobalt/30 transition-all">
-              <div class="flex items-center gap-3">
-                <input type="checkbox" checked class="exp-check w-4 h-4 accent-cobalt rounded" onchange="calcExpenditure()" />
-                <span class="text-sm font-semibold text-[#060608]">Utilities &amp; Wi-Fi</span>
+            <label class="flex items-center justify-between gap-2 p-4 rounded-2xl bg-white cursor-pointer border border-transparent hover:border-cobalt/30 transition-all min-w-0">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <input type="checkbox" checked class="exp-check w-4 h-4 accent-cobalt rounded shrink-0" onchange="calcExpenditure()" />
+                <span class="text-sm font-semibold text-[#060608] truncate">Utilities &amp; Wi-Fi</span>
               </div>
-              <div class="flex items-center gap-1 font-mono tabular-figures text-sm font-bold text-[#060608]">
+              <div class="flex items-center gap-1 font-mono tabular-figures text-sm font-bold text-[#060608] shrink-0">
                 <span>$</span>
                 <input type="number" value="260" min="0" class="exp-val w-16 text-right bg-slate-100 rounded-lg px-2 py-1 outline-none" oninput="calcExpenditure()" />
               </div>
             </label>
 
-            <label class="flex items-center justify-between p-4 rounded-2xl bg-white cursor-pointer border border-transparent hover:border-cobalt/30 transition-all">
-              <div class="flex items-center gap-3">
-                <input type="checkbox" checked class="exp-check w-4 h-4 accent-cobalt rounded" onchange="calcExpenditure()" />
-                <span class="text-sm font-semibold text-[#060608]">Team Payouts</span>
+            <label class="flex items-center justify-between gap-2 p-4 rounded-2xl bg-white cursor-pointer border border-transparent hover:border-cobalt/30 transition-all min-w-0">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <input type="checkbox" checked class="exp-check w-4 h-4 accent-cobalt rounded shrink-0" onchange="calcExpenditure()" />
+                <span class="text-sm font-semibold text-[#060608] truncate">Team Payouts</span>
               </div>
-              <div class="flex items-center gap-1 font-mono tabular-figures text-sm font-bold text-[#060608]">
+              <div class="flex items-center gap-1 font-mono tabular-figures text-sm font-bold text-[#060608] shrink-0">
                 <span>$</span>
                 <input type="number" value="3400" min="0" class="exp-val w-16 text-right bg-slate-100 rounded-lg px-2 py-1 outline-none" oninput="calcExpenditure()" />
               </div>
             </label>
           </div>
 
-          <div class="lg:col-span-5 rounded-3xl bg-white p-7 text-center space-y-3 shadow-sm">
+          <div class="lg:col-span-5 rounded-3xl bg-white p-6 sm:p-7 text-center space-y-3 shadow-sm min-w-0">
             <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-400">Total Monthly Spend</p>
-            <p id="expTotalOut" class="font-mono tabular-figures text-4xl sm:text-5xl font-bold text-[#060608]">$5,955.00</p>
+            <p id="expTotalOut" class="font-mono tabular-figures text-3xl sm:text-5xl font-bold text-[#060608] break-words">$5,955.00</p>
             <p id="expAnnualOut" class="text-xs font-mono tabular-figures text-slate-500">Annualized: $71,460.00 / yr</p>
             <button onclick="openDownloadModal('automated monthly bill consolidation')" class="mt-3 w-full py-3.5 px-5 rounded-full bg-cobalt hover:bg-cobalt-dark text-white text-sm font-semibold transition-all duration-300 hover:scale-[1.01]">
               Automate This Monthly Spend
@@ -716,10 +750,10 @@
         </div>
 
         <!-- TAB 2: BUSINESS PROFIT & BREAK-EVEN -->
-        <div id="panel-breakeven" class="calc-panel hidden tab-animate mt-8 grid lg:grid-cols-12 gap-6 items-center">
-          <div class="lg:col-span-6 space-y-3.5">
+        <div id="panel-breakeven" class="calc-panel hidden tab-animate mt-7 sm:mt-8 grid lg:grid-cols-12 gap-5 sm:gap-6 items-center">
+          <div class="lg:col-span-6 space-y-3.5 min-w-0">
             <div class="p-4 rounded-2xl bg-white space-y-2">
-              <div class="flex justify-between items-center">
+              <div class="flex justify-between items-center gap-2">
                 <label class="text-xs font-semibold text-slate-600">Unit Price ($)</label>
                 <input id="bePrice" type="number" min="1" value="120" oninput="calcBreakEven()" class="w-24 text-right font-mono tabular-figures text-sm font-bold text-[#060608] bg-slate-100 rounded-lg px-2.5 py-1 outline-none" />
               </div>
@@ -727,7 +761,7 @@
             </div>
 
             <div class="p-4 rounded-2xl bg-white space-y-2">
-              <div class="flex justify-between items-center">
+              <div class="flex justify-between items-center gap-2">
                 <label class="text-xs font-semibold text-slate-600">Variable Cost per Unit ($)</label>
                 <input id="beVar" type="number" min="0" value="45" oninput="calcBreakEven()" class="w-24 text-right font-mono tabular-figures text-sm font-bold text-[#060608] bg-slate-100 rounded-lg px-2.5 py-1 outline-none" />
               </div>
@@ -735,7 +769,7 @@
             </div>
 
             <div class="p-4 rounded-2xl bg-white space-y-2">
-              <div class="flex justify-between items-center">
+              <div class="flex justify-between items-center gap-2">
                 <label class="text-xs font-semibold text-slate-600">Monthly Fixed Costs ($)</label>
                 <input id="beFixed" type="number" min="0" value="12000" oninput="calcBreakEven()" class="w-24 text-right font-mono tabular-figures text-sm font-bold text-[#060608] bg-slate-100 rounded-lg px-2.5 py-1 outline-none" />
               </div>
@@ -743,7 +777,7 @@
             </div>
 
             <div class="p-4 rounded-2xl bg-white space-y-2">
-              <div class="flex justify-between items-center">
+              <div class="flex justify-between items-center gap-2">
                 <label class="text-xs font-semibold text-slate-600">Units Sold / Month</label>
                 <input id="beUnits" type="number" min="0" value="280" oninput="calcBreakEven()" class="w-24 text-right font-mono tabular-figures text-sm font-bold text-[#060608] bg-slate-100 rounded-lg px-2.5 py-1 outline-none" />
               </div>
@@ -751,59 +785,59 @@
             </div>
           </div>
 
-          <div class="lg:col-span-6 grid sm:grid-cols-2 gap-4">
-            <div class="p-5 rounded-2xl bg-white">
+          <div class="lg:col-span-6 grid grid-cols-2 gap-3 sm:gap-4 min-w-0">
+            <div class="p-4 sm:p-5 rounded-2xl bg-white min-w-0">
               <p class="text-xs font-medium text-slate-500">Total Revenue</p>
-              <p id="beRevOut" class="font-mono tabular-figures text-2xl font-bold text-[#060608] mt-1">$33,600</p>
+              <p id="beRevOut" class="font-mono tabular-figures text-xl sm:text-2xl font-bold text-[#060608] mt-1 truncate">$33,600</p>
             </div>
-            <div class="p-5 rounded-2xl bg-white">
+            <div class="p-4 sm:p-5 rounded-2xl bg-white min-w-0">
               <p class="text-xs font-medium text-slate-500">Gross Profit</p>
-              <p id="beGrossOut" class="font-mono tabular-figures text-2xl font-bold text-cobalt mt-1">$21,000</p>
+              <p id="beGrossOut" class="font-mono tabular-figures text-xl sm:text-2xl font-bold text-cobalt mt-1 truncate">$21,000</p>
             </div>
-            <div class="p-5 rounded-2xl bg-white">
+            <div class="p-4 sm:p-5 rounded-2xl bg-white min-w-0">
               <p class="text-xs font-medium text-slate-500">Net Profit</p>
-              <p id="beNetOut" class="font-mono tabular-figures text-2xl font-bold text-emerald-600 mt-1">$9,000</p>
+              <p id="beNetOut" class="font-mono tabular-figures text-xl sm:text-2xl font-bold text-emerald-600 mt-1 truncate">$9,000</p>
             </div>
-            <div class="p-5 rounded-2xl bg-[#191C1F] text-white">
+            <div class="p-4 sm:p-5 rounded-2xl bg-[#191C1F] text-white min-w-0">
               <p class="text-xs font-medium text-slate-400">Break-Even Point</p>
-              <p id="bePointOut" class="font-mono tabular-figures text-2xl font-bold text-white mt-1">160 Units</p>
+              <p id="bePointOut" class="font-mono tabular-figures text-xl sm:text-2xl font-bold text-white mt-1 truncate">160 Units</p>
             </div>
           </div>
         </div>
 
         <!-- TAB 3: UNIT FIXED COST & AUTO-PAY -->
-        <div id="panel-unitcost" class="calc-panel hidden tab-animate mt-8 grid lg:grid-cols-12 gap-6 items-center">
-          <div class="lg:col-span-6 space-y-4">
+        <div id="panel-unitcost" class="calc-panel hidden tab-animate mt-7 sm:mt-8 grid lg:grid-cols-12 gap-5 sm:gap-6 items-center">
+          <div class="lg:col-span-6 space-y-4 min-w-0">
             <div class="p-5 rounded-2xl bg-white">
               <label class="block text-xs font-semibold text-slate-500 mb-2">Total Monthly Fixed Costs (Rent, Salaries, Utilities, SaaS)</label>
               <div class="flex items-center gap-2">
                 <span class="font-mono text-xl font-bold text-slate-400">$</span>
-                <input id="ufFixedInput" type="number" min="0" value="18000" oninput="calcUnitCost()" class="w-full font-mono tabular-figures text-2xl font-bold text-[#060608] outline-none" />
+                <input id="ufFixedInput" type="number" min="0" value="18000" oninput="calcUnitCost()" class="w-full min-w-0 font-mono tabular-figures text-2xl font-bold text-[#060608] outline-none" />
               </div>
             </div>
             <div class="p-5 rounded-2xl bg-white">
               <label class="block text-xs font-semibold text-slate-500 mb-2">Total Units Produced or Served</label>
-              <input id="ufUnitsInput" type="number" min="1" value="900" oninput="calcUnitCost()" class="w-full font-mono tabular-figures text-2xl font-bold text-[#060608] outline-none" />
+              <input id="ufUnitsInput" type="number" min="1" value="900" oninput="calcUnitCost()" class="w-full min-w-0 font-mono tabular-figures text-2xl font-bold text-[#060608] outline-none" />
             </div>
           </div>
 
-          <div class="lg:col-span-6 rounded-3xl bg-white p-7 text-center space-y-4 shadow-sm">
+          <div class="lg:col-span-6 rounded-3xl bg-white p-6 sm:p-7 text-center space-y-4 shadow-sm min-w-0">
             <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-400">Fixed Cost per Unit</p>
-            <p id="ufPerUnitOut" class="font-mono tabular-figures text-4xl sm:text-5xl font-bold text-cobalt">$20.00</p>
+            <p id="ufPerUnitOut" class="font-mono tabular-figures text-3xl sm:text-5xl font-bold text-cobalt">$20.00</p>
             <p class="text-xs text-slate-500">Every unit carries this exact fixed overhead share.</p>
-            <button onclick="openDownloadModal('automated fixed cost payments')" class="w-full py-3.5 px-6 rounded-full bg-[#191C1F] hover:bg-cobalt text-white text-sm font-semibold transition-all duration-300 inline-flex items-center justify-center gap-2">
-              <svg class="w-4 h-4 text-cobalt-soft" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <button onclick="openDownloadModal('automated fixed cost payments')" class="w-full py-3.5 px-5 rounded-full bg-[#191C1F] hover:bg-cobalt text-white text-sm font-semibold transition-all duration-300 inline-flex items-center justify-center gap-2">
+              <svg class="w-4 h-4 text-cobalt-soft shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               <span>Let Sileta Auto-Pay Fixed Costs</span>
             </button>
           </div>
         </div>
 
         <!-- TAB 4: AUTO-TAX ESTIMATOR -->
-        <div id="panel-tax" class="calc-panel hidden tab-animate mt-8 grid lg:grid-cols-12 gap-6 items-center">
-          <div class="lg:col-span-6 p-6 rounded-2xl bg-white space-y-5">
-            <div class="flex justify-between items-baseline">
+        <div id="panel-tax" class="calc-panel hidden tab-animate mt-7 sm:mt-8 grid lg:grid-cols-12 gap-5 sm:gap-6 items-center">
+          <div class="lg:col-span-6 p-5 sm:p-6 rounded-2xl bg-white space-y-5 min-w-0">
+            <div class="flex justify-between items-baseline gap-2">
               <label for="taxIncomeSlider" class="text-sm font-semibold text-[#060608]">Monthly Income / Revenue</label>
-              <span id="taxIncomeVal" class="font-mono tabular-figures text-2xl font-bold text-[#060608]">$24,000</span>
+              <span id="taxIncomeVal" class="font-mono tabular-figures text-xl sm:text-2xl font-bold text-[#060608]">$24,000</span>
             </div>
             <input id="taxIncomeSlider" type="range" min="1000" max="150000" step="500" value="24000" oninput="calcTaxEst()" class="sileta-range-light" />
             <div class="flex justify-between text-xs font-mono text-slate-400">
@@ -815,12 +849,12 @@
             </p>
           </div>
 
-          <div class="lg:col-span-6 rounded-3xl bg-[#191C1F] text-white p-7 text-center space-y-4">
+          <div class="lg:col-span-6 rounded-3xl bg-[#191C1F] text-white p-6 sm:p-7 text-center space-y-4 min-w-0">
             <p class="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-400">Estimated Monthly Tax Reserve</p>
-            <p id="taxEstOut" class="font-mono tabular-figures text-4xl sm:text-5xl font-bold text-cobalt-soft">$5,280.00</p>
+            <p id="taxEstOut" class="font-mono tabular-figures text-3xl sm:text-5xl font-bold text-cobalt-soft">$5,280.00</p>
             <p id="taxQtrOut" class="text-xs font-mono tabular-figures text-slate-400">Quarterly Auto-Filing Set-Aside: $15,840.00</p>
-            <button onclick="openDownloadModal('automated tax reserve & filings')" class="w-full py-3.5 px-6 rounded-full bg-cobalt hover:bg-cobalt-light text-white text-sm font-semibold transition-all duration-300 inline-flex items-center justify-center gap-2">
-              <svg class="w-4 h-4 text-blue-200" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <button onclick="openDownloadModal('automated tax reserve & filings')" class="w-full py-3.5 px-5 rounded-full bg-cobalt hover:bg-cobalt-light text-white text-sm font-semibold transition-all duration-300 inline-flex items-center justify-center gap-2">
+              <svg class="w-4 h-4 text-blue-200 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               <span>Enable Auto-Tax Payments</span>
             </button>
           </div>
@@ -833,27 +867,27 @@
        6. SECURITY & PEACE OF MIND
        (DARK SECTION #060608 + FAINT COBALT GRID + GLOW)
   ========================================================== -->
-  <section id="security" class="relative py-24 sm:py-32 bg-[#060608] overflow-hidden">
+  <section id="security" class="relative py-20 sm:py-32 bg-[#060608] overflow-hidden">
     <div class="absolute inset-0 cobalt-grid pointer-events-none"></div>
     <div class="absolute bottom-0 right-[12%] w-[440px] h-[440px] rounded-full bg-cobalt/15 blur-[120px] pointer-events-none"></div>
 
-    <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-8">
       <div class="reveal-up max-w-2xl mx-auto text-center">
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-cobalt-soft font-semibold mb-3">
           Bank-Grade Safeguarding
         </p>
-        <h2 class="font-display-tight font-extrabold text-3xl sm:text-5xl text-white leading-[1.08]">
+        <h2 class="font-display-tight font-extrabold text-[28px] sm:text-4xl lg:text-5xl text-white leading-[1.08]">
           Your money, protected <span class="font-editorial-italic text-cobalt-soft font-normal text-[1.08em]">around the clock.</span>
         </h2>
-        <p class="text-base sm:text-lg text-slate-400 mt-4 leading-relaxed">
+        <p class="text-sm sm:text-lg text-slate-400 mt-4 leading-relaxed">
           Enterprise-grade custody with instant personal control — pause any rule in one tap.
         </p>
       </div>
 
       <!-- 3 Clean Glass Trust Cards -->
-      <div class="mt-14 grid md:grid-cols-3 gap-6">
+      <div class="mt-12 sm:mt-14 grid md:grid-cols-3 gap-5 sm:gap-6">
         <!-- Card 1 -->
-        <div class="reveal-up glass-card rounded-3xl p-7 sm:p-8 space-y-4" style="transition-delay: 80ms;">
+        <div class="reveal-up glass-card rounded-3xl p-6 sm:p-8 space-y-4" style="transition-delay: 80ms;">
           <div class="w-12 h-12 rounded-2xl bg-cobalt/20 border border-cobalt/35 flex items-center justify-center text-cobalt-soft">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
           </div>
@@ -864,9 +898,9 @@
         </div>
 
         <!-- Card 2 (with interactive Kill-Switch demo) -->
-        <div class="reveal-up glass-card rounded-3xl p-7 sm:p-8 space-y-4" style="transition-delay: 160ms;">
-          <div class="flex items-center justify-between">
-            <div class="w-12 h-12 rounded-2xl bg-cobalt/20 border border-cobalt/35 flex items-center justify-center text-cobalt-soft">
+        <div class="reveal-up glass-card rounded-3xl p-6 sm:p-8 space-y-4" style="transition-delay: 160ms;">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="w-12 h-12 rounded-2xl bg-cobalt/20 border border-cobalt/35 flex items-center justify-center text-cobalt-soft shrink-0">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636a9 9 0 11-12.728 0M12 3v9"/></svg>
             </div>
             <button id="secKillSwitch" onclick="toggleSecurityKillSwitch()" class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 transition-all">
@@ -880,7 +914,7 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="reveal-up glass-card rounded-3xl p-7 sm:p-8 space-y-4" style="transition-delay: 240ms;">
+        <div class="reveal-up glass-card rounded-3xl p-6 sm:p-8 space-y-4" style="transition-delay: 240ms;">
           <div class="w-12 h-12 rounded-2xl bg-cobalt/20 border border-cobalt/35 flex items-center justify-center text-cobalt-soft">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
@@ -896,55 +930,55 @@
   <!-- =========================================================
        7. FINAL CONVERSION BANNER (WHITE)
   ========================================================== -->
-  <section data-nav-theme="light" class="py-20 sm:py-28 bg-white text-[#060608]">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+  <section data-nav-theme="light" class="py-16 sm:py-28 bg-white text-[#060608] overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8">
       <!-- Bold Revolut-Style Conversion Card -->
       <div class="reveal-up relative rounded-3xl overflow-hidden bg-[#060608] text-white grid lg:grid-cols-12 items-center">
-        <div class="lg:col-span-7 p-8 sm:p-12 lg:p-16 space-y-6 relative z-10">
-          <h2 class="font-display-tight font-extrabold text-3xl sm:text-5xl leading-[1.08]">
+        <div class="lg:col-span-7 p-6 sm:p-12 lg:p-16 space-y-6 relative z-10 min-w-0">
+          <h2 class="font-display-tight font-extrabold text-[28px] sm:text-4xl lg:text-5xl leading-[1.08]">
             Put your finances on <span class="font-editorial-italic text-cobalt-soft font-normal text-[1.08em]">autopilot</span> today.
           </h2>
-          <p class="text-base sm:text-lg text-slate-300 max-w-lg leading-relaxed">
+          <p class="text-sm sm:text-lg text-slate-300 max-w-lg leading-relaxed">
             Download Sileta on Mobile or Desktop to link your accounts and settle every bill, subscription, and payout automatically.
           </p>
-          <div class="flex flex-wrap gap-3 pt-2">
-            <button onclick="openDownloadModal('Sileta for Mobile (iOS & Android)')" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-cobalt hover:bg-cobalt-light text-white font-semibold text-sm transition-all duration-300 hover:scale-[1.02]">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          <div class="flex flex-col sm:flex-row sm:flex-wrap gap-3 pt-2">
+            <button onclick="openDownloadModal('Sileta for Mobile (iOS & Android)')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-cobalt hover:bg-cobalt-light text-white font-semibold text-sm transition-all duration-300 hover:scale-[1.02]">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
               <span>Download for Mobile (iOS / Android)</span>
             </button>
-            <button onclick="openDownloadModal('Sileta for PC (Windows & macOS)')" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-[#060608] hover:bg-slate-100 font-semibold text-sm transition-all duration-300 hover:scale-[1.02]">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <button onclick="openDownloadModal('Sileta for PC (Windows & macOS)')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-[#060608] hover:bg-slate-100 font-semibold text-sm transition-all duration-300 hover:scale-[1.02]">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
               <span>Download for PC (Windows / macOS)</span>
             </button>
           </div>
         </div>
 
         <!-- Blended Curated Lifestyle Imagery -->
-        <div class="lg:col-span-5 relative h-64 lg:h-full min-h-[280px]">
+        <div class="lg:col-span-5 relative h-56 sm:h-64 lg:h-full min-h-[240px] lg:min-h-[280px]">
           <img
             src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1400&q=80"
             alt="Effortless digital payment lifestyle"
             class="w-full h-full object-cover opacity-80"
             loading="lazy"
           />
-          <div class="absolute inset-0 bg-gradient-to-r from-[#060608] via-[#060608]/40 to-transparent lg:bg-gradient-to-r"></div>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#060608] via-transparent to-transparent lg:hidden"></div>
+          <div class="absolute inset-0 bg-gradient-to-r from-[#060608] via-[#060608]/40 to-transparent hidden lg:block"></div>
+          <div class="absolute inset-0 bg-gradient-to-b from-[#060608] via-transparent to-transparent lg:hidden"></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- =========================================================
-       8. BASED.COM-STYLE FOOTER (MOBILE ACCORDIONS + PC 4-COLUMN GRID)
+       8. BASED.COM-STYLE FOOTER (EXACT LAYOUT + GIANT SILETA WORDMARK)
   ========================================================== -->
-  <footer class="bg-[#060608] text-white border-t border-white/[0.08] pt-14 pb-10 sm:pt-20 sm:pb-12">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+  <footer class="bg-[#060608] text-white border-t border-white/[0.08] pt-14 sm:pt-20 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8">
 
-      <!-- Top Multi-Column Grid (Mobile stacked/accordions, PC 12-col grid matching based.com) -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 pb-14 border-b border-white/[0.1]">
+      <!-- Top Multi-Column Grid (Mobile stacked/accordions, Tablet 2x2, PC 12-col grid) -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-12 sm:pb-14 border-b border-white/[0.1]">
 
         <!-- Column 1: Brand, Mission & Support Email -->
-        <div class="md:col-span-3 space-y-4">
+        <div class="md:col-span-6 lg:col-span-3 space-y-4">
           <a href="#" class="inline-block font-display font-extrabold text-2xl tracking-tight text-white uppercase">SILETA</a>
           <p class="text-sm text-slate-400 leading-relaxed max-w-xs">
             Our mission is to build the cleanest, most effortless automated financial engine for everyday bills and business payouts.
@@ -968,8 +1002,8 @@
           </div>
         </div>
 
-        <!-- Column 2: Customer Care (Accordion on Mobile, Open List on PC) -->
-        <div class="md:col-span-2 border-t border-white/[0.08] md:border-none pt-4 md:pt-0">
+        <!-- Column 2: Customer Care (Accordion on Mobile, Open List on Tablet & PC) -->
+        <div class="md:col-span-3 lg:col-span-2 border-t border-white/[0.08] md:border-none pt-4 md:pt-0">
           <button type="button" onclick="toggleFooterAccordion('footCareList', 'footCareIcon')" class="w-full flex items-center justify-between md:cursor-default text-left">
             <span class="font-display font-bold text-sm uppercase tracking-wider text-white">Customer Care</span>
             <span id="footCareIcon" class="md:hidden text-lg font-mono text-slate-400">+</span>
@@ -984,8 +1018,8 @@
           </ul>
         </div>
 
-        <!-- Column 3: Quick Links (Accordion on Mobile, Open List on PC) -->
-        <div class="md:col-span-3 border-t border-b md:border-none border-white/[0.08] py-4 md:py-0">
+        <!-- Column 3: Quick Links (Accordion on Mobile, Open List on Tablet & PC) -->
+        <div class="md:col-span-3 lg:col-span-3 border-t border-b md:border-none border-white/[0.08] py-4 md:py-0">
           <button type="button" onclick="toggleFooterAccordion('footQuickList', 'footQuickIcon')" class="w-full flex items-center justify-between md:cursor-default text-left">
             <span class="font-display font-bold text-sm uppercase tracking-wider text-white">Quick Links</span>
             <span id="footQuickIcon" class="md:hidden text-lg font-mono text-slate-400">+</span>
@@ -1001,7 +1035,7 @@
         </div>
 
         <!-- Column 4: Based.com-Style Conversion Block -->
-        <div class="md:col-span-4 rounded-2xl bg-white/[0.04] border border-white/[0.09] p-6 space-y-4">
+        <div class="md:col-span-12 lg:col-span-4 rounded-2xl bg-white/[0.04] border border-white/[0.09] p-6 space-y-4">
           <h3 class="font-display-tight font-bold text-xl text-white">Put Your Finances On Autopilot</h3>
           <p class="text-sm text-slate-400 leading-relaxed">
             Consolidate your subscriptions, utilities, rent, taxes, and team payouts in less than 60 seconds.
@@ -1017,7 +1051,7 @@
       </div>
 
       <!-- Bottom Legal & Copyright Row -->
-      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div class="pt-7 pb-6 sm:pb-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
         <p>&copy;2026, Sileta Financial Inc.</p>
         <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
           <button onclick="showToast('Privacy Notice', '256-bit encrypted custody with zero third-party data selling.')" class="hover:text-white transition-colors">Privacy Notice</button>
@@ -1027,22 +1061,31 @@
         </div>
       </div>
     </div>
+
+    <!-- Based.com Signature Giant Edge-to-Edge Wordmark at Very Bottom -->
+    <div class="w-full overflow-hidden pt-2 sm:pt-4 pb-1 select-none pointer-events-none">
+      <div class="max-w-[1440px] mx-auto px-2 sm:px-4">
+        <div class="based-giant-wordmark text-center uppercase text-white/95 tracking-[-0.045em]">
+          SILETA
+        </div>
+      </div>
+    </div>
   </footer>
 
   <!-- =========================================================
        APP-LOCK GATE & DOWNLOAD POP-UP MODAL (MOBILE & PC)
   ========================================================== -->
   <div id="downloadModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-    <div class="modal-spring relative w-full max-w-xl rounded-3xl bg-[#0D1017] border border-white/[0.12] shadow-[0_32px_90px_rgba(0,0,0,0.85)] p-6 sm:p-8 text-white">
-      <button onclick="closeDownloadModal()" class="absolute top-5 right-5 p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-slate-300 hover:text-white transition-colors" aria-label="Close modal">
+    <div class="modal-spring relative w-full max-w-xl max-h-[92vh] overflow-y-auto rounded-3xl bg-[#0D1017] border border-white/[0.12] shadow-[0_32px_90px_rgba(0,0,0,0.85)] p-5 sm:p-8 text-white">
+      <button onclick="closeDownloadModal()" class="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-slate-300 hover:text-white transition-colors" aria-label="Close modal">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
 
-      <div class="flex items-center gap-3 mb-4">
-        <div class="w-10 h-10 rounded-xl bg-cobalt flex items-center justify-center">
+      <div class="flex items-center gap-3 mb-4 pr-10">
+        <div class="w-10 h-10 rounded-xl bg-cobalt flex items-center justify-center shrink-0">
           <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         </div>
-        <span id="modalContextBadge" class="text-xs font-mono uppercase tracking-wider text-cobalt-soft">App-Locked Feature</span>
+        <span id="modalContextBadge" class="text-xs font-mono uppercase tracking-wider text-cobalt-soft truncate">App-Locked Feature</span>
       </div>
 
       <h3 class="font-display-tight font-bold text-2xl sm:text-3xl text-white">
@@ -1095,7 +1138,7 @@
        MINIMAL LOG IN MODAL
   ========================================================== -->
   <div id="loginModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-    <div class="modal-spring relative w-full max-w-md rounded-3xl bg-white text-[#060608] shadow-2xl p-6 sm:p-8">
+    <div class="modal-spring relative w-full max-w-md max-h-[92vh] overflow-y-auto rounded-3xl bg-white text-[#060608] shadow-2xl p-6 sm:p-8">
       <button onclick="closeLoginModal()" class="absolute top-5 right-5 p-2 rounded-full bg-[#F4F4F6] hover:bg-slate-200 text-slate-600 transition-colors" aria-label="Close login modal">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
@@ -1206,10 +1249,8 @@
 
     function updateHeaderState() {
       const scrolled = window.scrollY > 24;
-      // Show feathered blur cleanly without any box/border
       navBlurLayer.style.opacity = scrolled ? '1' : '0';
 
-      // Check if navbar midpoint (y = 32) is over a pure white section
       const overLight = lightSections.some(sec => {
         const rect = sec.getBoundingClientRect();
         return rect.top <= 36 && rect.bottom >= 36;
@@ -1222,7 +1263,7 @@
           a.className = 'nav-link hover:text-[#191C1F] transition-colors';
         });
         navLoginBtn.className = 'hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[13px] font-medium text-[#191C1F] hover:opacity-75 transition-opacity';
-        navCtaBtn.className = 'inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#191C1F] text-white hover:opacity-85 text-[13px] font-semibold transition-all group';
+        navCtaBtn.className = 'inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#191C1F] text-white hover:opacity-85 text-[12.5px] sm:text-[13px] font-semibold transition-all group whitespace-nowrap';
         mobileMenuBtn.className = 'md:hidden p-1.5 rounded-lg text-[#191C1F] hover:bg-black/5 transition-colors';
       } else {
         navBrandText.className = 'font-display font-bold text-xl tracking-tight text-white transition-colors duration-300';
@@ -1231,7 +1272,7 @@
           a.className = 'nav-link hover:text-white transition-colors';
         });
         navLoginBtn.className = 'hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[13px] font-medium text-white/95 hover:text-white transition-colors';
-        navCtaBtn.className = 'inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-[#191C1F] hover:opacity-90 text-[13px] font-semibold transition-all group';
+        navCtaBtn.className = 'inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-white text-[#191C1F] hover:opacity-90 text-[12.5px] sm:text-[13px] font-semibold transition-all group whitespace-nowrap';
         mobileMenuBtn.className = 'md:hidden p-1.5 rounded-lg text-white hover:bg-white/15 transition-colors';
       }
     }
@@ -1245,7 +1286,10 @@
         navTicking = true;
       }
     }, { passive: true });
-    window.addEventListener('resize', updateHeaderState, { passive: true });
+    window.addEventListener('resize', () => {
+      updateHeaderState();
+      layoutDeck('init');
+    }, { passive: true });
     updateHeaderState();
 
     mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
@@ -1269,7 +1313,7 @@
     }
 
     // ---------------------------------------------------------
-    // HERO OVERLAPPING SUBSCRIPTION CARD DECK
+    // HERO OVERLAPPING SUBSCRIPTION CARD DECK (MOBILE-SAFE)
     // ---------------------------------------------------------
     const heroCards = [
       {
@@ -1348,34 +1392,34 @@
 
     deckContainer.innerHTML = heroCards.map((c, idx) => `
       <div class="deck-slot" data-index="${idx}" data-active="${idx === 0 ? 'true' : 'false'}">
-        <div class="deck-card-inner h-full w-full rounded-[28px] p-6 sm:p-7 bg-gradient-to-br ${c.gradient} border border-white/[0.18] shadow-[0_24px_60px_rgba(0,0,0,0.6)] backdrop-blur-2xl flex flex-col justify-between cursor-pointer select-none" onclick="openDownloadModal('${c.name} auto-pay')">
+        <div class="deck-card-inner h-full w-full rounded-[24px] sm:rounded-[28px] p-5 sm:p-7 bg-gradient-to-br ${c.gradient} border border-white/[0.18] shadow-[0_24px_60px_rgba(0,0,0,0.6)] backdrop-blur-2xl flex flex-col justify-between cursor-pointer select-none overflow-hidden" onclick="openDownloadModal('${c.name} auto-pay')">
           <!-- Top Row -->
-          <div class="flex items-start justify-between gap-3">
-            <div class="flex items-center gap-3">
-              <div class="w-11 h-11 rounded-2xl border ${c.accent} flex items-center justify-center font-display font-bold text-base">
+          <div class="flex items-start justify-between gap-2 min-w-0">
+            <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+              <div class="w-10 h-10 sm:w-11 sm:h-11 shrink-0 rounded-2xl border ${c.accent} flex items-center justify-center font-display font-bold text-sm sm:text-base">
                 ${c.code}
               </div>
-              <div>
-                <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-400">${c.category}</p>
-                <h3 class="font-display-tight font-bold text-xl text-white mt-0.5">${c.name}</h3>
+              <div class="min-w-0">
+                <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-400 truncate">${c.category}</p>
+                <h3 class="font-display-tight font-bold text-lg sm:text-xl text-white mt-0.5 truncate">${c.name}</h3>
               </div>
             </div>
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[11px] font-semibold text-emerald-400">
+            <span class="shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[10px] sm:text-[11px] font-semibold text-emerald-400">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
               Auto-Paid
             </span>
           </div>
 
           <!-- Center Amount -->
-          <div class="my-auto pt-4">
-            <p class="text-xs text-slate-400">Monthly Autopilot Amount</p>
-            <p class="font-mono tabular-figures text-3xl sm:text-4xl font-bold text-white mt-1">${c.price}<span class="text-sm font-sans font-normal text-slate-400"> / mo</span></p>
+          <div class="my-auto pt-3 sm:pt-4 min-w-0">
+            <p class="text-[11px] sm:text-xs text-slate-400">Monthly Autopilot Amount</p>
+            <p class="font-mono tabular-figures text-2xl sm:text-4xl font-bold text-white mt-1 truncate">${c.price}<span class="text-xs sm:text-sm font-sans font-normal text-slate-400"> / mo</span></p>
           </div>
 
           <!-- Footer Meta -->
-          <div class="pt-4 border-t border-white/[0.1] flex items-center justify-between text-xs">
-            <span class="text-slate-300 font-medium">${c.cycle}</span>
-            <span class="font-mono text-[11px] text-cobalt-soft flex items-center gap-1">
+          <div class="pt-3.5 sm:pt-4 border-t border-white/[0.1] flex items-center justify-between gap-2 text-[11px] sm:text-xs min-w-0">
+            <span class="text-slate-300 font-medium truncate">${c.cycle}</span>
+            <span class="font-mono text-[10px] sm:text-[11px] text-cobalt-soft flex items-center gap-1 shrink-0 whitespace-nowrap">
               <span>Via Sileta</span>
               <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
             </span>
@@ -1388,6 +1432,12 @@
 
     function layoutDeck(direction = 'init', oldIdx = 0) {
       const n = heroCards.length;
+      const isMobile = window.innerWidth < 640;
+      const xStep1 = isMobile ? 8 : 16;
+      const yStep1 = isMobile ? 10 : 16;
+      const xStep2 = isMobile ? 15 : 30;
+      const yStep2 = isMobile ? 18 : 30;
+      const exitX = isMobile ? 22 : 42;
 
       cardSlots.forEach((slot, idx) => {
         const diff = (idx - activeDeckIndex + n) % n;
@@ -1397,7 +1447,7 @@
         if (direction === 'next' && idx === oldIdx) {
           slot.style.zIndex = '45';
           slot.style.opacity = '0';
-          slot.style.transform = 'translate3d(42px, -24px, 0) scale(0.96) rotate(3deg)';
+          slot.style.transform = `translate3d(${exitX}px, -18px, 0) scale(0.96) rotate(2.5deg)`;
           slot.style.pointerEvents = 'none';
 
           setTimeout(() => {
@@ -1405,7 +1455,7 @@
               slot.style.transition = 'none';
               slot.style.zIndex = '5';
               slot.style.opacity = '0';
-              slot.style.transform = 'translate3d(44px, 42px, 0) scale(0.86)';
+              slot.style.transform = `translate3d(${xStep2}px, ${yStep2 + 10}px, 0) scale(0.88)`;
               void slot.offsetWidth;
               slot.style.transition = '';
             }
@@ -1417,7 +1467,7 @@
           slot.style.transition = 'none';
           slot.style.zIndex = '50';
           slot.style.opacity = '0';
-          slot.style.transform = 'translate3d(-44px, -22px, 0) scale(1.03) rotate(-3deg)';
+          slot.style.transform = `translate3d(-${exitX}px, -16px, 0) scale(1.02) rotate(-2.5deg)`;
           void slot.offsetWidth;
 
           requestAnimationFrame(() => {
@@ -1438,23 +1488,23 @@
         } else if (diff === 1) {
           slot.style.zIndex = '30';
           slot.style.opacity = '0.82';
-          slot.style.transform = 'translate3d(16px, 16px, 0) scale(0.95)';
+          slot.style.transform = `translate3d(${xStep1}px, ${yStep1}px, 0) scale(0.96)`;
           slot.style.pointerEvents = 'none';
         } else if (diff === 2) {
           slot.style.zIndex = '20';
           slot.style.opacity = '0.52';
-          slot.style.transform = 'translate3d(30px, 30px, 0) scale(0.90)';
+          slot.style.transform = `translate3d(${xStep2}px, ${yStep2}px, 0) scale(0.92)`;
           slot.style.pointerEvents = 'none';
         } else {
           slot.style.zIndex = '5';
           slot.style.opacity = '0';
-          slot.style.transform = 'translate3d(42px, 42px, 0) scale(0.86)';
+          slot.style.transform = `translate3d(${xStep2}px, ${yStep2 + 8}px, 0) scale(0.88)`;
           slot.style.pointerEvents = 'none';
         }
       });
 
       dotsContainer.innerHTML = heroCards.map((_, i) => `
-        <button onclick="jumpHeroDeck(${i})" aria-label="Go to card ${i + 1}" class="h-1.5 rounded-full transition-all duration-300 ${i === activeDeckIndex ? 'w-6 bg-white' : 'w-1.5 bg-white/35 hover:bg-white/60'}"></button>
+        <button onclick="jumpHeroDeck(${i})" aria-label="Go to card ${i + 1}" class="h-1.5 rounded-full transition-all duration-300 ${i === activeDeckIndex ? 'w-5 sm:w-6 bg-white' : 'w-1.5 bg-white/35 hover:bg-white/60'}"></button>
       `).join('');
       counterEl.textContent = `${String(activeDeckIndex + 1).padStart(2, '0')} / ${String(n).padStart(2, '0')}`;
     }
@@ -1519,26 +1569,26 @@
     function renderSubGrid() {
       const grid = document.getElementById('subCardsGrid');
       grid.innerHTML = subsList.map(s => `
-        <div class="revolut-card-hover rounded-3xl bg-[#F4F4F6] p-6 flex flex-col justify-between gap-5 ${s.active ? '' : 'opacity-50'}">
-          <div class="flex items-start justify-between gap-3">
-            <div>
-              <span class="font-mono text-[10px] font-semibold uppercase tracking-wider text-cobalt">${s.tag}</span>
-              <h3 class="font-display-tight font-bold text-lg text-[#060608] mt-1">${s.name}</h3>
+        <div class="revolut-card-hover rounded-3xl bg-[#F4F4F6] p-5 sm:p-6 flex flex-col justify-between gap-5 min-w-0 ${s.active ? '' : 'opacity-50'}">
+          <div class="flex items-start justify-between gap-3 min-w-0">
+            <div class="min-w-0">
+              <span class="font-mono text-[10px] font-semibold uppercase tracking-wider text-cobalt block truncate">${s.tag}</span>
+              <h3 class="font-display-tight font-bold text-lg text-[#060608] mt-1 truncate">${s.name}</h3>
             </div>
             <button onclick="toggleSubCard('${s.id}')" aria-label="Toggle ${s.name}" class="w-11 h-6 rounded-full p-0.5 transition-colors shrink-0 ${s.active ? 'bg-cobalt' : 'bg-slate-300'}">
               <div class="w-5 h-5 rounded-full bg-white shadow transition-transform duration-300 ${s.active ? 'translate-x-5' : 'translate-x-0'}"></div>
             </button>
           </div>
-          <div class="flex items-baseline justify-between pt-3 border-t border-slate-200/80">
+          <div class="flex items-baseline justify-between gap-2 pt-3 border-t border-slate-200/80">
             <span class="font-mono tabular-figures text-xl font-bold text-[#060608]">${fmtMoney(s.price)}</span>
-            <span class="text-xs text-slate-500">${s.active ? 'Auto-paid' : 'Paused'}</span>
+            <span class="text-xs text-slate-500 shrink-0">${s.active ? 'Auto-paid' : 'Paused'}</span>
           </div>
         </div>
       `).join('');
 
       const active = subsList.filter(s => s.active);
       const total = active.reduce((sum, s) => sum + s.price, 0);
-      document.getElementById('subConsolidatedTotal').innerHTML = `${fmtMoney(total)}<span class="text-base font-sans font-medium text-slate-500"> / mo</span>`;
+      document.getElementById('subConsolidatedTotal').innerHTML = `${fmtMoney(total)}<span class="text-sm sm:text-base font-sans font-medium text-slate-500"> / mo</span>`;
       document.getElementById('subActiveLabel').textContent = `${active.length} Service${active.length === 1 ? '' : 's'} Active`;
     }
 
@@ -1583,13 +1633,13 @@
         const added = subsList.some(s => s.name.toLowerCase() === m.name.toLowerCase());
         html += `
           <div class="rounded-2xl bg-[#F4F4F6] p-4 flex items-center justify-between gap-3 tab-animate">
-            <div>
-              <p class="font-semibold text-sm text-[#060608]">${m.name}</p>
+            <div class="min-w-0">
+              <p class="font-semibold text-sm text-[#060608] truncate">${m.name}</p>
               <p class="text-xs text-slate-500">${m.tag} &bull; <span class="font-mono">${fmtMoney(m.price)}/mo</span></p>
             </div>
             ${added
-              ? `<span class="px-3 py-1.5 rounded-full bg-emerald-500/15 text-emerald-700 text-xs font-semibold">Added ✓</span>`
-              : `<button onclick="addCatalogApp('${m.id}')" class="px-4 py-2 rounded-full bg-cobalt hover:bg-cobalt-dark text-white text-xs font-semibold transition-colors">+ Add to Sileta</button>`
+              ? `<span class="px-3 py-1.5 rounded-full bg-emerald-500/15 text-emerald-700 text-xs font-semibold shrink-0">Added ✓</span>`
+              : `<button onclick="addCatalogApp('${m.id}')" class="px-4 py-2 rounded-full bg-cobalt hover:bg-cobalt-dark text-white text-xs font-semibold transition-colors shrink-0">+ Add to Sileta</button>`
             }
           </div>
         `;
@@ -1600,16 +1650,16 @@
         const clean = q.replace(/</g, '&lt;').replace(/"/g, '&quot;');
         html = `
           <div class="rounded-2xl bg-cobalt/10 border border-cobalt/25 p-4 flex flex-wrap items-center justify-between gap-3 tab-animate">
-            <div>
-              <p class="font-semibold text-sm text-[#060608]">&ldquo;${clean}&rdquo;</p>
+            <div class="min-w-0">
+              <p class="font-semibold text-sm text-[#060608] truncate">&ldquo;${clean}&rdquo;</p>
               <p class="text-xs text-slate-600">Custom biller &bull; Auto-consolidated monthly</p>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 shrink-0">
               <div class="flex items-center gap-1 bg-white rounded-full px-3 py-1.5 border border-slate-200">
                 <span class="text-xs text-slate-400">$</span>
                 <input id="customAppPrice" type="number" min="1" value="29" class="w-14 font-mono text-xs font-bold text-[#060608] outline-none" />
               </div>
-              <button onclick="addCustomApp()" class="px-4 py-2 rounded-full bg-cobalt hover:bg-cobalt-dark text-white text-xs font-semibold transition-colors">+ Add to Sileta</button>
+              <button onclick="addCustomApp()" class="px-4 py-2 rounded-full bg-cobalt hover:bg-cobalt-dark text-white text-xs font-semibold transition-colors whitespace-nowrap">+ Add to Sileta</button>
             </div>
           </div>
         ` + html;
@@ -1669,9 +1719,9 @@
       const dur = document.getElementById('grpDurationSelect').value;
 
       document.getElementById('grpMembersList').innerHTML = grpMembers.map(m => `
-        <div class="flex items-center justify-between text-xs">
-          <span class="text-white font-medium">${m.name}</span>
-          <span class="text-emerald-400 font-mono">${m.status}</span>
+        <div class="flex items-center justify-between gap-2 text-xs">
+          <span class="text-white font-medium truncate">${m.name}</span>
+          <span class="text-emerald-400 font-mono shrink-0">${m.status}</span>
         </div>
       `).join('');
 
@@ -1708,9 +1758,9 @@
       activePanel.classList.add('tab-animate');
 
       document.querySelectorAll('.calc-tab').forEach(b => {
-        b.className = 'calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#191C1F] transition-all duration-300';
+        b.className = 'calc-tab px-3 sm:px-5 py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-semibold text-slate-600 hover:text-[#191C1F] transition-all duration-300 text-center';
       });
-      document.getElementById('tab-' + key).className = 'calc-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-[#191C1F] text-white transition-all duration-300';
+      document.getElementById('tab-' + key).className = 'calc-tab px-3 sm:px-5 py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-semibold bg-[#191C1F] text-white transition-all duration-300 text-center';
     }
 
     function syncCalcRange(rangeId, inputId, fn) {
@@ -1752,7 +1802,7 @@
 
       const netEl = document.getElementById('beNetOut');
       netEl.textContent = fmtMoney(net, 0);
-      netEl.className = `font-mono tabular-figures text-2xl font-bold mt-1 ${net >= 0 ? 'text-emerald-600' : 'text-rose-600'}`;
+      netEl.className = `font-mono tabular-figures text-xl sm:text-2xl font-bold mt-1 truncate ${net >= 0 ? 'text-emerald-600' : 'text-rose-600'}`;
 
       document.getElementById('bePointOut').textContent = beUnits !== null ? `${beUnits.toLocaleString()} Units` : 'N/A';
     }
