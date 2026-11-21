@@ -1,3 +1,20 @@
+I updated both the scrolling navbar and the footer as requested:
+
+  - Blurred Sticky Header (Never White): Scrolling down now transitions the
+    transparent header into a translucent frosted-glass blur (bg-[#060608]/40
+    backdrop-blur-2xl) instead of turning white—keeping the white Sileta
+    wordmark, nav links, Log in, and Get the App ↗ pill crisp across both dark
+    and light sections while visibly blurring the content underneath.
+  - based.com-Style Footer (Mobile & PC):
+      - PC (md+): Clean 4-column layout with Sileta's mission &
+        support@sileta.com on the left, Customer Care and Quick Links columns in
+        the center, and a dedicated conversion CTA card ("Put Your Finances On
+        Autopilot.", "GET STARTED NOW (60s)", and "142,000+ accounts automated")
+        on the right.
+      - Mobile (< 768px): Customer Care and Quick Links automatically turn into
+        clean collapsible accordions (+ / −) with the mission block, conversion
+        card, and legal bar stacked cleanly.
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -260,31 +277,31 @@
 <body class="selection:bg-cobalt/30 selection:text-white">
 
   <!-- =========================================================
-       1. REVOLUT-EXACT SLIM NAVBAR (WORDMARK ONLY + COMPACT PILLS)
+       1. REVOLUT-EXACT SLIM NAVBAR (TRANSPARENT -> FROSTED BLUR)
   ========================================================== -->
   <header id="siteHeader" class="fixed top-0 inset-x-0 z-50 bg-transparent transition-all duration-300">
     <div class="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-6">
       <!-- Left: Wordmark Only + Clean Inline Links -->
       <div class="flex items-center gap-8">
         <a href="#" class="focus:outline-none">
-          <span id="navBrandText" class="font-display font-bold text-xl tracking-tight text-white transition-colors duration-300">Sileta</span>
+          <span class="font-display font-bold text-xl tracking-tight text-white">Sileta</span>
         </a>
 
         <!-- Slim Nav Links -->
-        <nav id="navLinks" class="hidden md:flex items-center gap-6 text-[13.5px] font-medium text-white/85 transition-colors duration-300">
-          <a href="#how-it-works" class="nav-link hover:text-white transition-colors">How It Works</a>
-          <a href="#payouts" class="nav-link hover:text-white transition-colors">Payouts</a>
-          <a href="#calculators" class="nav-link hover:text-white transition-colors">Calculators</a>
-          <a href="#security" class="nav-link hover:text-white transition-colors">Security</a>
+        <nav class="hidden md:flex items-center gap-6 text-[13.5px] font-medium text-white/85">
+          <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
+          <a href="#payouts" class="hover:text-white transition-colors">Payouts</a>
+          <a href="#calculators" class="hover:text-white transition-colors">Calculators</a>
+          <a href="#security" class="hover:text-white transition-colors">Security</a>
         </nav>
       </div>
 
       <!-- Right: Revolut-Exact Compact Controls ("Log in" + slim pill CTA with north-east arrow) -->
       <div class="flex items-center gap-2">
-        <button id="navLoginBtn" onclick="openLoginModal()" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[13px] font-medium text-white/95 hover:text-white transition-colors">
+        <button onclick="openLoginModal()" class="hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[13px] font-medium text-white/95 hover:text-white transition-colors">
           Log in
         </button>
-        <button id="navCtaBtn" onclick="openDownloadModal('full automated settlements')" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-[#191C1F] hover:opacity-90 text-[13px] font-semibold transition-all group">
+        <button onclick="openDownloadModal('full automated settlements')" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-[#191C1F] hover:opacity-90 text-[13px] font-semibold transition-all group">
           <span>Get the App</span>
           <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
         </button>
@@ -295,12 +312,12 @@
     </div>
 
     <!-- Floating Revolut-Style Mobile Dropdown Card -->
-    <div id="mobileMenu" class="hidden md:hidden mx-4 mt-1 rounded-3xl bg-white text-[#060608] shadow-2xl border border-slate-200/80 p-3 space-y-1">
-      <a href="#how-it-works" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-700 hover:bg-[#F4F4F6] hover:text-[#060608]">How It Works</a>
-      <a href="#payouts" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-700 hover:bg-[#F4F4F6] hover:text-[#060608]">Payouts</a>
-      <a href="#calculators" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-700 hover:bg-[#F4F4F6] hover:text-[#060608]">Calculators</a>
-      <a href="#security" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-700 hover:bg-[#F4F4F6] hover:text-[#060608]">Security</a>
-      <button onclick="closeMobileMenu(); openLoginModal()" class="w-full text-left px-4 py-2.5 rounded-2xl text-sm font-medium text-cobalt hover:bg-cobalt/5">Log in</button>
+    <div id="mobileMenu" class="hidden md:hidden mx-4 mt-1 rounded-3xl bg-[#0D1017]/90 backdrop-blur-2xl text-white shadow-2xl border border-white/[0.12] p-3 space-y-1">
+      <a href="#how-it-works" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-200 hover:bg-white/[0.08] hover:text-white">How It Works</a>
+      <a href="#payouts" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-200 hover:bg-white/[0.08] hover:text-white">Payouts</a>
+      <a href="#calculators" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-200 hover:bg-white/[0.08] hover:text-white">Calculators</a>
+      <a href="#security" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-2xl text-sm font-medium text-slate-200 hover:bg-white/[0.08] hover:text-white">Security</a>
+      <button onclick="closeMobileMenu(); openLoginModal()" class="w-full text-left px-4 py-2.5 rounded-2xl text-sm font-medium text-cobalt-soft hover:bg-white/[0.08]">Log in</button>
     </div>
   </header>
 
@@ -317,14 +334,14 @@
         alt="Modern Sileta user managing payments effortlessly on the move"
         class="hero-bg-settle w-full h-[112%] object-cover object-[50%_18%] sm:object-[52%_15%] will-change-transform"
       />
-      <!-- Revolut-style Editorial Scrim: High readability left & bottom while preserving crisp center portrait -->
+      <!-- Revolut-style Editorial Scrim -->
       <div class="absolute inset-0 bg-gradient-to-r from-[#060608]/85 via-[#060608]/35 to-[#060608]/55"></div>
       <div class="absolute inset-0 bg-gradient-to-t from-[#060608]/85 via-transparent to-[#060608]/40"></div>
     </div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 w-full">
       <div class="grid lg:grid-cols-12 gap-12 lg:gap-6 items-center">
-        <!-- Hero Left Copy (Cols 1-5: Leaves open central breathing room for portrait) -->
+        <!-- Hero Left Copy -->
         <div class="lg:col-span-5 space-y-6">
           <h1 class="hero-anim-1 font-display-tight font-extrabold text-4xl sm:text-5xl lg:text-[56px] text-white leading-[1.05] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">
             Every bill, subscription, and payout on <span class="font-editorial-italic text-cobalt-soft font-normal text-[1.08em]">autopilot.</span>
@@ -352,7 +369,7 @@
           </p>
         </div>
 
-        <!-- Hero Right (Cols 8-12): Auto-Advancing Overlapping Subscription Cards + Left/Right Arrows -->
+        <!-- Hero Right: Auto-Advancing Overlapping Subscription Cards + Left/Right Arrows -->
         <div class="hero-anim-4 lg:col-span-5 lg:col-start-8 flex flex-col items-center lg:items-end">
           <div id="heroDeckWrapper" class="relative w-full max-w-[440px] flex items-center gap-2.5 sm:gap-3.5">
             <!-- Left Arrow (Previous Subscription Card) -->
@@ -883,7 +900,7 @@
   </section>
 
   <!-- =========================================================
-       7. FINAL CONVERSION BANNER (WHITE) & MINIMAL FOOTER (DARK)
+       7. FINAL CONVERSION BANNER (WHITE)
   ========================================================== -->
   <section class="py-20 sm:py-28 bg-white text-[#060608]">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
@@ -923,27 +940,97 @@
     </div>
   </section>
 
-  <!-- Minimal Footer (Dark) -->
-  <footer class="bg-[#060608] border-t border-white/[0.08] py-12">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-2.5">
-        <div class="w-7 h-7 rounded-lg bg-cobalt flex items-center justify-center">
-          <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none"><path d="M17.5 6.5H9.25C7.17893 6.5 5.5 8.17893 5.5 10.25C5.5 12.3211 7.17893 14 9.25 14H14.75C16.8211 14 18.5 15.6789 18.5 17.75C18.5 19.8211 16.8211 21.5 14.75 21.5H6.5" stroke="currentColor" stroke-width="2.9" stroke-linecap="round"/></svg>
+  <!-- =========================================================
+       8. BASED.COM-STYLE FOOTER (MOBILE ACCORDIONS + PC 4-COLUMN GRID)
+  ========================================================== -->
+  <footer class="bg-[#060608] text-white border-t border-white/[0.08] pt-14 pb-10 sm:pt-20 sm:pb-12">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+
+      <!-- Top Multi-Column Grid (Mobile stacked/accordions, PC 12-col grid matching based.com) -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 pb-14 border-b border-white/[0.1]">
+
+        <!-- Column 1: Brand, Mission & Support Email (based.com left column) -->
+        <div class="md:col-span-3 space-y-4">
+          <a href="#" class="inline-block font-display font-extrabold text-2xl tracking-tight text-white uppercase">SILETA</a>
+          <p class="text-sm text-slate-400 leading-relaxed max-w-xs">
+            Our mission is to build the cleanest, most effortless automated financial engine for everyday bills and business payouts.
+          </p>
+          <div class="pt-1">
+            <a href="mailto:support@sileta.com" class="text-sm font-medium text-white hover:text-cobalt-soft transition-colors underline underline-offset-4 decoration-white/25">
+              support@sileta.com
+            </a>
+          </div>
+          <!-- Clean Minimal Social Icons -->
+          <div class="flex items-center gap-3 pt-2">
+            <a href="#security" aria-label="X / Twitter" class="w-8 h-8 rounded-full border border-white/[0.14] hover:border-white/40 flex items-center justify-center text-slate-300 hover:text-white transition-colors">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#how-it-works" aria-label="Instagram" class="w-8 h-8 rounded-full border border-white/[0.14] hover:border-white/40 flex items-center justify-center text-slate-300 hover:text-white transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#payouts" aria-label="LinkedIn" class="w-8 h-8 rounded-full border border-white/[0.14] hover:border-white/40 flex items-center justify-center text-slate-300 hover:text-white transition-colors">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            </a>
+          </div>
         </div>
-        <span class="font-display font-bold text-lg text-white">Sileta</span>
+
+        <!-- Column 2: Customer Care (Accordion on Mobile, Open List on PC) -->
+        <div class="md:col-span-2 border-t border-white/[0.08] md:border-none pt-4 md:pt-0">
+          <button type="button" onclick="toggleFooterAccordion('footCareList', 'footCareIcon')" class="w-full flex items-center justify-between md:cursor-default text-left">
+            <span class="font-display font-bold text-sm uppercase tracking-wider text-white">Customer Care</span>
+            <span id="footCareIcon" class="md:hidden text-lg font-mono text-slate-400">+</span>
+          </button>
+          <ul id="footCareList" class="hidden md:block mt-4 space-y-2.5 text-sm text-slate-400">
+            <li><a href="#security" class="hover:text-white transition-colors">Bank-Grade Safety</a></li>
+            <li><a href="#how-it-works" class="hover:text-white transition-colors">How Sileta Works</a></li>
+            <li><a href="#calculators" class="hover:text-white transition-colors">Live Calculators</a></li>
+            <li><button onclick="openLoginModal()" class="hover:text-white transition-colors">Account Sign In</button></li>
+            <li><a href="#security" class="hover:text-white transition-colors">Auto-Pay Guarantee</a></li>
+            <li><button onclick="openDownloadModal('Sileta Support & Account Setup')" class="hover:text-white transition-colors">Contact Us</button></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Quick Links (Accordion on Mobile, Open List on PC) -->
+        <div class="md:col-span-3 border-t border-b md:border-none border-white/[0.08] py-4 md:py-0">
+          <button type="button" onclick="toggleFooterAccordion('footQuickList', 'footQuickIcon')" class="w-full flex items-center justify-between md:cursor-default text-left">
+            <span class="font-display font-bold text-sm uppercase tracking-wider text-white">Quick Links</span>
+            <span id="footQuickIcon" class="md:hidden text-lg font-mono text-slate-400">+</span>
+          </button>
+          <ul id="footQuickList" class="hidden md:block mt-4 space-y-2.5 text-sm text-slate-400">
+            <li><a href="#how-it-works" class="hover:text-white transition-colors">Subscriptions &amp; Bills</a></li>
+            <li><a href="#payouts" class="hover:text-white transition-colors">Individual Auto-Transfers</a></li>
+            <li><a href="#payouts" class="hover:text-white transition-colors">Group &amp; Contract Payroll</a></li>
+            <li><a href="#calculators" onclick="switchCalcTab('breakeven')" class="hover:text-white transition-colors">Break-Even Engine</a></li>
+            <li><a href="#calculators" onclick="switchCalcTab('tax')" class="hover:text-white transition-colors">Auto-Tax Estimator</a></li>
+            <li><button onclick="openDownloadModal('Sileta Desktop & Mobile App')" class="hover:text-white transition-colors">Download App</button></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Based.com-Style Conversion Block ("Get Your Routine" equivalent) -->
+        <div class="md:col-span-4 rounded-2xl bg-white/[0.04] border border-white/[0.09] p-6 space-y-4">
+          <h3 class="font-display-tight font-bold text-xl text-white">Put Your Finances On Autopilot</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Consolidate your subscriptions, utilities, rent, taxes, and team payouts in less than 60 seconds.
+          </p>
+          <button onclick="openDownloadModal('Sileta Instant Setup')" class="w-full py-3.5 px-5 rounded-full bg-white text-[#060608] hover:bg-cobalt hover:text-white font-display font-bold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2">
+            <span>GET STARTED NOW (60s)</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
+          </button>
+          <p class="text-xs font-mono text-slate-400 text-center">
+            142,000+ households &amp; teams automated
+          </p>
+        </div>
       </div>
 
-      <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-400">
-        <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
-        <a href="#payouts" class="hover:text-white transition-colors">Payouts</a>
-        <a href="#calculators" class="hover:text-white transition-colors">Calculators</a>
-        <a href="#security" class="hover:text-white transition-colors">Security</a>
-      </div>
-
-      <div class="flex flex-wrap items-center justify-center gap-3 text-xs text-slate-500">
-        <span class="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] font-mono text-slate-300">256-Bit AES</span>
-        <span class="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] font-mono text-slate-300">SOC 2 Type II</span>
-        <span>&copy; 2026 Sileta Inc.</span>
+      <!-- Bottom Legal & Copyright Row (based.com bottom bar) -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <p>&copy;2026, Sileta Financial Inc.</p>
+        <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          <button onclick="showToast('Privacy Notice', '256-bit encrypted custody with zero third-party data selling.')" class="hover:text-white transition-colors">Privacy Notice</button>
+          <button onclick="showToast('Accessibility Statement', 'WCAG AA contrast and full keyboard navigation supported.')" class="hover:text-white transition-colors">Accessibility Statement</button>
+          <button onclick="showToast('Terms of Service', 'Standard automated clearing & custodial safeguarding terms apply.')" class="hover:text-white transition-colors">Terms of Service</button>
+          <a href="#security" class="hover:text-white transition-colors">Security Portal</a>
+        </div>
       </div>
     </div>
   </footer>
@@ -1081,7 +1168,6 @@
       }
     }, { passive: true });
 
-    // Optional silent drag-and-drop onto hero to preview any local image immediately
     heroSection.addEventListener('dragover', (e) => e.preventDefault());
     heroSection.addEventListener('drop', (e) => {
       e.preventDefault();
@@ -1111,38 +1197,18 @@
     document.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
 
     // ---------------------------------------------------------
-    // REVOLUT-EXACT SLIM TRANSPARENT -> FROSTED WHITE HEADER
+    // TRANSPARENT -> FROSTED BLUR HEADER (NEVER TURNS WHITE)
     // ---------------------------------------------------------
     const siteHeader = document.getElementById('siteHeader');
-    const navBrandText = document.getElementById('navBrandText');
-    const navLinks = document.getElementById('navLinks');
-    const navLoginBtn = document.getElementById('navLoginBtn');
-    const navCtaBtn = document.getElementById('navCtaBtn');
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
 
     function updateHeaderOnScroll() {
       const scrolled = window.scrollY > 36;
       if (scrolled) {
-        siteHeader.className = 'fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-xl shadow-[0_1px_0_rgba(0,0,0,0.06)] transition-all duration-300';
-        navBrandText.className = 'font-display font-bold text-xl tracking-tight text-[#191C1F] transition-colors duration-300';
-        navLinks.className = 'hidden md:flex items-center gap-6 text-[13.5px] font-medium text-slate-600 transition-colors duration-300';
-        document.querySelectorAll('.nav-link').forEach(a => {
-          a.className = 'nav-link hover:text-[#191C1F] transition-colors';
-        });
-        navLoginBtn.className = 'hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[13px] font-medium text-[#191C1F] hover:opacity-75 transition-opacity';
-        navCtaBtn.className = 'inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#191C1F] text-white hover:opacity-85 text-[13px] font-semibold transition-opacity group';
-        mobileMenuBtn.className = 'md:hidden p-1.5 rounded-lg text-[#191C1F] hover:bg-slate-100 transition-colors';
+        siteHeader.className = 'fixed top-0 inset-x-0 z-50 bg-[#060608]/40 backdrop-blur-2xl border-b border-white/[0.08] transition-all duration-300';
       } else {
-        siteHeader.className = 'fixed top-0 inset-x-0 z-50 bg-transparent transition-all duration-300';
-        navBrandText.className = 'font-display font-bold text-xl tracking-tight text-white transition-colors duration-300';
-        navLinks.className = 'hidden md:flex items-center gap-6 text-[13.5px] font-medium text-white/85 transition-colors duration-300';
-        document.querySelectorAll('.nav-link').forEach(a => {
-          a.className = 'nav-link hover:text-white transition-colors';
-        });
-        navLoginBtn.className = 'hidden sm:inline-flex items-center px-3 py-1.5 rounded-full text-[13px] font-medium text-white/95 hover:text-white transition-colors';
-        navCtaBtn.className = 'inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-[#191C1F] hover:opacity-90 text-[13px] font-semibold transition-opacity group';
-        mobileMenuBtn.className = 'md:hidden p-1.5 rounded-lg text-white hover:bg-white/15 transition-colors';
+        siteHeader.className = 'fixed top-0 inset-x-0 z-50 bg-transparent border-b border-transparent transition-all duration-300';
       }
     }
 
@@ -1151,6 +1217,23 @@
 
     mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
     function closeMobileMenu() { mobileMenu.classList.add('hidden'); }
+
+    // ---------------------------------------------------------
+    // FOOTER MOBILE ACCORDIONS (BASED.COM STYLE)
+    // ---------------------------------------------------------
+    function toggleFooterAccordion(listId, iconId) {
+      if (window.innerWidth >= 768) return; // Desktop stays always expanded
+      const list = document.getElementById(listId);
+      const icon = document.getElementById(iconId);
+      const isHidden = list.classList.contains('hidden');
+      if (isHidden) {
+        list.classList.remove('hidden');
+        icon.textContent = '−';
+      } else {
+        list.classList.add('hidden');
+        icon.textContent = '+';
+      }
+    }
 
     // ---------------------------------------------------------
     // HERO OVERLAPPING SUBSCRIPTION CARD DECK
