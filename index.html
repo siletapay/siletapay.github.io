@@ -1,3 +1,16 @@
+Updated the footer and its giant bottom SILETA wordmark to match based.com's
+font, color palette, and signature vertical fade-out:
+
+  - Font (Archivo 900): Loaded Archivo (weights 700/800/900) and applied it to
+    the footer headings and giant bottom SILETA wordmark to match the crisp,
+    wide geometric grotesque look of based.com.
+  - Color & Vertical Fade-Out: Styled the footer in based.com's matte neutral
+    charcoal-black (#0A0A0C) with muted zinc-gray links (#A1A1AA) and gave the
+    giant SILETA wordmark a vertical gradient (rgba(255, 255, 255, 0.34) →
+    rgba(212, 212, 216, 0.12) → transparent) via -webkit-background-clip: text,
+    so the bottom edge of the letters dissolves smoothly into the dark floor
+    across mobile, tablet, and PC.
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -6,10 +19,10 @@
   <title>Sileta — Every bill, subscription, and payout on autopilot</title>
   <meta name="description" content="Sileta automatically pays your Netflix, Spotify, Apple Music, electricity, water, rent, taxes, and team—so you never have to worry about paying a bill again." />
 
-  <!-- Google Fonts: Plus Jakarta Sans (Display), Instrument Serif (Editorial Accent), DM Sans (UI/Body), JetBrains Mono (Financial Figures) -->
+  <!-- Google Fonts: Plus Jakarta Sans (Display), Instrument Serif (Editorial Accent), DM Sans (UI/Body), JetBrains Mono (Financial Figures), Archivo (Based.com-style Footer Wordmark) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
 
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -33,6 +46,7 @@
             serif: ['"Instrument Serif"', 'Georgia', 'serif'],
             sans: ['"DM Sans"', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
+            based: ['"Archivo"', 'sans-serif'],
           },
         },
       },
@@ -83,13 +97,23 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /* Based.com Signature Giant Bottom Footer Wordmark */
+    /* Based.com Signature Giant Bottom Footer Wordmark + Vertical Fade-Out */
     .based-giant-wordmark {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 800;
-      font-size: clamp(3.3rem, 20.5vw, 17.2rem);
-      line-height: 0.82;
-      letter-spacing: -0.045em;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3.15rem, 19.8vw, 16.5rem);
+      line-height: 0.84;
+      letter-spacing: -0.035em;
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.34) 0%,
+        rgba(212, 212, 216, 0.14) 52%,
+        rgba(10, 10, 12, 0) 94%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
     }
 
     /* Revolut-Style Hero Staggered Entrance */
@@ -377,7 +401,7 @@
           </p>
         </div>
 
-        <!-- Hero Right: Auto-Advancing Overlapping Subscription Cards (Mobile-Safe Width + Flanking Arrows on Tablet/PC) -->
+        <!-- Hero Right: Auto-Advancing Overlapping Subscription Cards -->
         <div class="hero-anim-4 lg:col-span-5 lg:col-start-8 flex flex-col items-center lg:items-end min-w-0">
           <div id="heroDeckWrapper" class="relative w-full max-w-[380px] sm:max-w-[440px] flex items-center gap-0 sm:gap-3.5">
             <!-- Left Arrow (Tablet & PC flanking) -->
@@ -389,7 +413,7 @@
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
             </button>
 
-            <!-- Overlapping Subscription Card Stack (Full Width on Mobile so text never clips or overflows) -->
+            <!-- Overlapping Subscription Card Stack -->
             <div class="relative flex-1 min-w-0 h-[265px] sm:h-[310px]">
               <div id="heroCardDeck" class="relative w-full h-full">
                 <!-- Cards injected & positioned smoothly by JS -->
@@ -408,7 +432,6 @@
 
           <!-- Mobile Left/Right Arrows + Progress Dots & Counter -->
           <div class="w-full max-w-[380px] sm:max-w-[440px] mt-7 sm:mt-8 sm:px-14 flex items-center justify-between gap-3 text-xs font-mono text-white/85">
-            <!-- Mobile Left Arrow -->
             <button
               onclick="stepHeroDeck(-1)"
               aria-label="Previous subscription card"
@@ -424,7 +447,6 @@
               <span id="heroDeckCounter" class="tabular-figures">01 / 07</span>
             </div>
 
-            <!-- Mobile Right Arrow -->
             <button
               onclick="stepHeroDeck(1)"
               aria-label="Next subscription card"
@@ -969,34 +991,34 @@
   </section>
 
   <!-- =========================================================
-       8. BASED.COM-STYLE FOOTER (EXACT LAYOUT + GIANT SILETA WORDMARK)
+       8. BASED.COM-STYLE FOOTER (MATTE CHARCOAL #0A0A0C + ARCHIVO + FADE-OUT WORDMARK)
   ========================================================== -->
-  <footer class="bg-[#060608] text-white border-t border-white/[0.08] pt-14 sm:pt-20 overflow-hidden">
+  <footer class="bg-[#0A0A0C] text-white border-t border-white/[0.08] pt-14 sm:pt-20 overflow-hidden font-based">
     <div class="max-w-7xl mx-auto px-4 sm:px-8">
 
       <!-- Top Multi-Column Grid (Mobile stacked/accordions, Tablet 2x2, PC 12-col grid) -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-12 sm:pb-14 border-b border-white/[0.1]">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-12 sm:pb-14 border-b border-white/[0.09]">
 
         <!-- Column 1: Brand, Mission & Support Email -->
         <div class="md:col-span-6 lg:col-span-3 space-y-4">
-          <a href="#" class="inline-block font-display font-extrabold text-2xl tracking-tight text-white uppercase">SILETA</a>
-          <p class="text-sm text-slate-400 leading-relaxed max-w-xs">
+          <a href="#" class="inline-block font-based font-black text-2xl tracking-tight text-white uppercase">SILETA</a>
+          <p class="font-sans text-sm text-zinc-400 leading-relaxed max-w-xs">
             Our mission is to build the cleanest, most effortless automated financial engine for everyday bills and business payouts.
           </p>
           <div class="pt-1">
-            <a href="mailto:support@sileta.com" class="text-sm font-medium text-white hover:text-cobalt-soft transition-colors underline underline-offset-4 decoration-white/25">
+            <a href="mailto:support@sileta.com" class="font-sans text-sm font-medium text-zinc-200 hover:text-white transition-colors underline underline-offset-4 decoration-white/25">
               support@sileta.com
             </a>
           </div>
           <!-- Clean Minimal Social Icons -->
           <div class="flex items-center gap-3 pt-2">
-            <a href="#security" aria-label="X / Twitter" class="w-8 h-8 rounded-full border border-white/[0.14] hover:border-white/40 flex items-center justify-center text-slate-300 hover:text-white transition-colors">
+            <a href="#security" aria-label="X / Twitter" class="w-8 h-8 rounded-full border border-white/[0.14] hover:border-white/40 flex items-center justify-center text-zinc-400 hover:text-white transition-colors">
               <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             </a>
-            <a href="#how-it-works" aria-label="Instagram" class="w-8 h-8 rounded-full border border-white/[0.14] hover:border-white/40 flex items-center justify-center text-slate-300 hover:text-white transition-colors">
+            <a href="#how-it-works" aria-label="Instagram" class="w-8 h-8 rounded-full border border-white/[0.14] hover:border-white/40 flex items-center justify-center text-zinc-400 hover:text-white transition-colors">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             </a>
-            <a href="#payouts" aria-label="LinkedIn" class="w-8 h-8 rounded-full border border-white/[0.14] hover:border-white/40 flex items-center justify-center text-slate-300 hover:text-white transition-colors">
+            <a href="#payouts" aria-label="LinkedIn" class="w-8 h-8 rounded-full border border-white/[0.14] hover:border-white/40 flex items-center justify-center text-zinc-400 hover:text-white transition-colors">
               <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
             </a>
           </div>
@@ -1005,10 +1027,10 @@
         <!-- Column 2: Customer Care (Accordion on Mobile, Open List on Tablet & PC) -->
         <div class="md:col-span-3 lg:col-span-2 border-t border-white/[0.08] md:border-none pt-4 md:pt-0">
           <button type="button" onclick="toggleFooterAccordion('footCareList', 'footCareIcon')" class="w-full flex items-center justify-between md:cursor-default text-left">
-            <span class="font-display font-bold text-sm uppercase tracking-wider text-white">Customer Care</span>
-            <span id="footCareIcon" class="md:hidden text-lg font-mono text-slate-400">+</span>
+            <span class="font-based font-bold text-xs uppercase tracking-[0.14em] text-white">Customer Care</span>
+            <span id="footCareIcon" class="md:hidden text-lg font-mono text-zinc-400">+</span>
           </button>
-          <ul id="footCareList" class="hidden md:block mt-4 space-y-2.5 text-sm text-slate-400">
+          <ul id="footCareList" class="hidden md:block font-sans mt-4 space-y-2.5 text-sm text-zinc-400">
             <li><a href="#security" class="hover:text-white transition-colors">Bank-Grade Safety</a></li>
             <li><a href="#how-it-works" class="hover:text-white transition-colors">How Sileta Works</a></li>
             <li><a href="#calculators" class="hover:text-white transition-colors">Live Calculators</a></li>
@@ -1021,10 +1043,10 @@
         <!-- Column 3: Quick Links (Accordion on Mobile, Open List on Tablet & PC) -->
         <div class="md:col-span-3 lg:col-span-3 border-t border-b md:border-none border-white/[0.08] py-4 md:py-0">
           <button type="button" onclick="toggleFooterAccordion('footQuickList', 'footQuickIcon')" class="w-full flex items-center justify-between md:cursor-default text-left">
-            <span class="font-display font-bold text-sm uppercase tracking-wider text-white">Quick Links</span>
-            <span id="footQuickIcon" class="md:hidden text-lg font-mono text-slate-400">+</span>
+            <span class="font-based font-bold text-xs uppercase tracking-[0.14em] text-white">Quick Links</span>
+            <span id="footQuickIcon" class="md:hidden text-lg font-mono text-zinc-400">+</span>
           </button>
-          <ul id="footQuickList" class="hidden md:block mt-4 space-y-2.5 text-sm text-slate-400">
+          <ul id="footQuickList" class="hidden md:block font-sans mt-4 space-y-2.5 text-sm text-zinc-400">
             <li><a href="#how-it-works" class="hover:text-white transition-colors">Subscriptions &amp; Bills</a></li>
             <li><a href="#payouts" class="hover:text-white transition-colors">Individual Auto-Transfers</a></li>
             <li><a href="#payouts" class="hover:text-white transition-colors">Group &amp; Contract Payroll</a></li>
@@ -1035,37 +1057,37 @@
         </div>
 
         <!-- Column 4: Based.com-Style Conversion Block -->
-        <div class="md:col-span-12 lg:col-span-4 rounded-2xl bg-white/[0.04] border border-white/[0.09] p-6 space-y-4">
-          <h3 class="font-display-tight font-bold text-xl text-white">Put Your Finances On Autopilot</h3>
-          <p class="text-sm text-slate-400 leading-relaxed">
+        <div class="md:col-span-12 lg:col-span-4 rounded-2xl bg-[#141416] border border-white/[0.08] p-6 space-y-4">
+          <h3 class="font-based font-extrabold text-lg text-white tracking-tight">Put Your Finances On Autopilot</h3>
+          <p class="font-sans text-sm text-zinc-400 leading-relaxed">
             Consolidate your subscriptions, utilities, rent, taxes, and team payouts in less than 60 seconds.
           </p>
-          <button onclick="openDownloadModal('Sileta Instant Setup')" class="w-full py-3.5 px-5 rounded-full bg-white text-[#060608] hover:bg-cobalt hover:text-white font-display font-bold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2">
+          <button onclick="openDownloadModal('Sileta Instant Setup')" class="w-full py-3.5 px-5 rounded-full bg-white text-[#0A0A0C] hover:bg-zinc-200 font-based font-bold text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2">
             <span>GET STARTED NOW (60s)</span>
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
           </button>
-          <p class="text-xs font-mono text-slate-400 text-center">
+          <p class="font-sans text-xs text-zinc-400 text-center">
             142,000+ households &amp; teams automated
           </p>
         </div>
       </div>
 
       <!-- Bottom Legal & Copyright Row -->
-      <div class="pt-7 pb-6 sm:pb-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div class="pt-7 pb-5 sm:pb-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-xs text-zinc-500">
         <p>&copy;2026, Sileta Financial Inc.</p>
         <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-          <button onclick="showToast('Privacy Notice', '256-bit encrypted custody with zero third-party data selling.')" class="hover:text-white transition-colors">Privacy Notice</button>
-          <button onclick="showToast('Accessibility Statement', 'WCAG AA contrast and full keyboard navigation supported.')" class="hover:text-white transition-colors">Accessibility Statement</button>
-          <button onclick="showToast('Terms of Service', 'Standard automated clearing & custodial safeguarding terms apply.')" class="hover:text-white transition-colors">Terms of Service</button>
-          <a href="#security" class="hover:text-white transition-colors">Security Portal</a>
+          <button onclick="showToast('Privacy Notice', '256-bit encrypted custody with zero third-party data selling.')" class="hover:text-zinc-200 transition-colors">Privacy Notice</button>
+          <button onclick="showToast('Accessibility Statement', 'WCAG AA contrast and full keyboard navigation supported.')" class="hover:text-zinc-200 transition-colors">Accessibility Statement</button>
+          <button onclick="showToast('Terms of Service', 'Standard automated clearing & custodial safeguarding terms apply.')" class="hover:text-zinc-200 transition-colors">Terms of Service</button>
+          <a href="#security" class="hover:text-zinc-200 transition-colors">Security Portal</a>
         </div>
       </div>
     </div>
 
-    <!-- Based.com Signature Giant Edge-to-Edge Wordmark at Very Bottom -->
-    <div class="w-full overflow-hidden pt-2 sm:pt-4 pb-1 select-none pointer-events-none">
+    <!-- Based.com Signature Giant Edge-to-Edge Wordmark with Vertical Fade-Out -->
+    <div class="w-full overflow-hidden pt-3 sm:pt-5 pb-2 select-none pointer-events-none">
       <div class="max-w-[1440px] mx-auto px-2 sm:px-4">
-        <div class="based-giant-wordmark text-center uppercase text-white/95 tracking-[-0.045em]">
+        <div class="based-giant-wordmark text-center uppercase">
           SILETA
         </div>
       </div>
