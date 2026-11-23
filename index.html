@@ -6,9 +6,10 @@
   <title>Sileta — Every bill, subscription, and payout on autopilot</title>
   <meta name="description" content="Sileta automatically pays your Netflix, Spotify, Apple Music, electricity, water, rent, taxes, and team—so you never have to worry about paying a bill again." />
 
-  <!-- Google Fonts: Plus Jakarta Sans (Display), Instrument Serif (Editorial Accent), DM Sans (UI/Body), JetBrains Mono (Financial Figures), Archivo (Based.com-style Footer) -->
+  <!-- Preconnects for Faster Fonts & Hero Media -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
 
   <!-- Tailwind CSS via CDN -->
@@ -45,6 +46,10 @@
       --revolut-ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
+    html {
+      background-color: #060608;
+    }
+
     html, body {
       width: 100%;
       max-width: 100%;
@@ -58,6 +63,45 @@
       font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      transition: opacity 0.28s ease-out;
+    }
+
+    /* Prevent Tailwind CDN FOUC & Split-Second Layout Jump on Load */
+    html:not(.page-ready) body {
+      opacity: 0;
+    }
+
+    html:not(.page-ready) .hero-anim-1,
+    html:not(.page-ready) .hero-anim-2,
+    html:not(.page-ready) .hero-anim-3,
+    html:not(.page-ready) .hero-anim-4 {
+      animation: none;
+      opacity: 0;
+    }
+
+    /* Critical Pre-Tailwind Helpers */
+    .hidden {
+      display: none;
+    }
+
+    img {
+      color: transparent;
+    }
+
+    /* Hero Image: Hidden Until Decoded So Alt Text Never Flashes */
+    #heroBgImg {
+      opacity: 0;
+      font-size: 0;
+      line-height: 0;
+      transform: scale(1.07);
+      transition:
+        opacity 0.95s var(--revolut-ease),
+        transform 1.6s var(--revolut-ease);
+    }
+
+    #heroBgImg.is-loaded {
+      opacity: 1;
+      transform: scale(1.01);
     }
 
     /* Feathered Borderless Navbar Blur (No Visible Box or Edge) */
@@ -97,22 +141,10 @@
       }
     }
 
-    @keyframes heroImageSettle {
-      0% {
-        opacity: 0.35;
-        transform: scale(1.07);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1.01);
-      }
-    }
-
     .hero-anim-1 { animation: heroFadeUp 0.85s var(--revolut-ease) 0.08s both; }
     .hero-anim-2 { animation: heroFadeUp 0.85s var(--revolut-ease) 0.2s both; }
     .hero-anim-3 { animation: heroFadeUp 0.85s var(--revolut-ease) 0.32s both; }
     .hero-anim-4 { animation: heroFadeUp 0.9s var(--revolut-ease) 0.42s both; }
-    .hero-bg-settle { animation: heroImageSettle 1.6s var(--revolut-ease) forwards; }
 
     /* Revolut-Style Scroll Reveal Transitions */
     .reveal-up {
@@ -271,8 +303,15 @@
       -moz-appearance: textfield;
     }
   </style>
+  <noscript>
+    <style>
+      html:not(.page-ready) body { opacity: 1 !important; }
+    </style>
+  </noscript>
 </head>
 <body class="selection:bg-cobalt/30 selection:text-white">
+  <!-- Tailwind Compilation Probe -->
+  <div id="twReadyProbe" class="pointer-events-none fixed w-[13px] opacity-0" aria-hidden="true"></div>
 
   <!-- =========================================================
        1. BORDERLESS FEATHERED-BLUR NAVBAR (ZERO BOX / ZERO FILL)
@@ -324,14 +363,15 @@
        2. REVOLUT-STYLE FULL-BLEED PHOTOGRAPHY HERO
   ========================================================== -->
   <section id="heroSection" class="relative w-full min-h-[90vh] sm:min-h-screen flex items-center pt-24 pb-16 sm:pt-32 sm:pb-24 overflow-hidden bg-[#060608]">
-    <!-- Full-Bleed Lifestyle Photo Background with Parallax & Ken Burns Settle -->
+    <!-- Full-Bleed Lifestyle Photo Background with Parallax & Safe Load Fade -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
       <img
         id="heroBgImg"
         src="hero-bg.jpg"
-        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1650742030047-81300495569d?auto=format&fit=crop&w=1800&q=85';"
         alt="Modern Sileta user managing payments effortlessly on the move"
-        class="hero-bg-settle w-full h-[112%] object-cover object-[50%_15%] sm:object-[52%_15%] will-change-transform"
+        decoding="async"
+        fetchpriority="high"
+        class="w-full h-[112%] object-cover object-[50%_15%] sm:object-[52%_15%] will-change-transform"
       />
       <div class="absolute inset-0 bg-gradient-to-r from-[#060608]/90 via-[#060608]/55 to-[#060608]/75 lg:from-[#060608]/85 lg:via-[#060608]/35 lg:to-[#060608]/55"></div>
       <div class="absolute inset-0 bg-gradient-to-t from-[#060608]/90 via-transparent to-[#060608]/45"></div>
@@ -1182,17 +1222,42 @@
     }
 
     // ---------------------------------------------------------
-    // HERO IMAGE PARALLAX + DRAG/DROP LOCAL PHOTO SUPPORT
+    // HERO IMAGE SAFE LOADING (NEVER FLASHES ALT TEXT)
     // ---------------------------------------------------------
     const heroSection = document.getElementById('heroSection');
     const heroBgImg = document.getElementById('heroBgImg');
+    const HERO_FALLBACK_SRC = 'https://images.unsplash.com/photo-1650742030047-81300495569d?auto=format&fit=crop&w=1800&q=85';
+
+    function revealHeroBgImg() {
+      if (heroBgImg.naturalWidth > 0) {
+        heroBgImg.classList.add('is-loaded');
+      }
+    }
+
+    heroBgImg.addEventListener('load', revealHeroBgImg);
+    heroBgImg.addEventListener('error', function onHeroImgError() {
+      heroBgImg.removeEventListener('error', onHeroImgError);
+      heroBgImg.src = HERO_FALLBACK_SRC;
+    });
+
+    if (heroBgImg.complete) {
+      if (heroBgImg.naturalWidth > 0) {
+        revealHeroBgImg();
+      } else {
+        heroBgImg.src = HERO_FALLBACK_SRC;
+      }
+    }
+
+    // ---------------------------------------------------------
+    // HERO IMAGE PARALLAX + DRAG/DROP LOCAL PHOTO SUPPORT
+    // ---------------------------------------------------------
     let parallaxTicking = false;
 
     window.addEventListener('scroll', () => {
       if (!parallaxTicking) {
         requestAnimationFrame(() => {
           const y = window.scrollY;
-          if (y < window.innerHeight * 1.2) {
+          if (y < window.innerHeight * 1.2 && heroBgImg.classList.contains('is-loaded')) {
             const offset = Math.min(90, y * 0.16);
             heroBgImg.style.transform = `translate3d(0, ${offset}px, 0) scale(1.01)`;
           }
@@ -1209,6 +1274,7 @@
       if (file && file.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onload = (ev) => {
+          heroBgImg.classList.remove('is-loaded');
           heroBgImg.src = ev.target.result;
           showToast('Hero background updated', 'Image applied cleanly.');
         };
@@ -1252,15 +1318,23 @@
     const lightSections = Array.from(document.querySelectorAll('[data-nav-theme="light"]'));
 
     let navTicking = false;
+    let lastOverLight = null;
+    let lastScrolled = null;
 
     function updateHeaderState() {
       const scrolled = window.scrollY > 24;
-      navBlurLayer.style.opacity = scrolled ? '1' : '0';
+      if (scrolled !== lastScrolled) {
+        navBlurLayer.style.opacity = scrolled ? '1' : '0';
+        lastScrolled = scrolled;
+      }
 
       const overLight = lightSections.some(sec => {
         const rect = sec.getBoundingClientRect();
         return rect.top <= 36 && rect.bottom >= 36;
       });
+
+      if (overLight === lastOverLight) return;
+      lastOverLight = overLight;
 
       if (overLight) {
         navBrandText.className = 'font-display font-bold text-xl tracking-tight text-[#191C1F] transition-colors duration-300';
@@ -1903,6 +1977,26 @@
         closeLoginModal();
       }
     });
+
+    // ---------------------------------------------------------
+    // ANTI-FOUC REVEAL: WAIT FOR TAILWIND CDN BEFORE FIRST PAINT
+    // ---------------------------------------------------------
+    (function revealWhenTailwindReady() {
+      const probe = document.getElementById('twReadyProbe');
+      const start = performance.now();
+
+      function check() {
+        const twCompiled = probe && getComputedStyle(probe).width === '13px';
+        if (twCompiled || performance.now() - start > 500) {
+          layoutDeck('init');
+          document.documentElement.classList.add('page-ready');
+        } else {
+          requestAnimationFrame(check);
+        }
+      }
+
+      requestAnimationFrame(check);
+    })();
   </script>
 </body>
 </html>
