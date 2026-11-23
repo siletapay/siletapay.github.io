@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -591,7 +591,6 @@
       will-change: transform, opacity;
     }
 
-    /* GPU-light card styling (blur only on active card desktop) */
     .deck-card-inner {
       height: 100%;
       width: 100%;
@@ -1094,7 +1093,7 @@
     }
 
     /* =====================================================
-       4. PAYOUTS SECTION (ARCHITECTURAL OBSIDIAN, NO NEON)
+       4. SIMPLE, CLEAN PAYOUTS SECTION
     ===================================================== */
     .section-dark-obsidian {
       position: relative;
@@ -1111,7 +1110,7 @@
     }
 
     .payouts-grid {
-      margin-top: 48px;
+      margin-top: 44px;
       display: grid;
       grid-template-columns: 1fr;
       gap: 24px;
@@ -1122,13 +1121,13 @@
       .payouts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
-    .obsidian-panel {
+    .simple-payout-card {
       width: 100%;
       min-width: 0;
       border-radius: 26px;
       background: linear-gradient(180deg, #13151A 0%, #0C0D10 100%);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 22px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -1137,53 +1136,43 @@
     }
 
     @media (min-width: 640px) {
-      .obsidian-panel { padding: 32px; }
+      .simple-payout-card { padding: 34px; }
     }
 
-    .obsidian-panel:hover {
+    .simple-payout-card:hover {
       border-color: rgba(255, 255, 255, 0.2);
       transform: translateY(-2px);
     }
 
-    .panel-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
+    .payout-step-num {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #A1A1AA;
+      margin-bottom: 8px;
     }
 
     .panel-title {
       margin: 0;
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
-      font-size: 21px;
+      font-size: 22px;
       color: #ffffff;
     }
 
-    @media (min-width: 640px) { .panel-title { font-size: 23px; } }
+    @media (min-width: 640px) { .panel-title { font-size: 24px; } }
 
     .panel-desc {
-      margin: 5px 0 0;
-      font-size: 13.5px;
+      margin: 6px 0 0;
+      font-size: 14px;
+      line-height: 1.55;
       color: #A1A1AA;
-    }
-
-    .panel-tag {
-      padding: 5px 11px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.11);
-      font-size: 11.5px;
-      font-weight: 600;
-      color: #D4D4D8;
-      white-space: nowrap;
-      flex-shrink: 0;
     }
 
     .field-grid-2 {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 12px;
+      gap: 14px;
     }
 
     @media (min-width: 640px) {
@@ -1192,59 +1181,150 @@
 
     .field-label {
       display: block;
-      font-size: 12px;
+      font-size: 12.5px;
       font-weight: 500;
       color: #A1A1AA;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
     }
 
     .dark-input {
       width: 100%;
       min-width: 0;
-      padding: 12px 14px;
+      padding: 13px 15px;
       border-radius: 14px;
       background: rgba(255, 255, 255, 0.045);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.11);
       color: #ffffff;
-      font-size: 14px;
+      font-size: 15px;
+      font-weight: 500;
       outline: none;
       transition: border-color 0.2s ease, background-color 0.2s ease;
     }
 
     .dark-input:focus {
-      border-color: rgba(255, 255, 255, 0.42);
+      border-color: rgba(255, 255, 255, 0.45);
       background: rgba(255, 255, 255, 0.07);
     }
 
-    .dark-select {
-      background-color: #121418;
+    .schedule-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
-    .transfer-preview-card {
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.035);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      padding: 15px 16px;
+    .schedule-pill {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #D4D4D8;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .schedule-pill:hover {
+      border-color: rgba(255, 255, 255, 0.28);
+      color: #ffffff;
+    }
+
+    .schedule-pill.is-active {
+      background: #ffffff;
+      border-color: #ffffff;
+      color: #0A0A0C;
+    }
+
+    /* Simple Stepper for Team Size */
+    .stepper-box {
+      width: 100%;
+      padding: 7px 8px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.11);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 8px;
     }
 
-    .recipient-avatar-row {
+    .stepper-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .stepper-btn:hover {
+      background: #ffffff;
+      color: #0A0A0C;
+    }
+
+    .stepper-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .simple-invite-row {
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .invite-url {
+      font-size: 13px;
+      font-weight: 500;
+      color: #D4D4D8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       min-width: 0;
-      flex: 1;
+    }
+
+    .btn-mini-ghost {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.09);
+      font-size: 12px;
+      font-weight: 600;
+      color: #ffffff;
+      flex-shrink: 0;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-mini-ghost:hover { background: rgba(255, 255, 255, 0.18); }
+
+    .payout-summary-box {
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
     }
 
     .avatar-circle {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 999px;
       background: #27272A;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1255,104 +1335,6 @@
       flex-shrink: 0;
     }
 
-    .invite-bar {
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.035);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      padding: 12px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    @media (min-width: 640px) {
-      .invite-bar {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-      }
-    }
-
-    .invite-url {
-      font-size: 13px;
-      font-weight: 500;
-      color: #E4E4E7;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      min-width: 0;
-    }
-
-    .invite-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-
-    .btn-mini-ghost {
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.08);
-      font-size: 12px;
-      font-weight: 600;
-      color: #ffffff;
-      transition: background-color 0.2s ease;
-    }
-
-    .btn-mini-ghost:hover { background: rgba(255, 255, 255, 0.16); }
-
-    .btn-mini-white {
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: #ffffff;
-      font-size: 12px;
-      font-weight: 600;
-      color: #0A0A0C;
-      transition: background-color 0.2s ease;
-    }
-
-    .btn-mini-white:hover { background: #E4E4E7; }
-
-    .members-box {
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      padding: 15px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .members-scroll {
-      max-height: 116px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-      padding-right: 4px;
-    }
-
-    .member-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 13px;
-    }
-
-    .members-footer {
-      padding-top: 10px;
-      border-top: 1px solid rgba(255, 255, 255, 0.09);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 12.5px;
-    }
-
-    /* Solid Header/Footer-Matched Action Pills (NO glowing AI shadows) */
     .btn-payout-primary {
       width: 100%;
       padding: 15px 20px;
@@ -1362,7 +1344,6 @@
       font-size: 14px;
       font-weight: 600;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: center;
       gap: 8px;
@@ -1384,11 +1365,10 @@
       font-size: 14px;
       font-weight: 600;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
     }
 
     .btn-payout-secondary:hover {
@@ -1397,19 +1377,6 @@
       border-color: #ffffff;
       transform: translateY(-1px);
     }
-
-    .app-lock-tag {
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .app-lock-tag-dark { background: rgba(10, 10, 12, 0.08); color: #3F3F46; }
-    .app-lock-tag-light { background: rgba(255, 255, 255, 0.1); color: #D4D4D8; }
-    .btn-payout-secondary:hover .app-lock-tag-light { background: rgba(10, 10, 12, 0.1); color: #3F3F46; }
 
     /* =====================================================
        5. CALCULATORS INSTRUMENT PANEL (UNIFIED CHARCOAL)
@@ -1814,18 +1781,18 @@
     }
 
     /* =====================================================
-       8. BASED.COM-STYLE FOOTER + DISSOLVING GIANT WORDMARK
+       8. FOOTER + COHESIVE DISSOLVING SILETA WORDMARK
     ===================================================== */
     .site-footer {
       width: 100%;
       background-color: var(--footer-dark);
       color: #ffffff;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 56px 0 28px;
+      padding: 56px 0 24px;
       overflow: hidden;
     }
 
-    @media (min-width: 640px) { .site-footer { padding: 76px 0 32px; } }
+    @media (min-width: 640px) { .site-footer { padding: 76px 0 28px; } }
 
     .footer-top-grid {
       display: grid;
@@ -1839,7 +1806,7 @@
       .footer-top-grid {
         grid-template-columns: repeat(12, minmax(0, 1fr));
         gap: 32px;
-        padding-bottom: 54px;
+        padding-bottom: 52px;
       }
       .foot-col-brand { grid-column: span 6 / span 6; }
       .foot-col-care { grid-column: span 3 / span 3; border-top: none !important; padding-top: 0 !important; }
@@ -1856,12 +1823,11 @@
     }
 
     .footer-wordmark-brand {
-      font-family: 'Archivo', sans-serif;
-      font-weight: 900;
-      font-size: 24px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
       letter-spacing: -0.03em;
       color: #ffffff;
-      text-transform: uppercase;
     }
 
     .footer-socials {
@@ -1897,10 +1863,10 @@
     }
 
     .footer-col-heading {
-      font-family: 'Archivo', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
       font-size: 12px;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: #ffffff;
     }
@@ -1945,10 +1911,10 @@
       border-radius: 999px;
       background: #ffffff;
       color: #0A0A0C;
-      font-family: 'Archivo', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
-      font-size: 12px;
-      letter-spacing: 0.06em;
+      font-size: 12.5px;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
       display: flex;
       align-items: center;
@@ -1959,22 +1925,22 @@
 
     .footer-cta-btn:hover { background: #E4E4E7; }
 
-    /* Giant Based.com Dissolving Wordmark */
+    /* Giant Bottom Wordmark - Matches Site Brand & Dissolves Cleanly */
     .based-wordmark-wrap {
       width: 100%;
-      padding-top: 28px;
-      padding-bottom: 4px;
+      padding-top: 18px;
       user-select: none;
       pointer-events: none;
       overflow: hidden;
     }
 
     @media (min-width: 640px) {
-      .based-wordmark-wrap { padding-top: 44px; }
+      .based-wordmark-wrap { padding-top: 28px; }
     }
 
     .footer-bottom-row {
-      padding-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -2444,127 +2410,112 @@
   </section>
 
   <!-- =========================================================
-       4. AUTOMATED INDIVIDUAL & GROUP PAYOUTS
+       4. SIMPLE & INTUITIVE PAYOUTS
   ========================================================== -->
   <section id="payouts" class="section-dark-obsidian">
     <div class="container">
       <div class="reveal-up section-header-center">
-        <p class="eyebrow eyebrow-light">Programmable Disbursements</p>
+        <p class="eyebrow eyebrow-light">Automatic Payouts</p>
         <h2 class="section-h2-dark">
           Send money to one person or an <span class="font-editorial-italic">entire team</span> automatically.
         </h2>
         <p class="section-sub-dark">
-          Schedule recurring transfers to family, partners, or suppliers — or launch contract payroll groups where recipients onboard themselves.
+          Pick who you want to pay and how much—or share one link so your team can get paid on time every month.
         </p>
       </div>
 
       <div class="payouts-grid">
-        <!-- Card 1: Direct 1-to-1 Transfer -->
-        <div class="reveal-up obsidian-panel" style="transition-delay: 70ms;">
+        <!-- Card 1: Pay One Person (2 simple inputs + schedule + clear sentence) -->
+        <div class="reveal-up simple-payout-card" style="transition-delay: 70ms;">
           <div style="display:flex; flex-direction:column; gap:20px; min-width:0;">
-            <div class="panel-head">
+            <div>
+              <span class="payout-step-num">1-to-1 Transfer</span>
+              <h3 class="panel-title">Pay one person</h3>
+              <p class="panel-desc">Family, landlords, business partners, or suppliers.</p>
+            </div>
+
+            <div class="field-grid-2">
               <div style="min-width:0;">
-                <h3 class="panel-title">Auto-Send to Anyone</h3>
-                <p class="panel-desc">Relatives, business partners, workers, or suppliers.</p>
+                <label class="field-label">Who are you paying?</label>
+                <input id="indRecipientInput" type="text" value="Daniela Cruz" oninput="updateIndividualPreview()" class="dark-input" />
               </div>
-              <span class="panel-tag">Direct Rail</span>
-            </div>
-
-            <div style="display:flex; flex-direction:column; gap:12px;">
-              <div class="field-grid-2">
-                <div style="min-width:0;">
-                  <label class="field-label">Recipient &amp; Role</label>
-                  <input id="indRecipientInput" type="text" value="Daniela Cruz (Partner)" oninput="updateIndividualPreview()" class="dark-input" />
-                </div>
-                <div style="min-width:0;">
-                  <label class="field-label">Phone Number</label>
-                  <input id="indPhoneInput" type="tel" value="+1 (415) 890-3321" oninput="updateIndividualPreview()" class="dark-input tabular-figures" />
-                </div>
-              </div>
-
-              <div class="field-grid-2">
-                <div style="min-width:0;">
-                  <label class="field-label">Bank Account / Routing</label>
-                  <input id="indBankInput" type="text" value="Mercury •••• 9104" oninput="updateIndividualPreview()" class="dark-input tabular-figures" />
-                </div>
-                <div style="min-width:0;">
-                  <label class="field-label">Monthly Amount ($)</label>
-                  <input id="indAmountInput" type="number" min="1" value="1450" oninput="updateIndividualPreview()" class="dark-input tabular-figures" style="font-weight:700;" />
-                </div>
+              <div style="min-width:0;">
+                <label class="field-label">Monthly amount ($)</label>
+                <input id="indAmountInput" type="number" min="1" value="1450" oninput="updateIndividualPreview()" class="dark-input tabular-figures" style="font-weight:700;" />
               </div>
             </div>
 
-            <!-- Live Transfer Preview -->
-            <div class="transfer-preview-card">
-              <div class="recipient-avatar-row">
+            <div>
+              <label class="field-label">When should Sileta send it?</label>
+              <div class="schedule-pills">
+                <button type="button" onclick="setIndSchedule('1st of month', this)" class="schedule-pill is-active">1st of month</button>
+                <button type="button" onclick="setIndSchedule('15th of month', this)" class="schedule-pill">15th of month</button>
+                <button type="button" onclick="setIndSchedule('every Friday', this)" class="schedule-pill">Every Friday</button>
+              </div>
+            </div>
+
+            <div class="payout-summary-box">
+              <div style="display:flex; align-items:center; gap:12px; min-width:0;">
                 <div id="indAvatarInitials" class="avatar-circle">DC</div>
-                <div style="min-width:0; flex:1;">
-                  <p id="indPreviewName" style="margin:0; font-size:14px; font-weight:600; color:#ffffff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Daniela Cruz (Partner)</p>
-                  <p id="indPreviewMeta" class="tabular-figures" style="margin:2px 0 0; font-size:12px; color:#A1A1AA; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">+1 (415) 890-3321 &bull; Mercury •••• 9104</p>
-                </div>
-              </div>
-              <div style="text-align:right; flex-shrink:0;">
-                <p id="indPreviewAmount" class="tabular-figures" style="margin:0; font-size:16px; font-weight:700; color:#ffffff;">$1,450.00</p>
-                <p style="margin:2px 0 0; font-size:11px; color:#A1A1AA;">1st of month</p>
+                <p id="indSummarySentence" class="tabular-figures" style="margin:0; font-size:13.5px; line-height:1.45; color:#E4E4E7;">
+                  Sileta sends <strong style="color:#ffffff;">$1,450.00</strong> to <strong style="color:#ffffff;">Daniela Cruz</strong> every 1st of month.
+                </p>
               </div>
             </div>
           </div>
 
           <button onclick="openDownloadModal('individual automated payouts')" class="btn-payout-primary">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <span>Activate Auto-Payout</span>
-            <span class="app-lock-tag app-lock-tag-dark">App Lock</span>
+            <span>Set Up Auto-Send</span>
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7"/></svg>
           </button>
         </div>
 
-        <!-- Card 2: Group & Contract Payouts -->
-        <div class="reveal-up obsidian-panel" style="transition-delay: 140ms;">
+        <!-- Card 2: Pay a Whole Team (Simple Stepper + Per-Person Amount + Clear Total) -->
+        <div class="reveal-up simple-payout-card" style="transition-delay: 140ms;">
           <div style="display:flex; flex-direction:column; gap:20px; min-width:0;">
-            <div class="panel-head">
-              <div style="min-width:0;">
-                <h3 class="panel-title">Group &amp; Contract Payouts</h3>
-                <p class="panel-desc">Recipients sign in via group link to enter their own bank details.</p>
-              </div>
-              <span class="panel-tag">Batch Payroll</span>
-            </div>
-
-            <div class="invite-bar">
-              <span class="invite-url">sileta.app/join/team-ops-92</span>
-              <div class="invite-actions">
-                <button onclick="copyInviteLink()" class="btn-mini-ghost">Copy Link</button>
-                <button onclick="addSimulatedMember()" class="btn-mini-white">+ Simulate Join</button>
-              </div>
+            <div>
+              <span class="payout-step-num">Team &amp; Group</span>
+              <h3 class="panel-title">Pay a whole team</h3>
+              <p class="panel-desc">Share one link—everyone adds their own bank details.</p>
             </div>
 
             <div class="field-grid-2">
               <div style="min-width:0;">
-                <label class="field-label">Monthly Payout / Person ($)</label>
-                <input id="grpAmountInput" type="number" min="100" step="50" value="2800" oninput="renderGroupSummary()" class="dark-input tabular-figures" style="font-weight:700;" />
+                <label class="field-label">How many people?</label>
+                <div class="stepper-box">
+                  <button type="button" onclick="stepGroupSize(-1)" aria-label="Decrease team size" class="stepper-btn">&minus;</button>
+                  <span id="grpCountDisplay" class="stepper-value tabular-figures">3 people</span>
+                  <button type="button" onclick="stepGroupSize(1)" aria-label="Increase team size" class="stepper-btn">+</button>
+                </div>
               </div>
               <div style="min-width:0;">
-                <label class="field-label">Contract Duration</label>
-                <select id="grpDurationSelect" onchange="renderGroupSummary()" class="dark-input dark-select">
-                  <option value="3">3 Months</option>
-                  <option value="6" selected>6 Months</option>
-                  <option value="12">12 Months</option>
-                  <option value="0">Ongoing</option>
-                </select>
+                <label class="field-label">Pay per person ($)</label>
+                <input id="grpAmountInput" type="number" min="50" step="50" value="2800" oninput="renderGroupSummary()" class="dark-input tabular-figures" style="font-weight:700;" />
               </div>
             </div>
 
-            <div class="members-box">
-              <div id="grpMembersList" class="members-scroll"></div>
-              <div class="members-footer">
-                <span style="color:#A1A1AA;">Monthly Batch (<span id="grpMemberCount">3</span> members)</span>
-                <span id="grpSummaryTotal" class="tabular-figures" style="font-size:14px; font-weight:700; color:#ffffff;">$8,400 / mo &bull; 6 mo</span>
+            <div>
+              <label class="field-label">Team sign-up link</label>
+              <div class="simple-invite-row">
+                <span class="invite-url">sileta.app/join/team-ops</span>
+                <button type="button" onclick="copyInviteLink()" class="btn-mini-ghost">Copy Link</button>
               </div>
+            </div>
+
+            <div class="payout-summary-box">
+              <div style="min-width:0;">
+                <p style="margin:0; font-size:12px; color:#A1A1AA;">Total monthly payout</p>
+                <p id="grpSummaryTotal" class="tabular-figures" style="margin:2px 0 0; font-family:'Plus Jakarta Sans',sans-serif; font-size:22px; font-weight:800; color:#ffffff;">$8,400 / mo</p>
+              </div>
+              <span id="grpSummarySub" class="tabular-figures" style="padding:6px 12px; border-radius:999px; background:rgba(52,211,153,0.12); color:#34D399; font-size:12px; font-weight:600; flex-shrink:0;">
+                3 members
+              </span>
             </div>
           </div>
 
           <button onclick="openDownloadModal('group & contract payouts')" class="btn-payout-secondary">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <span>Start Group Contract</span>
-            <span class="app-lock-tag app-lock-tag-light">App Lock</span>
+            <span>Start Team Payout</span>
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7"/></svg>
           </button>
         </div>
       </div>
@@ -2907,14 +2858,14 @@
   </section>
 
   <!-- =========================================================
-       8. BASED.COM-STYLE FOOTER + DISSOLVING GIANT WORDMARK
+       8. FOOTER + COHESIVE DISSOLVING SILETA WORDMARK
   ========================================================== -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-top-grid">
         <!-- Column 1: Brand, Mission & Support Email -->
         <div class="foot-col-brand" style="display:flex; flex-direction:column; gap:14px; min-width:0;">
-          <a href="#" class="footer-wordmark-brand">SILETA</a>
+          <a href="#" class="footer-wordmark-brand">Sileta</a>
           <p style="margin:0; font-size:14px; line-height:1.65; color:#A1A1AA; max-width:290px;">
             Our mission is to build the cleanest, most effortless automated financial engine for everyday bills and business payouts.
           </p>
@@ -2961,7 +2912,7 @@
           <ul id="footQuickList" class="footer-list is-mobile-collapsed">
             <li><a href="#how-it-works">Subscriptions &amp; Bills</a></li>
             <li><a href="#payouts">Individual Auto-Transfers</a></li>
-            <li><a href="#payouts">Group &amp; Contract Payroll</a></li>
+            <li><a href="#payouts">Team &amp; Group Payouts</a></li>
             <li><a href="#calculators" onclick="switchCalcTab('breakeven')">Break-Even Engine</a></li>
             <li><a href="#calculators" onclick="switchCalcTab('tax')">Auto-Tax Estimator</a></li>
             <li><button onclick="openDownloadModal('Sileta Desktop & Mobile App')">Download App</button></li>
@@ -2970,7 +2921,7 @@
 
         <!-- Column 4: Conversion Card -->
         <div class="foot-col-cta footer-cta-card" style="min-width:0;">
-          <h3 style="margin:0; font-family:'Archivo',sans-serif; font-weight:800; font-size:18px; letter-spacing:-0.02em; color:#ffffff;">Put Your Finances On Autopilot</h3>
+          <h3 class="font-display" style="margin:0; font-weight:800; font-size:18px; color:#ffffff;">Put Your Finances On Autopilot</h3>
           <p style="margin:0; font-size:14px; line-height:1.6; color:#A1A1AA;">
             Consolidate your subscriptions, utilities, rent, taxes, and team payouts in less than 60 seconds.
           </p>
@@ -2984,27 +2935,27 @@
         </div>
       </div>
 
-      <!-- Giant Edge-to-Edge Dissolving SILETA Wordmark (based.com Exact Silhouette & Bottom Fade) -->
+      <!-- Cohesive Giant Dissolving Sileta Wordmark (Matches Header/Brand Font, Zero Clipping) -->
       <div class="based-wordmark-wrap">
-        <svg viewBox="0 0 1000 185" style="width:100%; height:auto; display:block;" aria-hidden="true">
+        <svg viewBox="0 0 1000 230" style="width:100%; height:auto; display:block;" aria-hidden="true">
           <defs>
-            <linearGradient id="basedWordmarkDissolve" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.28" />
-              <stop offset="42%" stop-color="#D4D4D8" stop-opacity="0.14" />
-              <stop offset="72%" stop-color="#71717A" stop-opacity="0.04" />
-              <stop offset="88%" stop-color="#0A0A0C" stop-opacity="0" />
+            <linearGradient id="siletaBottomFade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16" />
+              <stop offset="48%" stop-color="#D4D4D8" stop-opacity="0.08" />
+              <stop offset="84%" stop-color="#52525B" stop-opacity="0.02" />
+              <stop offset="100%" stop-color="#0A0A0C" stop-opacity="0" />
             </linearGradient>
           </defs>
           <text
             x="500"
-            y="168"
+            y="188"
             text-anchor="middle"
-            font-family="'Archivo', 'Plus Jakarta Sans', sans-serif"
-            font-weight="900"
-            font-size="242"
-            letter-spacing="-6"
-            fill="url(#basedWordmarkDissolve)"
-          >SILETA</text>
+            font-family="'Plus Jakarta Sans', sans-serif"
+            font-weight="800"
+            font-size="220"
+            letter-spacing="-8"
+            fill="url(#siletaBottomFade)"
+          >Sileta</text>
         </svg>
       </div>
 
@@ -3039,7 +2990,7 @@
         Unlock this in the <span class="font-editorial-italic" style="color:#D4D4D8;">Sileta app.</span>
       </h3>
       <p style="margin:10px 0 0; font-size:14.5px; line-height:1.6; color:#A1A1AA;">
-        Install Sileta on Mobile or Desktop to link accounts, authorize recurring bills, and manage group payroll rules in real time.
+        Install Sileta on Mobile or Desktop to link accounts, authorize recurring bills, and manage team payouts in real time.
       </p>
 
       <div class="app-modal-grid">
@@ -3176,7 +3127,6 @@
       revealHeroBgImg();
     }
 
-    // Light parallax only after image loaded
     let parallaxTicking = false;
     window.addEventListener('scroll', () => {
       if (!parallaxTicking) {
@@ -3721,60 +3671,49 @@
     renderSubGrid();
 
     // ---------------------------------------------------------
-    // SECTION 4: INDIVIDUAL & GROUP PAYOUTS
+    // SECTION 4: SIMPLE & INTUITIVE PAYOUTS
     // ---------------------------------------------------------
-    function updateIndividualPreview() {
-      const name = document.getElementById('indRecipientInput').value || 'Recipient';
-      const phone = document.getElementById('indPhoneInput').value || 'Phone';
-      const bank = document.getElementById('indBankInput').value || 'Bank Account';
-      const amount = parseFloat(document.getElementById('indAmountInput').value) || 0;
+    let indSchedule = '1st of month';
 
-      const initials = name.trim().split(/\s+/).slice(0, 2).map(w => w[0]?.toUpperCase() || '').join('') || 'S';
-      document.getElementById('indAvatarInitials').textContent = initials;
-      document.getElementById('indPreviewName').textContent = name;
-      document.getElementById('indPreviewMeta').textContent = `${phone} • ${bank}`;
-      document.getElementById('indPreviewAmount').textContent = fmtMoney(amount);
+    function setIndSchedule(label, btn) {
+      indSchedule = label;
+      document.querySelectorAll('.schedule-pill').forEach(p => p.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      updateIndividualPreview();
     }
 
-    let grpMembers = [
-      { name: 'Liam K. (Contractor)', status: 'Verified • Mercury' },
-      { name: 'Nadia M. (Designer)', status: 'Verified • Wise' },
-      { name: 'Kestrel Supplies', status: 'Verified • Citibank' }
-    ];
-    const extraJoiners = [
-      { name: 'Tariq P. (Operations)', status: 'Joined via Link' },
-      { name: 'Elena R. (Developer)', status: 'Joined via Link' }
-    ];
-    let joinIdx = 0;
+    function updateIndividualPreview() {
+      const rawName = document.getElementById('indRecipientInput').value.trim() || 'your recipient';
+      const safeName = rawName.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const amount = parseFloat(document.getElementById('indAmountInput').value) || 0;
+
+      const initials = rawName.split(/\s+/).slice(0, 2).map(w => w[0]?.toUpperCase() || '').join('') || 'S';
+      document.getElementById('indAvatarInitials').textContent = initials;
+      document.getElementById('indSummarySentence').innerHTML =
+        `Sileta sends <strong style="color:#ffffff;">${fmtMoney(amount)}</strong> to <strong style="color:#ffffff;">${safeName}</strong> ${indSchedule === 'every Friday' ? 'every Friday' : 'on the ' + indSchedule}.`;
+    }
+
+    let grpCount = 3;
+
+    function stepGroupSize(delta) {
+      grpCount = Math.max(1, Math.min(250, grpCount + delta));
+      renderGroupSummary();
+    }
 
     function renderGroupSummary() {
       const amt = parseFloat(document.getElementById('grpAmountInput').value) || 0;
-      const dur = document.getElementById('grpDurationSelect').value;
-
-      document.getElementById('grpMembersList').innerHTML = grpMembers.map(m => `
-        <div class="member-row">
-          <span style="color:#ffffff; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${m.name}</span>
-          <span style="color:#34D399; font-weight:600; font-size:12px; flex-shrink:0;">${m.status}</span>
-        </div>
-      `).join('');
-
-      document.getElementById('grpMemberCount').textContent = grpMembers.length;
-      const durLabel = dur === '0' ? 'Ongoing' : `${dur} mo`;
-      document.getElementById('grpSummaryTotal').textContent = `${fmtMoney(amt * grpMembers.length, 0)} / mo • ${durLabel}`;
+      const total = amt * grpCount;
+      document.getElementById('grpCountDisplay').textContent = `${grpCount} ${grpCount === 1 ? 'person' : 'people'}`;
+      document.getElementById('grpSummaryTotal').textContent = `${fmtMoney(total, 0)} / mo`;
+      document.getElementById('grpSummarySub').textContent = `${grpCount} ${grpCount === 1 ? 'member' : 'members'}`;
     }
 
     function copyInviteLink() {
-      navigator.clipboard?.writeText('https://sileta.app/join/team-ops-92').catch(() => {});
-      showToast('Group invite link copied', 'Recipients can sign in and enter their own bank details.');
+      navigator.clipboard?.writeText('https://sileta.app/join/team-ops').catch(() => {});
+      showToast('Team link copied', 'Anyone with the link can add their bank details.');
     }
 
-    function addSimulatedMember() {
-      const m = extraJoiners[joinIdx % extraJoiners.length];
-      joinIdx++;
-      grpMembers.push({ ...m });
-      renderGroupSummary();
-      showToast(`${m.name} joined the group`, 'Bank details verified automatically.');
-    }
+    updateIndividualPreview();
     renderGroupSummary();
 
     // ---------------------------------------------------------
